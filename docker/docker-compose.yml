@@ -1,0 +1,67 @@
+# PHP + NGINX Container #----------------------------------
+php-nginx:
+  image: laradock/php56nginx:0.1.0
+  container_name: php-nginx
+  ports:
+    - "80:80"
+  volumes:
+    - ./settings/nginx:/etc/nginx/sites-available
+    - ../:/var/www
+    - ./logs/nginx:/var/log/nginx
+  links:
+    - mysql
+    - redis
+  privileged: true
+
+# MySQL Container #----------------------------------------
+mysql:
+  image: laradock/mysql:0.1.0
+  container_name: mysql
+  ports:
+    - "3306:3306"
+  volumes_from:
+    - data
+  environment:
+    MYSQL_DATABASE: contracttool
+    MYSQL_USER: homestead
+    MYSQL_PASSWORD: secret
+  privileged: true
+  
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    environment:
+     - PMA_ARBITRARY=1
+    restart: always
+    ports:
+     - 8080:80
+
+# Redis Container #----------------------------------------
+redis:
+  image: laradock/redis:0.1.0
+  container_name: redis
+  ports:
+    - "6379:6379"
+  volumes_from:
+    - data
+  volumes:
+    - ./logs/redis:/var/log/redis
+  privileged: true
+
+# Data Volume Container #----------------------------------
+data:
+  image: laradock/data:0.1.0
+  container_name: data
+  volumes:
+    - /var/lib/mysql
+    - /var/lib/redis
+
+# Beanstalkd Container #-----------------------------------
+# beanstalkd:
+#   image: laradock/beanstalkd:0.1.0
+#   container_name: beanstalkd
+#   ports:
+#     - "11300:11300"
+#   privileged: true
+
+#----------------------------------------------------------

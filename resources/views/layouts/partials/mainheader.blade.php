@@ -1,10 +1,11 @@
-<div class="header">
+<header class="header navbar-warning">
     
     {{-- <a href="#" class="nav-trigger">
         <span></span>
     </a> --}}
 
-    <nav class="navbar" role="navigation">
+    {{-- <nav class="navbar" role="navigation"> --}}
+       <nav class="navbar navbar-static-top" role="navigation">
 
         <div class="logo">
             <i class="fa fa-tachometer"></i>
@@ -18,8 +19,20 @@
             <span></span>
         </a>
 
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown messages-menu">
+                    @include('layouts.partials.skins')
+                </li><!-- /.messages-menu -->
+            </ul>
+
+        </div>          
 
         <ul class="navbar-right hidden-xs">
+
+            
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
 
@@ -28,7 +41,7 @@
 
                     <!-- The user image in the navbar-->
                     {{-- <img src="/images{{Auth::user()->userprofile->avatar}}" class="user-image" alt="User Image"/> --}}
-                    <img src="/images/example.png" class="user-image" alt="User Image"/>
+                    <img style="border: 2px solid lightgrey; padding: 2px;" src="/images/example.png" class="user-image" alt="User Image"/>
 
                     <span class="hidden-xs">Hafiz Abass</span>
 
@@ -113,4 +126,4 @@
 </ul>
 </nav>
 
-</div>
+</header>

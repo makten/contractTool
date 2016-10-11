@@ -101,7 +101,6 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                             </ul>
                         </li>
 
-
                     @endif
                 </ul>
 

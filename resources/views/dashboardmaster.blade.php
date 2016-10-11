@@ -34,119 +34,42 @@
 					{{-- @include('flash::message') --}}
 					
 					@yield('main-content')
+					
+				
+				<div class="widget">
+					<div class="title">TO DO</div>
+					<div class="chart" style="padding: 5px;">
+						<p>Create contract pages</p>
+					</div>
+				</div>
 
-					<div class="widget">
-						<div class="title">Number of views</div>
-						<div class="chart"></div>
-					</div>
-					<div class="widget">
-						<div class="title">Number of likes</div>
-						<div class="chart"></div>
-					</div>
-					<div class="widget">
-						<div class="title">Number of comments</div>
-						<div class="chart"></div>
-					</div><div class="widget">
+				<div class="widget">
 					<div class="title">Number of views</div>
 					<div class="chart"></div>
 				</div>
-				<div class="widget">
-					<div class="title">Number of likes</div>
-					<div class="chart"></div>
-				</div>
-				<div class="widget">
-					<div class="title">Number of comments</div>
-					<div class="chart"></div>
-				</div><div class="widget">
-				<div class="title">Number of views</div>
-				<div class="chart"></div>
-			</div>
+
 			<div class="widget">
 				<div class="title">Number of likes</div>
 				<div class="chart"></div>
 			</div>
+
 			<div class="widget">
 				<div class="title">Number of comments</div>
 				<div class="chart"></div>
-			</div><div class="widget">
-			<div class="title">Number of views</div>
-			<div class="chart"></div>
-		</div>
-		<div class="widget">
-			<div class="title">Number of likes</div>
-			<div class="chart"></div>
-		</div>
-		<div class="widget">
-			<div class="title">Number of comments</div>
-			<div class="chart"></div>
-		</div><div class="widget">
-		<div class="title">Number of views</div>
-		<div class="chart"></div>
-	</div>
-	<div class="widget">
-		<div class="title">Number of likes</div>
-		<div class="chart"></div>
-	</div>
-	<div class="widget">
-		<div class="title">Number of comments</div>
-		<div class="chart"></div>
-	</div><div class="widget">
-						<div class="title">Number of views</div>
-						<div class="chart"></div>
-					</div>
-					<div class="widget">
-						<div class="title">Number of likes</div>
-						<div class="chart"></div>
-					</div>
-					<div class="widget">
-						<div class="title">Number of comments</div>
-						<div class="chart"></div>
-					</div><div class="widget">
-					<div class="title">Number of views</div>
-					<div class="chart"></div>
-				</div>
-				<div class="widget">
-					<div class="title">Number of likes</div>
-					<div class="chart"></div>
-				</div>
-				<div class="widget">
-					<div class="title">Number of comments</div>
-					<div class="chart"></div>
-				</div><div class="widget">
+			</div>
+
+			<div class="widget">
 				<div class="title">Number of views</div>
 				<div class="chart"></div>
 			</div>
-			<div class="widget">
-				<div class="title">Number of likes</div>
-				<div class="chart"></div>
-			</div>
+		
 			<div class="widget">
 				<div class="title">Number of comments</div>
 				<div class="chart"></div>
-			</div><div class="widget">
-			<div class="title">Number of views</div>
-			<div class="chart"></div>
-		</div>
-		<div class="widget">
-			<div class="title">Number of likes</div>
-			<div class="chart"></div>
-		</div>
-		<div class="widget">
-			<div class="title">Number of comments</div>
-			<div class="chart"></div>
-		</div><div class="widget">
-		<div class="title">Number of views</div>
-		<div class="chart"></div>
+			</div>		
+								
 	</div>
-	<div class="widget">
-		<div class="title">Number of likes</div>
-		<div class="chart"></div>
-	</div>
-	<div class="widget">
-		<div class="title">Number of comments</div>
-		<div class="chart"></div>
-	</div>
-
+	
 </section><!-- /.content -->
 
 </div><!-- /.content-wrapper -->

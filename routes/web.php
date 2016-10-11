@@ -14,7 +14,7 @@
 use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
-	dd($request->server('HTTP_USER_AGENT'));
+	// dd($request->server());
     return view('dashboardmaster');
 });
 

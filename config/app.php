@@ -183,6 +183,12 @@ return [
          */
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,
+
+        /*
+        *   Own packages
+         */
+        
+        // App\HafizAbass\Repository\BackendServiceProvider::class,
         
 
     ],

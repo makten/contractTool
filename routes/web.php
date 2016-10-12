@@ -10,6 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+// App::bind('App\HafizAbass\Repository\Contract\DbContractInterface', 'App\HafizAbass\Repository\Contract\DbContractRepository');
 
 use Illuminate\Http\Request;
 

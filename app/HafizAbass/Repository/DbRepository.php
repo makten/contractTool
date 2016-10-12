@@ -3,11 +3,16 @@
 namespace HafizAbass;
 
 
-abstract DbRepository {
+abstract class DbRepository {
 
-	public function getById($id)
+
+	
+
+	public function findById($id)
 	{
-		$this->model->find($id);
+		// return $this->model->find($id);
+
+		return 'Found item by Id using eloquent';
 	}
 	
 }

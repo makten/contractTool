@@ -22,7 +22,7 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "HafizAbass\\": "app/HafizAbass/Repository/",
+            "HafizAbass\\": "app/HafizAbass/Repository"
         }
     },
     "autoload-dev": {

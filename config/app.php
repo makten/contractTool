@@ -188,7 +188,7 @@ return [
         *   Own packages
          */
         
-        // App\HafizAbass\Repository\BackendServiceProvider::class,
+        HafizAbass\BackendServiceProvider::class,
         
 
     ],

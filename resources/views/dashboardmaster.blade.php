@@ -8,6 +8,7 @@
 
 @if(isset($userSettings))
 
+
 <body id='admin_app' class="{{$userSettings->skin}} sidebar-mini">
 
 	@else
@@ -23,18 +24,43 @@
 
 
 			<!-- Content Wrapper. Contains page content -->
+
+
 			<div class="main-content">
 
 				@include('layouts.partials.contentheader')
 
 
+
+				
+				
+
+
 				<!-- Main content -->
 				<section class="main">
 
-					{{-- @include('flash::message') --}}
-					
-					@yield('main-content')
-					
+
+				<!-- 	<div class="col-md-8 col-md-offset-2" id="bam" style="margin-top: 80px;">
+
+					<h1 >
+
+						Something Amazing Is Coming Soon!
+
+					</h1>
+
+					<p class="fadeIn wait-2s">You Will Love it</p>
+
+				</div> -->
+
+
+
+
+
+
+				@yield('main-content')
+
+
+
 				
 				<div class="widget">
 					<div class="title">TO DO</div>
@@ -48,36 +74,36 @@
 					<div class="chart"></div>
 				</div>
 
-			<div class="widget">
-				<div class="title">Number of likes</div>
-				<div class="chart"></div>
+				<div class="widget">
+					<div class="title">Number of likes</div>
+					<div class="chart"></div>
+				</div>
+
+				<div class="widget">
+					<div class="title">Number of comments</div>
+					<div class="chart"></div>
+				</div>
+
+				<div class="widget">
+					<div class="title">Number of views</div>
+					<div class="chart"></div>
+				</div>
+
+				<div class="widget">
+					<div class="title">Number of comments</div>
+					<div class="chart"></div>
+				</div>		
+
 			</div>
 
-			<div class="widget">
-				<div class="title">Number of comments</div>
-				<div class="chart"></div>
-			</div>
+		</section><!-- /.content -->
 
-			<div class="widget">
-				<div class="title">Number of views</div>
-				<div class="chart"></div>
-			</div>
-		
-			<div class="widget">
-				<div class="title">Number of comments</div>
-				<div class="chart"></div>
-			</div>		
-								
-	</div>
-	
-</section><!-- /.content -->
-
-</div><!-- /.content-wrapper -->
+	</div><!-- /.content-wrapper -->
 
 
 
-{{-- @include('layouts.partials.controlsidebar') --}}
-@include('layouts.partials.footer')
+	{{-- @include('layouts.partials.controlsidebar') --}}
+	@include('layouts.partials.footer')
 
 </div><!-- ./wrapper -->
 
@@ -93,7 +119,7 @@
 			$('.sidebar').toggleClass('visible');
 		});
 
-		var h = $('.main').height()
+		var h = $('.main-content').height()
 		$('.sidebar').height(h + $('.title').height() + 50);
 
 	});

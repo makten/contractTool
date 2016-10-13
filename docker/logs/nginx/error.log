@@ -298,3 +298,118 @@ Stack trace:
 2016/09/29 09:36:00 [error] 26#0: *134 FastCGI sent in stderr: "PHP message: PHP Parse error:  syntax error, unexpected ':', expecting '(' in /var/www/storage/framework/views/62a6912655f60f992f8bf40f429a85da987f077a.php on line 100" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contracttool.dev"
 2016/09/29 10:14:03 [error] 27#0: *193 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'Html' not found in /var/www/storage/framework/views/66022fd8fa9fbefd113e5e0e0990af3358f345ca.php on line 49" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contracttool.dev"
 2016/09/29 10:15:01 [error] 27#0: *206 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'Html' not found in /var/www/storage/framework/views/66022fd8fa9fbefd113e5e0e0990af3358f345ca.php on line 49" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contracttool.dev"
+2016/10/13 13:05:09 [error] 29#0: *40 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'BigML\Bigml' not found in /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php on line 24" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:05:32 [error] 29#0: *40 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'BigML\bigml' not found in /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php on line 24" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:10:55 [error] 28#0: *45 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php:8
+Stack trace:
+#0 /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php(8): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ha...', 8, Array)
+#1 /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php(8): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ha...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('HafizAbass\\Cont...')
+#5 [internal function]: spl_autoload_call('HafizAbass\\Cont...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('HafizAbass\\Cont...')
+#7 /var...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:12:16 [error] 28#0: *50 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/..\bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php:8
+Stack trace:
+#0 /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php(8): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ha...', 8, Array)
+#1 /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php(8): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ha...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('HafizAbass\\Cont...')
+#5 [internal function]: spl_autoload_call('HafizAbass\\Cont...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('HafizAbass\\Cont...')
+#7 /...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/..\bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/HafizAbass/Repository/Contract/DbContractRepository.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:15:04 [error] 28#0: *55 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illumina...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:21:13 [error] 28#0: *59 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illumina...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:22:48 [error] 28#0: *63 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illumina...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:25:07 [error] 28#0: *63 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'BigML' not found in /var/www/app/Http/Controllers/ContractsController.php on line 29" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:26:21 [error] 28#0: *76 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'BigML' not found in /var/www/app/Http/Controllers/ContractsController.php on line 29" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:26:26 [error] 28#0: *76 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'BigML' not found in /var/www/app/Http/Controllers/ContractsController.php on line 29" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:26:41 [error] 28#0: *76 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'App\Http\Controllers\Bigml\BigML' not found in /var/www/app/Http/Controllers/ContractsController.php on line 29" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:26:59 [error] 28#0: *76 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'Bigml\BigML' not found in /var/www/app/Http/Controllers/ContractsController.php on line 29" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:28:52 [error] 28#0: *87 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illumina...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:29:29 [error] 28#0: *87 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/bigml): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Contain...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/bigml' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:29:55 [error] 28#0: *87 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/\bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illumin...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/\bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:33:11 [error] 28#0: *97 FastCGI sent in stderr: "PHP message: PHP Warning:  Uncaught exception 'ErrorException' with message 'require_once(/var/www/app/.\bigml\bigml.php): failed to open stream: No such file or directory' in /var/www/app/Http/Controllers/ContractsController.php:9
+Stack trace:
+#0 /var/www/app/Http/Controllers/ContractsController.php(9): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'require_once(/v...', '/var/www/app/Ht...', 9, Array)
+#1 /var/www/app/Http/Controllers/ContractsController.php(9): require_once()
+#2 /var/www/vendor/composer/ClassLoader.php(412): include('/var/www/app/Ht...')
+#3 /var/www/vendor/composer/ClassLoader.php(301): Composer\Autoload\includeFile('/var/www/vendor...')
+#4 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Http\\Contro...')
+#5 [internal function]: spl_autoload_call('App\\Http\\Contro...')
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(749): ReflectionClass->__construct('App\\Http\\Contro...')
+#7 /var/www/vendor/laravel/framework/src/Illumi...
+PHP message: PHP Fatal error:  main(): Failed opening required '/var/www/app/.\bigml\bigml.php' (include_path='.:/usr/share/php:/usr/share/pear:') in /var/www/app/Http/Controllers/ContractsController.php on line 8" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:34:19 [error] 28#0: *101 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Class 'App\Http\Controllers\BigML' not found in /var/www/app/Http/Controllers/ContractsController.php on line 29" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:42:57 [error] 28#0: *118 FastCGI sent in stderr: "PHP message: Wrong source file or url
+PHP message: Wrong dataset. A source, dataset, list of dataset ids or cluster id plus centroid id are needed to create a dataset
+PHP message: Wrong dataset id
+PHP message: Wrong model, ensemble or logistic regression id. A model, ensemble or logistic regression id is needed to create a prediction" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:43:20 [error] 28#0: *118 FastCGI sent in stderr: "PHP message: Wrong source file or url
+PHP message: Wrong dataset. A source, dataset, list of dataset ids or cluster id plus centroid id are needed to create a dataset
+PHP message: Wrong dataset id" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"
+2016/10/13 13:43:52 [error] 28#0: *118 FastCGI sent in stderr: "PHP message: PHP Parse error:  syntax error, unexpected ')' in /var/www/app/Http/Controllers/ContractsController.php on line 28" while reading response header from upstream, client: 192.168.99.1, server: suproject.dev, request: "GET /contracts HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "contract.dev"

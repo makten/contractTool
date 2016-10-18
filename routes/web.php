@@ -21,6 +21,6 @@ Route::get('/', function (Request $request) {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// Route::get('/home', 'HomeController@index');
 
-Route::resource('contracts', 'ContractsController');
+// Route::resource('contracts', 'ContractsController');

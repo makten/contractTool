@@ -1,5 +1,6 @@
 /node_modules
 /docker
+/laradock
 /public/storage
 /vendor
 /.idea

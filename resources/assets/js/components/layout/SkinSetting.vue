@@ -3,8 +3,8 @@
  * Component: Dropdown menus
  * -------------------------
  */
-/*Dropdowns in general*/
-.dropdown-menu {
+ /*Dropdowns in general*/
+ .dropdown-menu {
   box-shadow: none;
   border-color: #eee;
 }
@@ -255,7 +255,7 @@
   }
 }
 /* Add fade animation to dropdown menus by appending
- the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
+the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
 .open:not(.dropup) > .animated-dropdown-menu {
   -webkit-backface-visibility: visible !important;
   backface-visibility: visible !important;
@@ -334,94 +334,95 @@
   }
 }
 </style>
+
 <template>
 
-<div id="temp_skin">
+ <!--  <div id="temp_skin">
 
-    <!-- Skin toggle button -->
+
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-    <span><i class="material-icons" :style="{color: skinCode }" style="margin-top: 8px;">arrow_drop_down_circle</i>
+      <span><i class="material-icons" :style="{color: skinCode }" style="margin-top: 8px;">arrow_drop_down_circle</i>
         <span class="label label-danger">skin</span>
-        </span>
-        
+      </span>
+
     </a>
 
     <ul class="dropdown-menu" style="width: 215px; margin: 0px;">
 
-        <!-- {{Form::hidden('user_id', Auth::user()->id)}} -->
-        <li class="header">Select a skin</li>
-        <li>
-            <!-- inner menu: contains the skins -->
-            <ul :class="'menu'" v-for="skin in skins">
 
-                <li @click="changeSkin(skin.color, skin.code)" style="list-style: none; margin: 0px; padding: 0px;"><!-- start blue skins -->
-                    <a href="#">
-                        <div :class="'pull-left'">
-                        <span  v-html="skin.icon"> </span>                            
-                        </div>
-                        <!-- Skin color name -->
-                        <h4>
-                            {{ skin.name }}
-                        </h4>
-                        <!-- What the skin changes -->
-                        <p><small>{{ skin.desc }}</small></p>
-                    </a>
-                </li><!-- end blue skins -->  
+      <li class="header">Select a skin</li>
+      <li>
 
-            </ul><!-- /.menu -->
-        </li>
+        <ul :class="'menu'" v-for="skin in skins">
+
+          <li @click="changeSkin(skin.color, skin.code)" style="list-style: none; margin: 0px; padding: 0px;"><!-- start blue skins -->
+            <!-- <a href="#">
+              <div :class="'pull-left'">
+                <span  v-html="skin.icon"> </span>                            
+              </div>
+
+              <h4>
+                {{ skin.name }}
+              </h4>
+
+              <p><small>{{ skin.desc }}</small></p>
+            </a>
+          </li>
+
+        </ul>
+      </li>
     </ul>
 
-</div>
+    </div>  -->
 </template>
 
 
 <script>
 
-    export default {
-       props: ['user'],
-       
-       data() {
-          return {
-            skins: [            
-            {name: 'Blue', color: 'skin-blue', code: '#3c8dbc', icon: '<i class="fa fa-circle text-blue" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Light-blue', color: 'skin-blue-light', code: '#3c8dbc', icon: '<i class="fa fa-circle text-light-blue" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Green', color: 'skin-green', code: '#00a65a', icon: '<i class="fa fa-circle text-success" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Light-green', color: 'skin-green-light', code: '#00a65a', icon: '<i class="fa fa-circle text-green" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Red', color: 'skin-red', code: '#dd0506', icon: '<i class="fa fa-circle text-red" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Light-red', color: 'skin-red-light', code: '#dd0506', icon: '<i class="fa fa-circle text-red" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Purple', color: 'skin-purple', code: '#605ca8', icon: '<i class="fa fa-circle text-purple" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Light-purple', color: 'skin-purple-light', code: '#605ca8', icon: '<i class="fa fa-circle text-purple" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
-            {name: 'Grey', color: 'skin-grey', code: '#9E9E9E', icon: '<i class="fa fa-circle" style="font-size: 25px; color: #9E9E9E;"></i>', desc: 'Changes the color of the navigation bar'},
-            
-            
-            ],
+  export default {
+   props: ['user'],
 
-            
-            skinCode: '',
-            updateData: {
-                'skin': '',
-                'skin_color_code': '',
-                'user_id': ''
-            }
+   data() {
+    return {
+      skins: [            
+      {name: 'Blue', color: 'skin-blue', code: '#3c8dbc', icon: '<i class="fa fa-circle text-blue" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Light-blue', color: 'skin-blue-light', code: '#3c8dbc', icon: '<i class="fa fa-circle text-light-blue" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Green', color: 'skin-green', code: '#00a65a', icon: '<i class="fa fa-circle text-success" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Light-green', color: 'skin-green-light', code: '#00a65a', icon: '<i class="fa fa-circle text-green" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Red', color: 'skin-red', code: '#dd0506', icon: '<i class="fa fa-circle text-red" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Light-red', color: 'skin-red-light', code: '#dd0506', icon: '<i class="fa fa-circle text-red" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Purple', color: 'skin-purple', code: '#605ca8', icon: '<i class="fa fa-circle text-purple" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Light-purple', color: 'skin-purple-light', code: '#605ca8', icon: '<i class="fa fa-circle text-purple" style="font-size: 25px;"></i>', desc: 'Changes the color of the navigation bar'},
+      {name: 'Grey', color: 'skin-grey', code: '#9E9E9E', icon: '<i class="fa fa-circle" style="font-size: 25px; color: #9E9E9E;"></i>', desc: 'Changes the color of the navigation bar'},
 
-        }
-    },
 
-    mounted(){
-        // this.$nextTick(function(){
-            // alert('ready');
-            // this.getUserSettings();
-        // })
-      
+      ],
+
+
+      skinCode: '',
+      updateData: {
+        'skin': '',
+        'skin_color_code': '',
+        'user_id': ''
+      }
+
+    }
   },
 
-  methods: {
+  mounted (){
+        this.$nextTick(function(){
+            alert('ready');
+            // this.getUserSettings();
+        })
+
+      },
+
+      methods: {
 
 		/**
 		 * Gets the user settings.
 		 */
-       getUserSettings() {
+    getUserSettings () {
 			// this.$http.get(`/api/user/${this.user.id}/settings`).then( response => {
 			// 	this.skinCode = response.data.skin_color_code;
 			// })
@@ -431,29 +432,29 @@
 		 * Update logged in user settings
 		 *		 
 		 */
-       changeSkin(skin, skin_color)
-       {	
+    changeSkin (skin, skin_color)
+    {	
 
-          $('#themeColor').attr('href', `http://unikans.dev/css/skins/${skin}.css`)		   
+      $('#themeColor').attr('href', `http://unikans.dev/css/skins/${skin}.css`)		   
 
 		    // $('#skin-value').val(skin);
 
-         $('#admin_app').removeClass();
-         $('#admin_app').addClass('sidebar-mini');
-         $('#admin_app').addClass(skin);
+       $('#admin_app').removeClass();
+       $('#admin_app').addClass('sidebar-mini');
+       $('#admin_app').addClass(skin);
 
-         this.updateData.skin = skin;
-         this.updateData.skin_color_code = skin_color;
-         this.updateData.user_id = this.user.id;
+       this.updateData.skin = skin;
+       this.updateData.skin_color_code = skin_color;
+       this.updateData.user_id = this.user.id;
 
 
-         this.$http.post(`/api/userprofile/${this.user.id}/updateSkin`, this.updateData ).then( k => {
+       this.$http.post(`/api/userprofile/${this.user.id}/updateSkin`, this.updateData ).then( k => {
 
-         });
+       });
 
      }
- }
+   }
 
-}
+ }
 
 </script>

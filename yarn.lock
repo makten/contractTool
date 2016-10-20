@@ -1344,7 +1344,7 @@ constants-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-0.0.1.tgz#92577db527ba6c4cf0a4568d84bc031f441e21f2"
 
-convert-source-map@^1.1.0, convert-source-map@^1.2.0, convert-source-map@1.x, convert-source-map@1.X:
+convert-source-map@^1.1.0, convert-source-map@^1.2.0, convert-source-map@1.X, convert-source-map@1.x:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.3.0.tgz#e9f3e9c6e2728efc2676696a70eb382f73106a67"
 
@@ -5409,6 +5409,10 @@ vue-template-validator@^1.0.0:
   resolved "https://registry.yarnpkg.com/vue-template-validator/-/vue-template-validator-1.1.5.tgz#22d1ee77d0647c1ab14ff7eb01865942d9b3c458"
   dependencies:
     chalk "^1.1.1"
+
+vue-validator@2.0.0-beta.3:
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/vue-validator/-/vue-validator-2.0.0-beta.3.tgz#dc9b15b7ad8eefca7441806d696a5e1e23296fbc"
 
 vue@^1.0.24:
   version "1.0.28"

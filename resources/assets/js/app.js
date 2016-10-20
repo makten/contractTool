@@ -15,6 +15,7 @@ require('./bootstrap');
 */
 
 Vue.component('dashboard', require('./components/layout/Dashboard.vue'));
+Vue.component('sidebar', require('./components/layout/Sidebar.vue'));
 Vue.component('create-contract', require('./components/contract/CreateContract.vue'));
 // Vue.component('landing', require('./components/layout/Landing.vue'));
 Vue.component('skin-setting', require('./components/layout/SkinSetting.vue'));
@@ -73,6 +74,8 @@ Vue.component('skin-setting', require('./components/layout/SkinSetting.vue'));
 
 // }).$mount("#app");
 
+window.eventBroadcaster = new Vue();
+
 
 const app = new Vue({
 
@@ -84,9 +87,9 @@ const app = new Vue({
 			$.material.init();
 			$.material.ripples();
 			$.material.input();
-			$.material.checkbox();
+			$.material.checkbox();	
 
-			console.log(this);
+			$(".select").dropdown({ "autoinit" : ".select" });		
 
 		})
 	}

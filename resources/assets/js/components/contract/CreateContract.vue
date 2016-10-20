@@ -23,7 +23,26 @@
 
 			return {
 
+				completed: 0,
+
 			}
+		},
+
+
+		created () {
+
+			eventBroadcaster.$on('algemeen-completed', this.incrementCompleted)
+		},
+
+
+		methods: {
+
+			incrementCompleted () {
+					this.completed += 14.28;
+
+					console.log(this.completed);
+			}
+
 		}
 
 
@@ -38,13 +57,17 @@
 
 	<div class="main">
 
-		<div class="contract-wrapper">
+		<div class="contract-wrapper col-md-9">
 
 			<div class="widget">
 
-				<div class="title">Number of views</div>
+				<div class="title">Nieuwe contract</div>
 
-				<div class="contentwrapper" style="min-width: 40%;">
+				<div class="contentwrapper">
+
+					<div class="progress progress-striped">
+						<div class="progress-bar progress-bar-success" :style="{ width: completed + '%' }"></div>
+					</div>
 
 
 					<algemeen></algemeen>					

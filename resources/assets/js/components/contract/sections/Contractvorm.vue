@@ -11,7 +11,7 @@
 
 	<div class="algemeen-wrapper">			
 
-	<h1>Inside Contractvorm</h1>
+	<!-- <h1>Inside Contractvorm</h1> -->
 
 
 	</div>

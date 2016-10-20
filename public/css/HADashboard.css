@@ -153,6 +153,7 @@
  	padding: 16px 16px;
  	border-bottom: 1px solid #3c506a;
  	position: relative;
+ 	color: #FFFFFF;
  }
  .side-nav ul li.active:before {
  	content: '';
@@ -167,9 +168,17 @@
  	color: #fff;
  	display: block;
  	text-decoration: none;
+ 	padding: 10px;
  }
+
+
+ .side-nav ul li:hover { 	
+ 	background-color: #566C9D;
+ 	
+ }
+
  .side-nav ul li i {
- 	color: #0497df;
+ 	color: #F9FAFA;
  	min-width: 20px;
  	text-align: center;
  }
@@ -221,9 +230,8 @@
  	.side-nav ul li a {
  		text-align: center;
  	}
- 	.main-content {
- 		padding-top: 50px;
- 		margin-left: 210px; 		
+ 	.main-content { 		
+ 		margin-left: 210px;		
  	}
  }
 
@@ -250,7 +258,7 @@
  		display: inline-block;
  	}
  	.main-content {
- 		margin-left: 200px;
+ 		/*margin-left: 200px;*/
  	}
  }
 
@@ -280,9 +288,6 @@
  	font-weight: 600;
  }
 
- .contentwrapper {
- 	padding: 5px; 	
- }
 
 
  #bam h1 {
@@ -346,3 +351,26 @@
  }
 
 
+ /*Input customizations*/
+
+ .contentwrapper {
+ 	padding: 25px; 	
+ }
+
+
+ .control-label {
+ 	color: #747070 !important; 
+ 	
+ }
+
+
+label {
+
+	color: #747070 !important; 
+}
+
+.form-group {
+
+	margin-bottom: 20px !important;	
+
+}

@@ -11,14 +11,18 @@
 
  body {
  	margin: 0;
- 	paddin: 0;
- 	font-family: 'Source Sans Pro', sans-serif;
- 	background-color: #d5dae5;
+ 	paddin: 0; 	
  	-webkit-font-smoothing: antialiased;
  	-moz-osx-font-smoothing: grayscale;
  	height: 100%;
+ 	color: #545454;
+ 	background: #E2E5ED;
+ 	font-family: 'Noto Sans',sans-serif;
+ 	/*font-size: 18px;*/
+ 	line-height: 1.63;
 
  }
+
 
  .header {
  	position: absolute;
@@ -27,6 +31,13 @@
  	height: 44px;
  	background-color: blue;
  	/*border-bottom: 3px solid #2d3d51;*/
+ 	position: relative;
+ 	min-height: 50px;
+ 	/*margin-bottom: 22px;*/
+ 	border: 1px solid transparent;
+ 	background-color: #009688;
+ 	/* border: 0; */
+ 	border-radius: 0;
  }
 
  #myNavbar ul {
@@ -56,6 +67,7 @@
  	height: 44px;
  	padding: 10px;
  	font-weight: 700;
+ 	min-height: 50px;
  }
 
  .side-nav .logo {
@@ -125,6 +137,7 @@
  	background-color: #35475e;
  	z-index: 1;
  	display: none;
+ 	top: 0px;
  }
 
  .side-nav.visible {
@@ -176,7 +189,7 @@
  /* set element styles to fit tablet and higher(desktop) */
  @media screen and (min-width: 600px) {
  	.header {
- 		background-color: red;
+ 		background-color: #D7D3D3;
  		z-index: 1;
  	}
  	.header .logo {
@@ -251,20 +264,24 @@
  .widget {
  	flex-basis: 300px;
  	flex-grow: 10;
- 	height: 300px;
+ 	/*height: 300px;*/ 	
  	margin: 15px;
  	border-radius: 6px;
  	background-color: #ffffff;
  	position: relative;
  }
  .widget .title {
- 	background-color: #eef1f7;
+ 	background-color: #585B5D;
  	border-bottom: 1px solid #dfe4ec;
  	padding: 10px;
  	border-top-left-radius: 6px;
  	border-top-right-radius: 6px;
  	color: #617085;
  	font-weight: 600;
+ }
+
+ .contentwrapper {
+ 	padding: 5px; 	
  }
 
 

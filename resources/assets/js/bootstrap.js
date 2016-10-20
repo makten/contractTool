@@ -6,6 +6,10 @@ window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 require('bootstrap');
 
+require('bootstrap-material-design/dist/js/material.js');
+require('bootstrap-material-design/dist/js/ripples.js');
+
+
 import NProgress from 'nprogress';
 // import 'nprogress/nprogress.css';
 

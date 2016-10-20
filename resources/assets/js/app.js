@@ -14,14 +14,17 @@ require('./bootstrap');
 *
 */
 
-// Vue.component('example', require('./components/Example.vue'));
-// Vue.component('skin-setting', require('./components/layout/SkinSetting.vue'));
+Vue.component('dashboard', require('./components/layout/Dashboard.vue'));
+Vue.component('create-contract', require('./components/contract/CreateContract.vue'));
+// Vue.component('landing', require('./components/layout/Landing.vue'));
+Vue.component('skin-setting', require('./components/layout/SkinSetting.vue'));
 
-import App from './components/Example.vue';
-import SkinSetting from './components/layout/SkinSetting.vue';
-import VueRouter from 'vue-router';
+// import App from './components/Example.vue';
 
-Vue.use(VueRouter);
+// import SkinSetting from './components/layout/SkinSetting.vue';
+// import VueRouter from 'vue-router';
+
+// Vue.use(VueRouter);
 
 
 
@@ -47,25 +50,45 @@ Vue.use(VueRouter);
 // });
 
 
-const routes = [
-	
-	{ path: '/', component: App, name: "applicationBase" },
-	{ path: '/', component: SkinSetting, name: "applicationBase" },
-];
+// const routes = [
+
+// 	{ path: '/test', component: App}
+// 	// { path: '/', component: SkinSetting, name: "applicationBase" },
+// ];
 
 
-const router = new VueRouter({
+// const router = new VueRouter({
 
-	mode: 'history',
+// 	mode: 'history',
 
-	routes
+// 	routes
 
-});
+// });
 
 
 
-new Vue({
+// new Vue({
 
-	router
+// 	router
 
-}).$mount("#app");
+// }).$mount("#app");
+
+
+const app = new Vue({
+
+	el: "#app",
+
+	mounted () {
+		this.$nextTick( function(){
+
+			$.material.init();
+			$.material.ripples();
+			$.material.input();
+			$.material.checkbox();
+
+			console.log(this);
+
+		})
+	}
+
+})

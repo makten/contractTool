@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
 	// dd($request->server());
-    return view('dashboardmaster');
+    return view('dashboard.contractCreate');
 });
 
 Auth::routes();

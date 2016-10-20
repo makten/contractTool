@@ -1,19 +1,18 @@
 <script>
-
-	export default {
-		
-	}
 	
-</script>
+	export default {
 
+
+	}
+
+</script>
 
 <template>
 	
 </template>
 
 
-
-
 <style>
+	
 	
 </style>

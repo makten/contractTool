@@ -12,8 +12,6 @@
 				contractType: ['Verkopen van contracten d.m.v. Sales', 'Project Imtech', 'Verdikking van de bestaande contracten', 'Via het grote projecten bedrijf', 'Tenders landelijk', 'Tenders lokaal',
 				],
 
-
-
 				algemeenForm: {
 					mannr: '',
 					contractnaam: '',
@@ -30,26 +28,15 @@
 		},
 
 
-
 		methods: {
-
-			checkChecked(city) {
-
-				return true;
-			},
-
-
+			
 			storeAlgemeen () {
 
 				if (! this.algemeenForm.completed)
 				{
-					eventBroadcaster.$emit('algemeen-completed', { text: 'over-to-klant'});
-
+					eventBroadcaster.$emit('algemeen-completed', { section: 'algemeen', completed: true});
 					this.algemeenForm.completed = true;
 				}
-
-
-
 				
 			}
 		}
@@ -63,67 +50,61 @@
 
 	<div class="algemeen-wrapper">	
 
-		
 
-			<form class="form-horizontal" role="form" @submit.prevent="store" novalidate>
+		<!-- Form Errors -->
 
-				<!-- <fieldset> -->
+		<div class="alert alert-danger" v-if="algemeenForm.errors.length > 0">
+			<p><strong>Whoops!</strong> Something went wrong!</p>
+			<br>
+			<ul>
+				<li v-for="error in algemeenForm.errors">
+					{{ error }}
+				</li>
+			</ul>
+		</div>	
 
-					<legend>Algemeen</legend>
+		<!-- Create Algemeen Form -->	
 
-					{{ algemeenForm }}
-
-					<!-- Form Errors -->
-
-					<div class="alert alert-danger" v-if="algemeenForm.errors.length > 0">
-						<p><strong>Whoops!</strong> Something went wrong!</p>
-						<br>
-						<ul>
-							<li v-for="error in algemeenForm.errors">
-								{{ error }}
-							</li>
-						</ul>
-					</div>
+		<form class="form-horizontal" role="form" @submit.prevent="store" novalidate>					
 
 
-					<!-- Create Algemeen Form -->
+			
 
 
-					<div class="form-group">
+			<div class="form-group">
 
-						<label for="inputEmail" class="col-md-4 control-label">
-							Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
-						</label>
+				<label for="inputEmail" class="col-md-4 control-label">
+					Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
+				</label>
 
-						<div class="col-md-5">
-
-
-						<input id="algemeen-contract-mannr" type="text" class="form-control" name="mannr" v-model="algemeenForm.mannr" >	
-											
-
-							<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
-						</div>
-
-					</div>
-
-					<div class="form-group">
-
-						<label for="inputPassword" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
-
-						<div class="col-md-5">
-
-							<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="mannr" v-model="algemeenForm.contractnaam">
-
-						</div>
-
-					</div>
+				<div class="col-md-5">
 
 
+					<input id="algemeen-contract-mannr" type="text" class="form-control" name="mannr" v-model="algemeenForm.mannr" >	
+					
 
-					<div class="form-group">
+					<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
+				</div>
 
-						<label class="col-md-4 control-label" style="margin-top: 0px;">
-							Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
+			</div>
+
+			<div class="form-group">
+
+				<label for="inputPassword" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
+
+				<div class="col-md-5">
+
+					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="mannr" v-model="algemeenForm.contractnaam">
+
+				</div>
+
+			</div>
+
+
+			<div class="form-group">
+
+				<label class="col-md-4 control-label" style="margin-top: 0px;">
+					Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
 
 						<!-- <i title="" id="basic-addon1"class="addon bottom fa fa-info-circle">
 					</i> -->
@@ -352,7 +333,7 @@
 
 				<!-- </fieldset> -->
 			</form>
-	</validator>
+		
 
 	</div>		
 

@@ -11,10 +11,11 @@ require('bootstrap-material-design/dist/js/ripples.js');
 
 
 import NProgress from 'nprogress';
-// import 'nprogress/nprogress.css';
+
 
 
 window.Vue = require('vue');
+
 
 require('vue-resource');
 

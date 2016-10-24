@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use HafizAbass\UserSettings;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'settings'
     ];
 
     /**
@@ -26,4 +27,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    protected $casts = [
+
+            'settings' => 'json', //json_decode('settings');
+
+    ];
+
+
+    public function settings(){
+
+        return new UserSettings($this->settings, $this);
+    }
 }

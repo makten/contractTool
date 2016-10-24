@@ -89,7 +89,6 @@ const app = new Vue({
 			$.material.input();
 			$.material.checkbox();	
 
-			$(".select").dropdown({ "autoinit" : ".select" });		
 
 		})
 	}

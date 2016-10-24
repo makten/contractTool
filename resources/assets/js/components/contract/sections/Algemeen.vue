@@ -65,7 +65,7 @@
 
 		<!-- Create Algemeen Form -->	
 
-		<form class="form-horizontal" role="form" @submit.prevent="store" novalidate>					
+		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>					
 
 
 			
@@ -196,7 +196,7 @@
 				Contractnummer Imtech (SC nr.) *:
 			</label>
 
-			<div class="col-md-8">
+			<div class="col-md-5">
 
 				<input type="text" class="form-control" id="imtec-connr" name="imtechconnr" v-model="algemeenForm.imtechconnr">
 
@@ -224,6 +224,7 @@
 
 		</div>
 	</div>
+
 
 
 	<div class="form-group">
@@ -325,39 +326,39 @@
 
 				<div class="form-group">
 					<div class="col-md-10 col-md-offset-2">
-						<button type="button" class="btn btn-default">Cancel</button>
-						<button type="submit" class="btn btn-primary" @click.prevent="storeAlgemeen">Submit</button>
+						<!-- <button type="button" class="btn btn-default btn-raised btn-xs pull-left">Cancel</button> -->
+						<button type="submit" class="btn btn-info btn-raised btn-sm pull-right" @click.prevent="storeAlgemeen">Submit</button>
 					</div>
 				</div>
 
 
 				<!-- </fieldset> -->
 			</form>
-		
+			
 
-	</div>		
-
-
-</template>
+		</div>		
 
 
-<style>
-
-	.chk-cities label {
-		margin-right: 50px !important;
-		display: inline;
-	}
-
-	.chk-cities label {
-		display: block;
-		float: left;
-		padding-right: 10px;
-		white-space: nowrap;
-	}
+	</template>
 
 
-	.subquestion {
-		background: #F9F2DD;
+	<style>
 
-	}
-</style>
+		.chk-cities label {
+			margin-right: 50px !important;
+			display: inline;
+		}
+
+		.chk-cities label {
+			display: block;
+			float: left;
+			padding-right: 10px;
+			white-space: nowrap;
+		}
+
+
+		.subquestion {
+			background: #F9F2DD;
+
+		}
+	</style>

@@ -464,7 +464,6 @@ leave-active-class="animated zoomOutLeft"
 
 
 
-
 <div class="form-group">
 	<div class="col-md-10 col-md-offset-2">
 		<!-- <button type="button" class="btn btn-info btn-raised btn-xs pull-left">Cancel</button> -->

@@ -16,20 +16,28 @@ class UserSettings
 	protected $settings = [];
 
 	//Allowed settings
-	protected $allowed = [];
+	// protected $allowed = [];
 
 
+	
 
 	function __construct(array $settings, User $user)
 	{	
 		$this->settings = $settings;
 
-		$this->allowed = array_keys($settings); //Get keys from user settings
+		// $this->allowed = array_keys($settings); //Get keys from user settings
 
 		$this->user = $user;
 	}
 
 
+
+
+	/**
+	 * Get a specific setting based on key
+	 * 
+	 */
+	
 	public function get($Key) 
 	{
 
@@ -38,13 +46,19 @@ class UserSettings
 	}
 
 
+	/**
+	 * Set a given key/value if it does not already exist
+	 * Add it to the allowed array
+	 * 
+	 */
+
 	public function set($key, $value) 
 	{
 
-		if ( ! array_key_exists($key, $this->settings)) {
+		// if ( ! $this->has($key)) {
 
-			$this->allowed[] = $key;
-		}
+		// 	$this->allowed[] = $key;
+		// }
 
 		$this->settings[$key] = $value;
 
@@ -54,6 +68,25 @@ class UserSettings
 
 
 
+	/**
+	 * Check if the given key exists in settings array
+	 * 
+	 */
+
+	public function has($Key) 
+	{
+
+		return array_key_exists($key, $this->settings);
+
+	}
+
+
+
+	/**
+	 * REturn all user settings
+	 * 
+	 */
+
 	public function all ()
 	{
 
@@ -62,13 +95,20 @@ class UserSettings
 	}
 
 
+	/**
+	 * Merge given settings ($attributes) with existing user settings (update)
+	 * 
+	 */
+
 	public function merge(array $attributes)
 	{
+
 		
-		$settings = array_merge( 
+
+		$this->settings = array_merge( 
 
 			$this->settings,
-			array_only($attributes, $this->allowed)
+			array_only($attributes, array_keys($this->settings))//Take only keys found in settings array
 
 			); //Merge new settings with existing ones
 
@@ -78,6 +118,12 @@ class UserSettings
 
 	}
 
+
+
+	/**
+	 * Perform the actual update to database
+	 * 
+	 */
 
 	public function persist(){
 
@@ -92,7 +138,7 @@ class UserSettings
 	public function __get($key)
 	{
 
-		if ( array_key_exists($Key, $this->settings))
+		if ( $this->has($key))
 		{
 			return $this->get($key);
 		}

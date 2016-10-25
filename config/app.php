@@ -189,6 +189,7 @@ return [
          */
         
         HafizAbass\BackendServiceProvider::class,
+        HafizAbass\SettingsServiceProvider::class,
         
 
     ],

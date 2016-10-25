@@ -1,7 +1,12 @@
 
 <script>
+
+	import FormHelper from '../../../mixins/FormHelper';
+
 	
 	export default {
+
+		mixins: [FormHelper],
 
 		data () {
 
@@ -13,24 +18,42 @@
 				],
 
 				algemeenForm: {
+					errors: [],
 					mannr: '',
 					contractnaam: '',
 					meervest: '',
-					vestigingen: ['Amsterdam'],
+					vestigingen: [],
 					imtech: '',
 					imtechconnr: '',
 					contractType: '',
 
 					completed: false,
-					errors: [],
+					redirect: '',
+					
 				}
 			}
 		},
 
 
+		mounted () {
+			this.$nextTick( function () {
+
+				
+				
+
+				
+			})
+		},
+
+
 		methods: {
-			
+
+						
 			storeAlgemeen () {
+
+				this.persistForm('post', 'api/testEndPoint', this.algemeenForm );
+
+
 
 				if (! this.algemeenForm.completed)
 				{
@@ -80,7 +103,7 @@
 				<div class="col-md-5">
 
 
-					<input id="algemeen-contract-mannr" type="text" class="form-control" name="mannr" v-model="algemeenForm.mannr" >	
+					<input id="algemeen-contract-mannr" type="text" class="form-control " name="mannr" v-model="algemeenForm.mannr" >	
 					
 
 					<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>

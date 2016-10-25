@@ -24,6 +24,8 @@
     "bootstrap-material-design": "^0.5.10",
     "bootstrap-sass": "^3.3.7",
     "gulp-sass": "^2.3.2",
+    "install": "^0.8.2",
+    "momentjs": "^1.1.17",
     "nprogress": "^0.2.0",
     "sass-loader": "^4.0.2",
     "vue": "^2.0.0",

@@ -20,6 +20,7 @@
 	<link href="/css/nprogress.css" rel="stylesheet">
 	<link href="/css/plugins/dropdown.css" rel="stylesheet">
 	<link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
+	
 
 	
 
@@ -63,9 +64,9 @@
 		<!-- Scripts -->
 		<script src="/js/app.js"></script>		
 		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-		<script src="/js/jquery.dropdown.js" type="text/javascript"></script>
+		<!-- <script src="/js/jquery.dropdown.js" type="text/javascript"></script> -->
 
-		<script src="{{ asset('/js/plugins/dropdown.js') }}" type="text/javascript"></script>
+		
 
 		<script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 		<script src="{{ asset('/js/dashboard.js') }}" type="text/javascript"></script>

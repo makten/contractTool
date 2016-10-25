@@ -23,6 +23,16 @@ class ContractsController extends Controller
 	}
 
 
+	public function testEndPoint()
+	{
+
+		return response()->json(\Request::all());
+	}
+
+
+
+
+
 	public function index()
 	{
 		

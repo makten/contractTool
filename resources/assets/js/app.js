@@ -77,7 +77,11 @@ Vue.component('skin-setting', require('./components/layout/SkinSetting.vue'));
 window.eventBroadcaster = new Vue();
 
 
+
+
 const app = new Vue({
+
+
 
 	el: "#app",
 
@@ -87,7 +91,8 @@ const app = new Vue({
 			$.material.init();
 			$.material.ripples();
 			$.material.input();
-			$.material.checkbox();	
+			$.material.checkbox();				
+			$(".select").dropdown({ "autoinit" : ".select" });
 
 
 		})

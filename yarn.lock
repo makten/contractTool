@@ -1348,7 +1348,7 @@ constants-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-0.0.1.tgz#92577db527ba6c4cf0a4568d84bc031f441e21f2"
 
-convert-source-map@^1.1.0, convert-source-map@^1.2.0, convert-source-map@1.x, convert-source-map@1.X:
+convert-source-map@^1.1.0, convert-source-map@^1.2.0, convert-source-map@1.X, convert-source-map@1.x:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.3.0.tgz#e9f3e9c6e2728efc2676696a70eb382f73106a67"
 
@@ -2627,6 +2627,10 @@ insert-module-globals@^7.0.0:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
+install:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/install/-/install-0.8.2.tgz#bf3dc6fc7e9467a4e484b3e1d1f610f1c23adc0f"
+
 interpret@^0.6.4:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b"
@@ -3536,6 +3540,10 @@ module-deps@^4.0.2:
     subarg "^1.0.0"
     through2 "^2.0.0"
     xtend "^4.0.0"
+
+momentjs:
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/momentjs/-/momentjs-1.1.17.tgz#959a2343e1f171ebcdf111dcdc21f0e6a67a147e"
 
 ms@0.7.1:
   version "0.7.1"

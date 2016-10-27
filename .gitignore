@@ -1,5 +1,7 @@
 /node_modules
 /docker
+/docker/logs
+/docker/settings
 /laradock
 /public/storage
 /vendor

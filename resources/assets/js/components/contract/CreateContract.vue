@@ -35,6 +35,7 @@
 
 				algemeen: true,
 				completed: 0,
+				algemeenForm: '',
 
 				formSections: [
 				{section: 'algemeen', completed: false, active: true},
@@ -68,9 +69,11 @@
 
 				this.completed += (100 / this.formSections.length);
 
-				console.log(this.completed);
-
 				let vm = this;
+
+				_.forEach(form.form, function(v){
+					console.log(v);
+				});
 
 				this.formSections = _.map( this.formSections, function(fm){
 
@@ -122,13 +125,13 @@
 
 	<div class="main">
 
-		<div class="contract-wrapper col-md-9">
+		<div class="contract-wrapper col-md-9" style="margin:0; padding: 0;">
 
 			<div class="widget">
 
 				<div class="title">Nieuwe contract</div>
 
-				<div class="contentwrapper">
+				<div class="contentwrapper" style="margin:0; padding: 0;">
 
 
 
@@ -281,6 +284,29 @@
 				</div>
 			</div>
 
+		</div>
+
+		<div class="previews-wrapper col-md-3" style="margin:0; padding: 0;">
+			<div class="widget">
+			<div class="title">Preview</div>
+
+			<div class="section-header" :class="[formSections[0].completed ? 'clickable' : '']">
+						<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">1 Algemeen</h3>
+			</div>
+
+			<div class="contentwrapper" style="margin:0; padding: 0;">
+				
+					<p> {{ algemeenForm.mannr }} </p>
+					<p> {{ algemeenForm.contractnaam }} </p>
+					<p> {{ algemeenForm.meervest }} </p>
+					<p> {{ algemeenForm.vestigingen }} </p>
+					<p> {{ algemeenForm.imtech }} </p>
+					<p> {{ algemeenForm.imtechconnr }} </p>
+					<p> {{ algemeenForm.contractType }} </p>
+
+			</div>
+					
+			</div>
 		</div>
 
 

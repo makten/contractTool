@@ -53,11 +53,9 @@
 
 				this.persistForm('post', 'api/testEndPoint', this.algemeenForm );
 
-
-
 				if (! this.algemeenForm.completed)
 				{
-					eventBroadcaster.$emit('algemeen-completed', { section: 'algemeen', completed: true});
+					eventBroadcaster.$emit('algemeen-completed', { section: 'algemeen', completed: true, form: this.algemeenForm});
 					this.algemeenForm.completed = true;
 				}
 				

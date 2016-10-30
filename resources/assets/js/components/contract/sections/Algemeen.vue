@@ -72,7 +72,6 @@
 
 		methods: {
 
-
 			storeAlgemeen () {
 
 				this.persistForm('post', 'api/storeAlgemeen', this.algemeenForm );

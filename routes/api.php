@@ -19,3 +19,4 @@ Route::get('/user', function (Request $request) {
 
 
 Route::post('testEndPoint', 'ContractsController@testEndPoint');
+Route::post('storeAlgemeen', 'ContractsController@storeAlgemeen');

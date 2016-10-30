@@ -354,7 +354,8 @@
  /*Input customizations*/
 
  .contentwrapper {
- 	padding: 25px; 	
+ 	padding: 10px; 	
+ 	margin:0;  	
  }
 
 
@@ -369,8 +370,21 @@ label {
 	color: #747070 !important; 
 }
 
-.form-group {
+.form-horizontal .form-group {
 
 	margin-bottom: 20px !important;	
+	margin-left: 0;
+	margin-right: 0;
 
+}
+
+.select2-results__option {
+
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.select-label {
+
+	margin-top: -1px !important;
 }

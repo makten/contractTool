@@ -1,23 +1,33 @@
 <script>
+
+	import VSelect from '../../../mixins/Selector.vue';
+
 	
 	export default {
+
+		components: { VSelect },
 
 
 		data () {
 
 			return {
 
+				klantChoice: [
+				{id: 1, text: 'Bestaand'},
+				{id: 2, text: 'Nieuw'}
+				],
+
 				klantgegevensForm: {
 
 					klant_en_opdrachtgever: '',	
-					klantType: '',
+					klantType: 0,
 					klantNaam: '',
 					klantKvK: '',
-					versklantType: '',
+					versklantType: 0,
 					naamPartij: '',
-					versklantOpdrgever: '',
+					versklantOpdrgever: 0,
 					opdrachtgever: '',
-					versfactuurPartij: '',
+					versfactuurPartij: 0,
 					factuurpartij: '',
 
 
@@ -44,12 +54,15 @@
 
 			evalFields (fieldName) {
 
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.fieldName === 'nieuw') {
-					return 'nieuw';
+				if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 2) {
+					
+
+					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.fieldName === 'bestaand') 
-				{
-					return 'bestaand';
+				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 1) 
+				{					
+
+					return 1;
 				}
 			}	
 
@@ -60,12 +73,19 @@
 
 			nieuwBestand: function () {
 
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.klantType === 'nieuw') {
-					return 'nieuw';
+				if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.klantType == 2) {
+
+					this.klantgegevensForm.klantNaam = '';
+
+					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.klantType === 'bestaand') 
+				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.klantType == 1) 
 				{
-					return 'bestaand';
+
+					this.klantgegevensForm.klantNaam = '';
+					this.klantgegevensForm.klantKvK = '';
+
+					return 1;
 				}
 				
 
@@ -74,12 +94,12 @@
 
 			nieuwBestandPartije: function () {	
 				
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantType === 'nieuw') {
-					return 'nieuw';
+				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 2) {
+					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantType === 'bestaand') 
+				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 1) 
 				{
-					return 'bestaand';
+					return 1;
 				}
 
 			},
@@ -89,12 +109,18 @@
 			nieuwBestandOpdrgever: function () {
 				
 
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever === 'nieuw') {
-					return 'nieuw';
+				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 2) {
+
+					this.klantgegevensForm.opdrachtgever = '';
+
+					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever === 'bestaand') 
+				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 1) 
 				{
-					return 'bestaand';
+					this.klantgegevensForm.opdrachtgever = '';
+					this.klantgegevensForm.kvkOpdrachtgever = '';
+
+					return 1;
 				}
 
 			},
@@ -104,12 +130,12 @@
 			nieuwBestandFactuurPartij: function () {
 				
 				
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij === 'nieuw') {
-					return 'nieuw';
+				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 2) {
+					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij === 'bestaand') 
+				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 1) 
 				{
-					return 'bestaand';
+					return 1;
 				}
 
 			}
@@ -125,7 +151,7 @@
 	
 	<div class="algemeen-wrapper">	
 
-		<!-- {{ klantgegevensForm }} -->
+		{{ klantgegevensForm }}
 
 		<!-- Form Errors -->
 
@@ -154,18 +180,21 @@
 				</label>
 
 				<div class="col-md-5">
+
 					<div class="radio radio-inline radio-primary">
 						<label>
 							<input id="" type="radio" value="ja" name="klant_en_opdrachtgever" v-model="klantgegevensForm.klant_en_opdrachtgever" >
 							Ja
 						</label>
 					</div>
+
 					<div class="radio radio-inline radio-default">
 						<label>
 							<input id="" type="radio" value="nee" name="klant_en_opdrachtgever" v-model="klantgegevensForm.klant_en_opdrachtgever">
 							Nee
-						</label>
+						</label>						
 					</div>
+					
 				</div>
 			</div>
 
@@ -183,22 +212,18 @@
 
 				<div class="form-group">
 
-					<label for="inputEmail" class="col-md-4 control-label">
+					<label for="inputEmail" class="col-md-4 control-label select-label">
 						Bij welke partij voert Unica het werk uit? *
 					</label>
 
 					<div class="col-md-5">
+						
 
-						<select id="contract-type" name="klantType" class="form-control select" v-model="klantgegevensForm.klantType">
+						<v-select :options="klantChoice" v-model="klantgegevensForm.klantType">
+							<option disabled value="0">Maak keuze</option>									
+						</v-select>
 
-							<option value="nieuw">
-								Nieuw
-							</option>
-							<option value="bestaand">
-								Bestaand
-							</option>
-
-						</select>
+						
 
 					</div>
 
@@ -211,26 +236,32 @@
 		
 
 		
-		<div class="form-group" v-show="nieuwBestand === 'nieuw'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
+		<div v-show="nieuwBestand === 2" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
 
-			<label for="klantNaam" class="col-md-4 control-label">Voer klantnaam op *</label>
+			<div class="form-group">
 
-			<div class="col-md-5">
+				<label for="klantNaam" class="col-md-4 control-label">Voer klantnaam op *</label>
 
-				<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">				
+				<div class="col-md-5">
 
+					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">				
+
+				</div>
 			</div>
 
-			<label for="klantgegevens-klantKvK" class="col-md-4 control-label">Voer KvK op *</label>
+			<div class="form-group">
 
-			<div class="col-md-5">
-				<input id="klantgegevens-klantKvK" type="text" class="form-control" name="klantKvK" v-model="klantgegevensForm.klantKvK">
+				<label for="klantgegevens-klantKvK" class="col-md-4 control-label">Voer KvK op *</label>
+
+				<div class="col-md-5">
+					<input id="klantgegevens-klantKvK" type="text" class="form-control" name="klantKvK" v-model="klantgegevensForm.klantKvK">
+				</div>
 			</div>
 
 		</div>
 
 
-		<div class="form-group" v-show="nieuwBestand === 'bestaand'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
+		<div class="form-group" v-show="nieuwBestand == 1" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
 
 			<label for="klantNaam" class="col-md-4 control-label">Zoek een klant op *</label>
 
@@ -256,30 +287,24 @@
 		leave-active-class="animated zoomOutLeft"
 		>				
 
-		<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.klant_en_opdrachtgever === 'nee'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'nee' ? 'subquestion' : '' ]">
+		<div class="form-group" style="padding: 8px;" v-show="klantgegevensForm.klant_en_opdrachtgever === 'nee'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'nee' ? 'subquestion' : '' ]">
 
-			<div class="form-group">
+			<!-- <div class="form-group"> -->
 
-				<label for="inputEmail" class="col-md-4 control-label">
-					Bij welke partij voert Unica het werk uit? *
-				</label>
+			<label for="inputEmail" class="col-md-4 control-label select-label">
+				Bij welke partij voert Unica het werk uit? *
+			</label>
 
-				<div class="col-md-5">
+			<div class="col-md-5">
 
-					<select id="contract-verstype" name="versklantType" class="form-control select" v-model="klantgegevensForm.versklantType">
 
-						<option value="nieuw">
-							Nieuw
-						</option>
-						<option value="bestaand">
-							Bestaand
-						</option>
-
-					</select>
-
-				</div>
+				<v-select :options="klantChoice" v-model="klantgegevensForm.versklantType">
+					<option disabled value="0">Maak keuze</option>									
+				</v-select>
 
 			</div>
+
+			<!-- </div> -->
 
 		</div>		
 
@@ -289,7 +314,7 @@
 
 
 
-	<div class="form-group" v-show="nieuwBestandPartije === 'nieuw'">
+	<div class="form-group" v-show="nieuwBestandPartije == 2">
 
 		<label for="klantNaam" class="col-md-4 control-label">Voer klantnaam op *</label>
 
@@ -302,7 +327,7 @@
 	</div>
 
 
-	<div class="form-group" v-show="nieuwBestandPartije === 'bestaand'">
+	<div class="form-group" v-show="nieuwBestandPartije == 1">
 
 		<label for="klantNaam" class="col-md-4 control-label">Zoek een klant op *</label>
 
@@ -330,22 +355,16 @@
 
 		<div class="form-group">
 
-			<label for="inputEmail" class="col-md-4 control-label">
+			<label for="inputEmail" class="col-md-4 control-label select-label">
 				Wie is de opdrachtgever? *
 			</label>
 
-			<div class="col-md-5">
+			<div class="col-md-5">				
 
-				<select id="contract-verstype" name="versklantOpdrgever" class="form-control select" v-model="klantgegevensForm.versklantOpdrgever">
+				<v-select :options="klantChoice" v-model="klantgegevensForm.versklantOpdrgever">
+					<option disabled value="0">Maak keuze</option>									
+				</v-select>
 
-					<option value="nieuw">
-						Nieuw
-					</option>
-					<option value="bestaand">
-						Bestaand
-					</option>
-
-				</select>
 
 			</div>
 
@@ -359,26 +378,34 @@
 
 
 
-<div class="form-group" v-show="nieuwBestandOpdrgever=== 'nieuw'" >
+<div v-show="nieuwBestandOpdrgever=== 2" >
 
-	<label for="opdrachtgever" class="col-md-4 control-label">Voer naam opdrachtgever op *</label>
+	<div class="form-group">
 
-	<div class="col-md-5">
+		<label for="opdrachtgever" class="col-md-4 control-label">Voer naam opdrachtgever op *</label>
 
-		<input id="klantgegevens-opdrachtgever" type="text" class="form-control" name="opdrachtgever" v-model="klantgegevensForm.opdrachtgever">				
+		<div class="col-md-5">
 
-	</div>		
+			<input id="klantgegevens-opdrachtgever" type="text" class="form-control" name="opdrachtgever" v-model="klantgegevensForm.opdrachtgever">				
 
-	<label for="klantgegevens-klantKvK" class="col-md-4 control-label">Voer KvK op *</label>
+		</div>	
 
-	<div class="col-md-5">
-		<input id="klantgegevens-kvkOpdrachtgever" type="text" class="form-control" name="kvkOpdrachtgever" v-model="klantgegevensForm.kvkOpdrachtgever">
 	</div>	
+
+	<div class="form-group">	
+
+		<label for="klantgegevens-klantKvK" class="col-md-4 control-label">Voer KvK op *</label>
+
+		<div class="col-md-5">
+			<input id="klantgegevens-kvkOpdrachtgever" type="text" class="form-control" name="kvkOpdrachtgever" v-model="klantgegevensForm.kvkOpdrachtgever">
+		</div>	
+
+	</div>
 
 </div>
 
 
-<div class="form-group" v-show="nieuwBestandOpdrgever === 'bestaand'" >
+<div class="form-group" v-show="nieuwBestandOpdrgever == 1" >
 
 	<label for="klantNaam" class="col-md-4 control-label">Zoek een opdrachtgever op *</label>
 
@@ -405,28 +432,32 @@ leave-active-class="animated zoomOutLeft"
 
 	<div class="form-group">
 
-		<label for="inputEmail" class="col-md-4 control-label">
+		<label for="inputEmail" class="col-md-4 control-label select-label">
 			Naar welke partij stuurt Unica de factuur? *
 		</label>
 
 		<div class="col-md-5">
 
-			<select id="klantgegevens-versfactuurPartij" name="versfactuurPartij" class="form-control select" v-model="klantgegevensForm.versfactuurPartij">
+			<v-select :options="klantChoice" v-model="klantgegevensForm.versfactuurPartij">
+				<option disabled value="0">Maak keuze</option>									
+			</v-select>
 
-				<option value="nieuw">
-					Nieuw
-				</option>
-				<option value="bestaand">
-					Bestaand
-				</option>
+				<!-- <select id="klantgegevens-versfactuurPartij" name="versfactuurPartij" class="form-control select" v-model="klantgegevensForm.versfactuurPartij">
 
-			</select>
+					<option value="nieuw">
+						Nieuw
+					</option>
+					<option value="bestaand">
+						Bestaand
+					</option>
+
+				</select> -->
+
+			</div>
 
 		</div>
 
-	</div>
-
-</div>		
+	</div>		
 
 
 </transition>
@@ -434,7 +465,7 @@ leave-active-class="animated zoomOutLeft"
 
 
 
-<div class="form-group" v-show="nieuwBestandFactuurPartij === 'nieuw'">
+<div class="form-group" v-show="nieuwBestandFactuurPartij == 2">
 
 	<label for="klantNaam" class="col-md-4 control-label">Voer naam op *</label>
 
@@ -448,7 +479,7 @@ leave-active-class="animated zoomOutLeft"
 </div>
 
 
-<div class="form-group" v-show="nieuwBestandFactuurPartij === 'bestaand'" >
+<div class="form-group" v-show="nieuwBestandFactuurPartij == 1" >
 
 	<label for="klantNaam" class="col-md-4 control-label">Zoek de debiteur op *</label>
 

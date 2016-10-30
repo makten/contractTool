@@ -54,6 +54,10 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
+almond@~0.3.1:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
+
 alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
@@ -1348,7 +1352,7 @@ constants-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-0.0.1.tgz#92577db527ba6c4cf0a4568d84bc031f441e21f2"
 
-convert-source-map@^1.1.0, convert-source-map@^1.2.0, convert-source-map@1.X, convert-source-map@1.x:
+convert-source-map@^1.1.0, convert-source-map@^1.2.0, convert-source-map@1.x, convert-source-map@1.X:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.3.0.tgz#e9f3e9c6e2728efc2676696a70eb382f73106a67"
 
@@ -2836,6 +2840,10 @@ jodid25519@^1.0.0:
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
   dependencies:
     jsbn "~0.1.0"
+
+jquery-mousewheel@~3.1.13:
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
 
 jquery@^3.1.0, jquery@>=1.9.1:
   version "3.1.1"
@@ -4677,6 +4685,13 @@ sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
 
+select2:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.3.tgz#207733fe91eacb9cb1a13f12463401f472449e0f"
+  dependencies:
+    almond "~0.3.1"
+    jquery-mousewheel "~3.1.13"
+
 semver@^4.1.0:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
@@ -5399,6 +5414,10 @@ vue-router@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.0.1.tgz#88b83cdc9497bad5b20b579e847a7e7240e221dd"
 
+vue-select@sagalbot/vue-select:
+  version "1.3.3"
+  resolved "https://codeload.github.com/sagalbot/vue-select/tar.gz/df5827d3fe039db42b09b97369d7ffeeca034011"
+
 vue-style-loader@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-1.0.0.tgz#abeb7bd0f46313083741244d3079d4f14449e049"
@@ -5422,9 +5441,9 @@ vue-template-validator@^1.0.0:
   dependencies:
     chalk "^1.1.1"
 
-vue-validator@2.0.0-beta.3:
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/vue-validator/-/vue-validator-2.0.0-beta.3.tgz#dc9b15b7ad8eefca7441806d696a5e1e23296fbc"
+vue-validator:
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/vue-validator/-/vue-validator-3.0.0-alpha.1.tgz#38cc6e5677acaefe9b0ee86951ccc0351b29bdb2"
 
 vue@^1.0.24:
   version "1.0.28"

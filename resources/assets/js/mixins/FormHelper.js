@@ -8,12 +8,7 @@ export default {
 
 	methods: {
 
-
-		testThis () {
-
-			console.log('mixing up and running');
-		},
-
+		
 		persistForm (method, uri, form) {
 
 			form.errors = [];
@@ -56,3 +51,4 @@ export default {
 
 
 }
+

@@ -1,23 +1,49 @@
 
 <script>
 
-	import FormHelper from '../../../mixins/FormHelper';
+	import FormHelper from '../../../mixins/FormHelper';	
+	import VSelect from '../../../mixins/Selector.vue';
+	
+
 
 	
 	export default {
 
 		mixins: [FormHelper],
 
+		components: {VSelect},
+
 		data () {
 
 			return {
 
-				cities: ['Alkmaar', 'Amsterdam', 'Arnhem', 'Bodegraven', 'Eindhoven', 'Emmen', 'Geleen', 'Groningen', 'Hengelo', 'Hoevelaken', 'Oosterhout', 'Rotterdam', 'Venlo', 'Zwolle'],
+				msg: '',
+				result: {},
 
-				contractType: ['Verkopen van contracten d.m.v. Sales', 'Project Imtech', 'Verdikking van de bestaande contracten', 'Via het grote projecten bedrijf', 'Tenders landelijk', 'Tenders lokaal',
+				cities: [
+
+				'Alkmaar', 'Amsterdam', 'Arnhem', 
+				'Bodegraven', 'Eindhoven', 'Emmen', 
+				'Geleen', 'Groningen', 'Hengelo', 
+				'Hoevelaken', 'Oosterhout', 
+				'Rotterdam', 'Venlo', 'Zwolle'
+
+				],
+
+				
+				conType: [
+
+				{ id: 0, text: 'Verkopen van contracten d.m.v. Sales'}, 
+				{ id: 1, text: 'Project Imtech'}, 
+				{ id: 2, text: 'Verdikking van de bestaande contracten'}, 
+				{ id: 3, text: 'Via het grote projecten bedrijf'},
+				{ id: 4, text: 'Tenders landelijk'}, 
+				{ id: 5, text: 'Tenders lokaal'}
+
 				],
 
 				algemeenForm: {
+					
 					errors: [],
 					mannr: '',
 					contractnaam: '',
@@ -25,7 +51,7 @@
 					vestigingen: [],
 					imtech: '',
 					imtechconnr: '',
-					contractType: '',
+					contractType: 0,
 
 					completed: false,
 					redirect: '',
@@ -36,9 +62,7 @@
 
 
 		mounted () {
-			this.$nextTick( function () {
-
-				
+			this.$nextTick( function () {	
 				
 
 				
@@ -48,20 +72,32 @@
 
 		methods: {
 
-						
+
 			storeAlgemeen () {
 
-				this.persistForm('post', 'api/testEndPoint', this.algemeenForm );
-
-
+				this.persistForm('post', 'api/storeAlgemeen', this.algemeenForm );
 
 				if (! this.algemeenForm.completed)
 				{
-					eventBroadcaster.$emit('algemeen-completed', { section: 'algemeen', completed: true});
+					eventBroadcaster.$emit('algemeen-completed', { section: 'algemeen', completed: true, form: this.algemeenForm});
 					this.algemeenForm.completed = true;
 				}
 				
+			},
+
+
+			handleApply: function (e) {
+				var self = this
+				var $validity = this.$refs.validity
+				$validity.validate(function () {
+					var result = $validity.result
+					self.result = result
+					$validity.pass(result.valid)
+				})
 			}
+
+
+
 		}
 	}
 
@@ -86,12 +122,23 @@
 			</ul>
 		</div>	
 
+
 		<!-- Create Algemeen Form -->	
 
 		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>					
 
 
-			
+			<!-- <validity ref="validity" field="username" :validators="{ required: true, minlength: 4}">
+				<input type="text" v-model.validity="msg">
+			</validity>
+
+			<div class="errors">
+				<p v-if="result.minlength">too short username!!</p>
+				<p v-if="result.required">too short required!!</p>
+			</div> -->
+
+			<!-- <button @click.prevent="handleApply">Apply</button>
+			<p>model value: {{msg}}</p> -->
 
 
 			<div class="form-group">
@@ -104,7 +151,7 @@
 
 
 					<input id="algemeen-contract-mannr" type="text" class="form-control " name="mannr" v-model="algemeenForm.mannr" >	
-					
+
 
 					<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
 				</div>
@@ -113,11 +160,11 @@
 
 			<div class="form-group">
 
-				<label for="inputPassword" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
+				<label for="contractnaam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
 
 				<div class="col-md-5">
 
-					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="mannr" v-model="algemeenForm.contractnaam">
+					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="contractnaam" v-model="algemeenForm.contractnaam">
 
 				</div>
 
@@ -233,17 +280,13 @@
 	<p><b>Verworven contract</b></p>
 
 	<div class="form-group">
-		<label for="contract-type" class="col-md-4 control-label">Hoe is dit contract verworven? *:</label>
+		<label for="contract-type" class="col-md-4 control-label select-label">Hoe is dit contract verworven? *:</label>
 
 		<div class="col-md-5">
 
-			<select id="contract-type" name="contractType" class="form-control select" v-model="algemeenForm.contractType">
-
-				<option v-for="contype in contractType" :value="contype">
-					{{ contype }}
-				</option>
-
-			</select>
+			<v-select :options="conType" v-model="algemeenForm.contractType">
+				<option disabled value="0">Maak keuze</option>				
+			</v-select>
 
 		</div>
 	</div>
@@ -258,10 +301,6 @@
 			<span class="help-block text-info"><i class="fa fa-info-circle"></i> Hier kunt u aanvullende opmerking achterlaten.</span>
 		</div>
 	</div>
-
-
-
-
 
 
 
@@ -356,8 +395,8 @@
 
 
 				<!-- </fieldset> -->
-			</form>
-			
+			</form>	
+
 
 		</div>		
 

@@ -29,6 +29,13 @@ class ContractsController extends Controller
 		return response()->json(\Request::all());
 	}
 
+	// public function storeAlgemeen(Request $request)
+	// {
+	// 	// dd($request);
+
+	// 	return response()->json(\Request::all());
+	// }
+
 
 
 

@@ -13,12 +13,14 @@ require('bootstrap-material-design/dist/js/ripples.js');
 require('./mixins/dropdown.js');
 
 
+
 import NProgress from 'nprogress';
 
-
+var VueValidator = require('vue-validator');
 
 
 window.Vue = require('vue');
+Vue.use(VueValidator);
 
 
 require('vue-resource');

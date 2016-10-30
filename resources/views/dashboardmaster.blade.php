@@ -19,6 +19,7 @@
 	<link href="/css/HADashboard.css" rel="stylesheet">
 	<link href="/css/nprogress.css" rel="stylesheet">
 	<link href="/css/plugins/dropdown.css" rel="stylesheet">
+	<link href="/css/plugins/select2.min.css" rel="stylesheet">
 	<link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
 	
 

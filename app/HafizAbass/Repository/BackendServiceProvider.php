@@ -24,6 +24,7 @@ class BackendServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->bind('HafizAbass\Contract\DbContractInterface', 'HafizAbass\Contract\DbContractRepository');
+        $this->app->bind('HafizAbass\Contract\DbContractInterface', 'HafizAbass\Contract\DbContractRepository');        
+        // $this->app->bind('HafizAbass\Contract\StoreContractInterface', 'HafizAbass\Contract\StoreKlantgegevens');
     }
 }

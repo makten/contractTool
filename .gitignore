@@ -1,10 +1,7 @@
 /node_modules
-/docker
-/docker/logs
-/docker/settings
-/laradock
 /public/storage
 /vendor
+/laradock
 /.idea
 Homestead.json
 Homestead.yaml

@@ -1,19 +1,41 @@
 
 import NProgress from 'nprogress';
 
+
 export default {
 
 
+	mounted () {
+
+		this.$nextTick(function(){
+
+		
+		})
+	},
 
 
 	methods: {
 
+
+		/**
+		 * Form validator		
+		 */
+
+		validateForm (form, rules, msg){
+
+			return new Validator(form, rules, msg);
+		},
+
+
+		/**
+		 * Save form section
+		 */
 		
 		persistForm (method, uri, form) {
 
 			form.errors = [];
 
-			NProgress.start();					
+			NProgress.start();
 
 
 			this.$http[method](uri, form)			
@@ -21,7 +43,7 @@ export default {
 				
 
 				NProgress.done();
-							
+
 				
 				if ( ! form.completed)
 				{
@@ -38,6 +60,8 @@ export default {
 
 				NProgress.done();
 				
+				eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
+				
 				
 				if (typeof response.data === 'object')
 				{
@@ -52,6 +76,7 @@ export default {
 			});
 
 		}
+		
 
 	}
 

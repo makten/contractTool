@@ -3,9 +3,8 @@
 
 	import FormHelper from '../../../mixins/FormHelper';	
 	import VSelect from '../../../mixins/Selector.vue';
-	
 
-	
+
 	export default {
 
 		mixins: [FormHelper],
@@ -16,8 +15,9 @@
 
 			return {
 
-				msg: '',
-				result: {},
+				// errorCount: 0,
+				// validating: false,
+				validations: [],
 
 				cities: [
 
@@ -73,20 +73,59 @@
 		
 		methods: {
 
-			storeAlgemeen () {				
+			storeAlgemeen () {	
 
-				this.persistForm('post', 'api/storeSection', this.algemeenForm );				
+				let validation = this.validateForm(this.algemeenForm, this.validationRules(), this.validationMessages());
+
+
+				// if(validation.fails()){
+					// this.validations = [];
+					// this.validations.push(validation.errors.errors);
+				// }
+
+				// if (validation.passes()){
+					// this.validations = [];
+					this.persistForm('post', 'api/storeSection', this.algemeenForm);
+				// }
+
 			},
 
 
-			handleApply: function (e) {
-				var self = this
-				var $validity = this.$refs.validity
-				$validity.validate(function () {
-					var result = $validity.result
-					self.result = result
-					$validity.pass(result.valid)
-				})
+			validationRules () {
+
+				let rules = {
+
+					contractVoorDerde: 'required',
+					mannr: 'required_if:contractVoorDerde,ja',
+					contractnaam: 'required|min:4',
+					meervest: 'required',
+					vestigingen: 'required_if:meervest,ja|min:2',
+					imtech: 'required',
+					imtechconnr: 'required_if:imtech,ja',
+					contractType: 'required|not_in:0',
+					algemeenOpmerking: 'max:250',
+				}
+				
+				return rules;
+			},
+
+
+			validationMessages () {
+
+				return {
+					required: 'Dit is een verplicht veld',
+					required_if: 'Dit is een verplicht veld',
+					not_in: 'Maak een keuze',
+					max: 'Te veel tekst',
+					min: 'Te weinig tekens of keuzes',
+
+				}
+			},
+
+
+			hasErrors () {
+
+				return this.validations.length > 0 ? true : false;				
 			}
 
 		}
@@ -113,24 +152,13 @@
 			</ul>
 		</div>	
 
+		<!-- {{ validations }} -->
+
 
 		<!-- Create Algemeen Form -->
 
 		
-		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>					
-
-
-			<validity ref="validity" field="username" :validators="{ required: true, minlength: 4}">
-				<input type="text" v-model.validity="msg">
-			</validity>
-
-			<div class="errors">
-				<p v-if="result.minlength">too short username!!</p>
-				<p v-if="result.required">too short required!!</p>
-			</div>
-
-			<button @click.prevent="handleApply">Apply</button>
-			<p>model value: {{msg}}</p>
+		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>	
 
 			<div class="form-group">
 
@@ -145,17 +173,24 @@
 
 			<div class="col-md-5">
 				<div class="radio radio-inline radio-primary">
+					
 					<label>
 						<input id="algemeen-contract-contractVoorDerde" type="radio" value="ja" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde">
 						Ja
 					</label>
+					
 				</div>
 				<div class="radio radio-inline radio-primary">
+
 					<label>
 						<input id="algemeen-contract-contractVoorDerde" type="radio" value="nee" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde">
 						Nee
 					</label>
+
 				</div>
+
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractVoorDerde }} </p>
+
 			</div>
 		</div>
 
@@ -175,8 +210,15 @@
 			<div class="col-md-5" v-if="">
 
 
-				<input id="algemeen-contract-mannr" type="text" class="form-control " name="mannr" v-model="algemeenForm.mannr" >	
-
+				<input id="algemeen-contract-mannr" 
+				type="text" class="form-control " 
+				name="mannr" 
+				v-model="algemeenForm.mannr"
+				
+				>					
+				<!-- <p class="error-block text-danger" v-if="validation.length > 0">{{ validation.errors.first('mannr') }} </p> -->
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].mannr }} </p>
+				
 
 				<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
 			</div>
@@ -193,7 +235,14 @@
 
 		<div class="col-md-5">
 
-			<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="contractnaam" v-model="algemeenForm.contractnaam">
+			<input id="algemeen-contract-contractnaam" 
+			type="text" class="form-control" 
+			name="contractnaam" 
+			v-model="algemeenForm.contractnaam" 			
+			>
+
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractnaam }} </p>
+			
 
 		</div>
 
@@ -223,6 +272,7 @@
 							Nee
 						</label>
 					</div>
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].meervest }} </p>
 				</div>
 			</div>
 
@@ -235,6 +285,7 @@
 
 			<div class="form-group" style="margin-top: 0;" v-show="algemeenForm.meervest === 'ja'" :class="[algemeenForm.meervest === 'ja' ? 'subquestion' : '' ]">
 
+
 				<label class="col-md-4 control-label" style="margin-top: 0px;">
 					Welke vestigingen? *
 				</label>
@@ -243,18 +294,18 @@
 
 					<div class="checkbox chk-cities" v-for="city in cities">
 
-
 						<label>
 
 							<input type="checkbox" :value="city" v-model="algemeenForm.vestigingen" > {{ city }}							
 
 						</label>
 
-
 					</div>
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].vestigingen }} </p>
 				</div>
 
 			</div>
+
 		</transition>
 
 
@@ -279,6 +330,7 @@
 						Nee
 					</label>
 				</div>
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].imtech }} </p>
 			</div>
 		</div>
 
@@ -299,7 +351,9 @@
 
 				<input type="text" class="form-control" id="imtec-connr" name="imtechconnr" v-model="algemeenForm.imtechconnr">
 
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].imtechconnr }} </p>
 			</div>
+			
 
 		</div>
 
@@ -317,7 +371,10 @@
 				<option disabled value="0">Maak keuze</option>				
 			</v-select>
 
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractType }} </p>
+
 		</div>
+		
 	</div>
 
 
@@ -326,9 +383,16 @@
 		<label for="textArea" class="col-md-4 control-label">Extra opmerking:</label>
 
 		<div class="col-md-5">
-			<textarea class="form-control" rows="3" id="algemeenOpmerking" v-model="algemeenForm.algemeenOpmerking"></textarea>
+
+
+			<textarea class="form-control" rows="3" id="algemeenOpmerking" v-model="algemeenForm.algemeenOpmerking" maxlength="250"></textarea>
 			<span class="help-block text-info"><i class="fa fa-info-circle"></i> Hier kunt u aanvullende opmerking achterlaten.</span>
+			<span class="text-info pull-right text-xs" style="font-size: 10px; font-family: consolas;"> {{ 250 - algemeenForm.algemeenOpmerking.length }} tekens nog</span>
+			
+
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].algemeenOpmerking }} </p>
 		</div>
+		
 	</div>
 
 

@@ -15,13 +15,15 @@ require('./mixins/dropdown.js');
 
 
 import NProgress from 'nprogress';
+window.Validator = require('validatorjs');
 
-var VueValidator = require('vue-validator');
+Validator.register('multi_required', function(value, requirement, attr){
+	console.log(attr)
+}, 'test');
+
 
 
 window.Vue = require('vue');
-Vue.use(VueValidator);
-
 
 require('vue-resource');
 

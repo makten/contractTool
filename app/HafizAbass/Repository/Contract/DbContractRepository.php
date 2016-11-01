@@ -98,7 +98,7 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 		return [
 
 		'required' => ':attribute is verplict',
-		'required_if' => ':attribute is verplict bij imtech contract JA',
+		'required_if' => ':attribute is verplict',
 		'unique' => 'Er bestaat al een contract met deze naam',		
 		'min' => 'Selecteer contractType',
 		'max' => ':attribute heeft te veel karakters'

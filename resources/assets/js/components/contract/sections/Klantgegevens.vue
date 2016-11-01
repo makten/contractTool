@@ -14,6 +14,8 @@
 
 			return {
 
+				validations: [],
+
 				klantChoice: [
 				{id: 1, text: 'Bestaand'},
 				{id: 2, text: 'Nieuw'}
@@ -23,7 +25,7 @@
 
 					sectionName:'klantgegevens',
 
-					klant_en_opdrachtgever: '',	
+					mOpdrachtgever: '',	
 					klantType: 0,
 					klantNaam: '',
 					klantKvK: '',
@@ -31,6 +33,7 @@
 					naamPartij: '',
 					versklantOpdrgever: 0,
 					opdrachtgever: '',
+					kvkOpdrachtgever: '',
 					versfactuurPartij: 0,
 					factuurpartij: '',					
 
@@ -44,26 +47,79 @@
 
 		methods: {
 			
-			storeKlantgegevens () {
-
-				this.persistForm('post', 'api/storeSection', this.klantgegevensForm );
+			storeKlantgegevens () {				
 				
+
+				let validation = this.validateForm(this.klantgegevensForm, this.validationRules(), this.validationMessages());
+
+
+				if(validation.fails()){
+					this.validations = [];
+					this.validations.push(validation.errors.errors);
+				}
+
+				if (validation.passes()){
+					this.validations = [];					
+					this.persistForm('post', 'api/storeSection', this.klantgegevensForm);
+				}
+
 			},
 
 
-			evalFields (fieldName) {
+			validationRules () {
 
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 2) {
+				let rules = {
+
+					mOpdrachtgever: 'required',
+					klantType: 'required|not_in:0',
+					klantNaam: 'required',
+					klantKvK: 'required_if:klantType,2|min:4',
+					versklantType: 'required_if:mOpdrachtgever,nee|not_in:0',
+					naamPartij: 'required_if:mOpdrachtgever,ja|min:4',
+					versklantOpdrgever: 'required_if:mOpdrachtgever,nee',					
+					opdrachtgever: 'required_if:mOpdrachtgever,nee|not_in:0',
+					kvkOpdrachtgever:'required_if:versklantOpdrgever,2|min:4',
+					versfactuurPartij: 'required_if:mOpdrachtgever,nee|not_in:0',
+					factuurpartij: 'required',
 					
-
-					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 1) 
-				{					
+				
+				return rules;
+			},
 
-					return 1;
+
+			validationMessages () {
+
+				return {
+					required: 'Dit is een verplicht veld',
+					required_if: 'Dit is een verplicht veld',
+					not_in: 'Maak een keuze',
+					max: 'Te veel tekst',
+					min: 'Kies min. 2',
+
 				}
-			}	
+			},
+
+
+			hasErrors () {
+
+				return this.validations.length > 0 ? true : false;				
+			}
+
+
+			// evalFields (fieldName) {
+
+			// 	if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 2) {
+
+
+			// 		return 2;
+			// 	}
+			// 	else if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 1) 
+			// 	{					
+
+			// 		return 1;
+			// 	}
+			// }	
 
 		},
 
@@ -72,13 +128,13 @@
 
 			nieuwBestand: function () {
 
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.klantType == 2) {
+				if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.klantType == 2) {
 
 					this.klantgegevensForm.klantNaam = '';
 
 					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'ja' && this.klantgegevensForm.klantType == 1) 
+				else if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.klantType == 1) 
 				{
 
 					this.klantgegevensForm.klantNaam = '';
@@ -93,10 +149,10 @@
 
 			nieuwBestandPartije: function () {	
 				
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 2) {
+				if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 2) {
 					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 1) 
+				else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 1) 
 				{
 					return 1;
 				}
@@ -108,13 +164,13 @@
 			nieuwBestandOpdrgever: function () {
 				
 
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 2) {
+				if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 2) {
 
 					this.klantgegevensForm.opdrachtgever = '';
 
 					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 1) 
+				else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 1) 
 				{
 					this.klantgegevensForm.opdrachtgever = '';
 					this.klantgegevensForm.kvkOpdrachtgever = '';
@@ -129,10 +185,10 @@
 			nieuwBestandFactuurPartij: function () {
 				
 				
-				if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 2) {
+				if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 2) {
 					return 2;
 				}
-				else if (this.klantgegevensForm.klant_en_opdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 1) 
+				else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 1) 
 				{
 					return 1;
 				}
@@ -182,17 +238,18 @@
 
 					<div class="radio radio-inline radio-primary">
 						<label>
-							<input id="" type="radio" value="ja" name="klant_en_opdrachtgever" v-model="klantgegevensForm.klant_en_opdrachtgever" >
+							<input id="" type="radio" value="ja" name="mOpdrachtgever" v-model="klantgegevensForm.mOpdrachtgever" >
 							Ja
 						</label>
 					</div>
 
 					<div class="radio radio-inline radio-default">
 						<label>
-							<input id="" type="radio" value="nee" name="klant_en_opdrachtgever" v-model="klantgegevensForm.klant_en_opdrachtgever">
+							<input id="" type="radio" value="nee" name="mOpdrachtgever" v-model="klantgegevensForm.mOpdrachtgever">
 							Nee
 						</label>						
 					</div>
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].mOpdrachtgever }} </p>
 					
 				</div>
 			</div>
@@ -207,7 +264,7 @@
 			leave-active-class="animated zoomOutLeft"
 			>				
 
-			<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.klant_en_opdrachtgever === 'ja'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
+			<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.mOpdrachtgever === 'ja'" :class="[klantgegevensForm.mOpdrachtgever === 'ja' ? 'subquestion' : '' ]">
 
 				<div class="form-group">
 
@@ -215,27 +272,26 @@
 						Bij welke partij voert Unica het werk uit? *
 					</label>
 
-					<div class="col-md-5">
-						
+					<div class="col-md-5">						
 
 						<v-select :options="klantChoice" v-model="klantgegevensForm.klantType">
 							<option disabled value="0">Maak keuze</option>									
 						</v-select>
 
+						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantType }} </p>
 						
 
 					</div>
 
 				</div>
 
-			</div>		
-
+			</div>	
 
 		</transition>
 		
 
 		
-		<div v-show="nieuwBestand === 2" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
+		<div v-show="nieuwBestand === 2" :class="[klantgegevensForm.mOpdrachtgever === 'ja' ? 'subquestion' : '' ]">
 
 			<div class="form-group">
 
@@ -244,7 +300,7 @@
 				<div class="col-md-5">
 
 					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">				
-
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantNaam }} </p>
 				</div>
 			</div>
 
@@ -254,19 +310,23 @@
 
 				<div class="col-md-5">
 					<input id="klantgegevens-klantKvK" type="text" class="form-control" name="klantKvK" v-model="klantgegevensForm.klantKvK">
+
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantKvK }} </p>
 				</div>
 			</div>
 
 		</div>
 
 
-		<div class="form-group" v-show="nieuwBestand == 1" :class="[klantgegevensForm.klant_en_opdrachtgever === 'ja' ? 'subquestion' : '' ]">
+		<div class="form-group" v-show="nieuwBestand == 1" :class="[klantgegevensForm.mOpdrachtgever === 'ja' ? 'subquestion' : '' ]">
 
 			<label for="klantNaam" class="col-md-4 control-label">Zoek een klant op *</label>
 
 			<div class="col-md-5">
 
-				<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">				
+				<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">
+
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantNaam }} </p>				
 
 			</div>
 
@@ -286,7 +346,7 @@
 		leave-active-class="animated zoomOutLeft"
 		>				
 
-		<div class="form-group" style="padding: 8px;" v-show="klantgegevensForm.klant_en_opdrachtgever === 'nee'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'nee' ? 'subquestion' : '' ]">
+		<div class="form-group" style="padding: 8px;" v-show="klantgegevensForm.mOpdrachtgever === 'nee'" :class="[klantgegevensForm.mOpdrachtgever === 'nee' ? 'subquestion' : '' ]">
 
 			<!-- <div class="form-group"> -->
 
@@ -300,6 +360,8 @@
 				<v-select :options="klantChoice" v-model="klantgegevensForm.versklantType">
 					<option disabled value="0">Maak keuze</option>									
 				</v-select>
+
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versklantType }} </p>
 
 			</div>
 
@@ -319,7 +381,9 @@
 
 		<div class="col-md-5">
 
-			<input id="klantgegevens-naamPartij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naamPartij">				
+			<input id="klantgegevens-naamPartij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naamPartij">	
+
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].naamPartij }} </p>			
 
 		</div>			
 
@@ -332,7 +396,9 @@
 
 		<div class="col-md-5">
 
-			<input id="klantgegevens-naamPartij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naamPartij">				
+			<input id="klantgegevens-naamPartij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naamPartij">	
+
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].naamPartij }} </p>				
 
 		</div>
 
@@ -350,7 +416,7 @@
 	leave-active-class="animated zoomOutLeft"
 	>				
 
-	<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.klant_en_opdrachtgever === 'nee'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'nee' ? 'subquestion' : '' ]">
+	<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.mOpdrachtgever === 'nee'" :class="[klantgegevensForm.mOpdrachtgever === 'nee' ? 'subquestion' : '' ]">
 
 		<div class="form-group">
 
@@ -364,7 +430,7 @@
 					<option disabled value="0">Maak keuze</option>									
 				</v-select>
 
-
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versklantOpdrgever }} </p>	
 			</div>
 
 		</div>
@@ -385,7 +451,9 @@
 
 		<div class="col-md-5">
 
-			<input id="klantgegevens-opdrachtgever" type="text" class="form-control" name="opdrachtgever" v-model="klantgegevensForm.opdrachtgever">				
+			<input id="klantgegevens-opdrachtgever" type="text" class="form-control" name="opdrachtgever" v-model="klantgegevensForm.opdrachtgever">
+
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].opdrachtgever }} </p>					
 
 		</div>	
 
@@ -397,6 +465,7 @@
 
 		<div class="col-md-5">
 			<input id="klantgegevens-kvkOpdrachtgever" type="text" class="form-control" name="kvkOpdrachtgever" v-model="klantgegevensForm.kvkOpdrachtgever">
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].kvkOpdrachtgever }} </p>	
 		</div>	
 
 	</div>
@@ -410,7 +479,9 @@
 
 	<div class="col-md-5">
 
-		<input id="klantgegevens-opdrachtgever" type="text" class="form-control" name="opdrachtgever" v-model="klantgegevensForm.opdrachtgever">				
+		<input id="klantgegevens-opdrachtgever" type="text" class="form-control" name="opdrachtgever" v-model="klantgegevensForm.opdrachtgever">
+
+		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].opdrachtgever }} </p>					
 
 	</div>
 
@@ -427,7 +498,7 @@ enter-active-class="animated zoomIn"
 leave-active-class="animated zoomOutLeft"
 >				
 
-<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.klant_en_opdrachtgever === 'nee'" :class="[klantgegevensForm.klant_en_opdrachtgever === 'nee' ? 'subquestion' : '' ]">
+<div class="form-group" style="margin-top: 0;" v-show="klantgegevensForm.mOpdrachtgever === 'nee'" :class="[klantgegevensForm.mOpdrachtgever === 'nee' ? 'subquestion' : '' ]">
 
 	<div class="form-group">
 
@@ -441,22 +512,14 @@ leave-active-class="animated zoomOutLeft"
 				<option disabled value="0">Maak keuze</option>									
 			</v-select>
 
-				<!-- <select id="klantgegevens-versfactuurPartij" name="versfactuurPartij" class="form-control select" v-model="klantgegevensForm.versfactuurPartij">
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versfactuurPartij }} </p>	
 
-					<option value="nieuw">
-						Nieuw
-					</option>
-					<option value="bestaand">
-						Bestaand
-					</option>
-
-				</select> -->
-
-			</div>
-
+			
 		</div>
 
-	</div>		
+	</div>
+
+</div>		
 
 
 </transition>
@@ -470,7 +533,9 @@ leave-active-class="animated zoomOutLeft"
 
 	<div class="col-md-5">
 
-		<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.factuurpartij">				
+		<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.factuurpartij">		
+
+		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].factuurpartij }} </p>			
 
 	</div>	
 
@@ -485,7 +550,7 @@ leave-active-class="animated zoomOutLeft"
 	<div class="col-md-5">
 
 		<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.factuurpartij">				
-
+		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].factuurpartij }} </p>	
 	</div>
 
 </div>

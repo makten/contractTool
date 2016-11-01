@@ -5,7 +5,6 @@
 	import VSelect from '../../../mixins/Selector.vue';
 	
 
-
 	
 	export default {
 
@@ -43,8 +42,11 @@
 				],
 
 				algemeenForm: {
+
+					sectionName: 'algemeen',
 					
 					errors: [],
+					contractVoorDerde: '',
 					mannr: '',
 					contractnaam: '',
 					meervest: '',
@@ -52,8 +54,8 @@
 					imtech: '',
 					imtechconnr: '',
 					contractType: 0,
-
-					completed: false,
+					algemeenOpmerking: '',
+					
 					redirect: '',
 					
 				}
@@ -62,26 +64,18 @@
 
 
 		mounted () {
-			this.$nextTick( function () {	
-				
+			this.$nextTick( function () {				
 
 				
 			})
 		},
 
-
+		
 		methods: {
 
-			storeAlgemeen () {
+			storeAlgemeen () {				
 
-				this.persistForm('post', 'api/storeAlgemeen', this.algemeenForm );
-
-				if (! this.algemeenForm.completed)
-				{
-					eventBroadcaster.$emit('algemeen-completed', { section: 'algemeen', completed: true, form: this.algemeenForm});
-					this.algemeenForm.completed = true;
-				}
-				
+				this.persistForm('post', 'api/storeSection', this.algemeenForm );				
 			},
 
 
@@ -94,8 +88,6 @@
 					$validity.pass(result.valid)
 				})
 			}
-
-
 
 		}
 	}
@@ -111,8 +103,8 @@
 
 		<!-- Form Errors -->
 
-		<div class="alert alert-danger" v-if="algemeenForm.errors.length > 0">
-			<p><strong>Whoops!</strong> Something went wrong!</p>
+		<div class="alert" v-if="algemeenForm.errors.length > 0" style="background-color: #F15959;">
+			<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
 			<br>
 			<ul>
 				<li v-for="error in algemeenForm.errors">
@@ -122,58 +114,96 @@
 		</div>	
 
 
-		<!-- Create Algemeen Form -->	
+		<!-- Create Algemeen Form -->
 
+		
 		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>					
 
 
-			<!-- <validity ref="validity" field="username" :validators="{ required: true, minlength: 4}">
+			<validity ref="validity" field="username" :validators="{ required: true, minlength: 4}">
 				<input type="text" v-model.validity="msg">
 			</validity>
 
 			<div class="errors">
 				<p v-if="result.minlength">too short username!!</p>
 				<p v-if="result.required">too short required!!</p>
-			</div> -->
-
-			<!-- <button @click.prevent="handleApply">Apply</button>
-			<p>model value: {{msg}}</p> -->
-
-
-			<div class="form-group">
-
-				<label for="inputEmail" class="col-md-4 control-label">
-					Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
-				</label>
-
-				<div class="col-md-5">
-
-
-					<input id="algemeen-contract-mannr" type="text" class="form-control " name="mannr" v-model="algemeenForm.mannr" >	
-
-
-					<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
-				</div>
-
 			</div>
 
-			<div class="form-group">
-
-				<label for="contractnaam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
-
-				<div class="col-md-5">
-
-					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="contractnaam" v-model="algemeenForm.contractnaam">
-
-				</div>
-
-			</div>
-
+			<button @click.prevent="handleApply">Apply</button>
+			<p>model value: {{msg}}</p>
 
 			<div class="form-group">
 
 				<label class="col-md-4 control-label" style="margin-top: 0px;">
-					Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
+					Word dit contract ingediend voor iemand anders? *
+
+					<i 	title="Het is mogelijk om een contract voor iemand anders in te richting ..." 
+					id="basic-addon1"class="addon bottom fa fa-info-circle">
+				</i>
+
+			</label>
+
+			<div class="col-md-5">
+				<div class="radio radio-inline radio-primary">
+					<label>
+						<input id="algemeen-contract-contractVoorDerde" type="radio" value="ja" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde">
+						Ja
+					</label>
+				</div>
+				<div class="radio radio-inline radio-primary">
+					<label>
+						<input id="algemeen-contract-contractVoorDerde" type="radio" value="nee" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde">
+						Nee
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+		<transition
+		name="custom-classes-transition"
+		enter-active-class="animated zoomIn"
+		leave-active-class="animated zoomOutLeft"
+		>				
+
+		<div class="form-group" style="margin-top: 0;" v-if="algemeenForm.contractVoorDerde === 'ja'" :class="[algemeenForm.contractVoorDerde === 'ja' ? 'subquestion' : '' ]">
+
+			<label for="mannr" class="col-md-4 control-label">
+				Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
+			</label>
+
+			<div class="col-md-5" v-if="">
+
+
+				<input id="algemeen-contract-mannr" type="text" class="form-control " name="mannr" v-model="algemeenForm.mannr" >	
+
+
+				<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
+			</div>
+
+		</div>
+
+	</transition>
+
+
+
+	<div class="form-group">
+
+		<label for="contractnaam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
+
+		<div class="col-md-5">
+
+			<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="contractnaam" v-model="algemeenForm.contractnaam">
+
+		</div>
+
+	</div>
+
+
+	<div class="form-group">
+
+		<label class="col-md-4 control-label" style="margin-top: 0px;">
+			Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
 
 						<!-- <i title="" id="basic-addon1"class="addon bottom fa fa-info-circle">
 					</i> -->

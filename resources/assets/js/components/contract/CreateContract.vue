@@ -37,6 +37,8 @@
 				completed: 0,
 				algemeenForm: '',
 
+				sectionPreview: [],
+
 				formSections: [
 				{section: 'algemeen', completed: false, active: true},
 				{section: 'klantgegevens', completed: false, active: false},
@@ -71,9 +73,11 @@
 
 				let vm = this;
 
-				_.forEach(form.form, function(v){
-					console.log(v);
-				});
+				this.sectionPreview.push({ section: form.section, data: form.form });
+
+				// _.forEach(form.form, function(v){
+					
+				// });
 
 				this.formSections = _.map( this.formSections, function(fm){
 
@@ -135,7 +139,7 @@
 
 				<div class="contentwrapper" style="margin:0; padding: 0;">
 
-			
+
 
 					<!-- Progress bar -->
 					<div class="progress progress-striped">
@@ -252,7 +256,7 @@
 
 					<!-- Installatie Section -->
 					<div class="section-header" :class="[formSections[6].completed ? 'clickable' : '']">
-						<h3 class="section-title" :class="[formSections[6].active ? 'sectionActive' : '']">7 Installatie</h3>
+						<h3 class="section-title" :class="[formSections[6].active ? 'sectionActive' : '']">7 Instalatie</h3>
 					</div>
 
 
@@ -288,32 +292,65 @@
 
 		</div>
 
-		<div class="previews-wrapper col-md-3" style="margin:0; padding: 0;">
+		<div class="previews-wrapper col-md-3" style="margin:0; padding: 0;" v-if="sectionPreview.length > 0">
 			<div class="widget">
-			<div class="title">Preview</div>
-
-			<div class="section-header" :class="[formSections[0].completed ? 'clickable' : '']">
-						<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">1 Algemeen</h3>
-			</div>
+				<div class="title">Preview</div>
 
 
-			<div class="contentwrapper" style="margin:0; padding: 0;">
-				
-					<p> {{ algemeenForm.mannr }} </p>
-					<p> {{ algemeenForm.contractnaam }} </p>
-					<p> {{ algemeenForm.meervest }} </p>
-					<p> {{ algemeenForm.vestigingen }} </p>
-					<p> {{ algemeenForm.imtech }} </p>
-					<p> {{ algemeenForm.imtechconnr }} </p>
-					<p> {{ algemeenForm.contractType }} </p>
+				<div class="contentwrapper preview-list" style="margin:0; padding: 0;">
 
-			</div>
 					
-			</div>
+					<ul v-for="preview in sectionPreview">
+
+						
+						<div v-if="preview.section === 'algemeen'">
+
+							<div class="section-header">
+								<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Algemeen</h3>
+							</div>
+
+							<li>{{ preview.data.contractVoorDerde }}</li>
+							<li><p><b>Mannr</b> {{ preview.data.mannr }}</p></li>
+							<li>{{ preview.data.contractnaam }}</li>
+							<li>{{ preview.data.meervest }}</li>
+							<li>{{ preview.data.vestigingen }}</li>
+							<li>{{ preview.data.imtech }}</li>
+							<li>{{ preview.data.contractType }}</li>
+							<li>{{ preview.data.algemeenOpmerking }}</li>
+						</div>
+				
+
+
+					<div v-if="preview.section === 'klantgegevens'">
+
+						<div class="section-header">
+							<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Klantgegevens</h3>
+						</div>
+
+						<li>{{ preview.data.klant_en_opdrachtgever }}</li>
+						<li>{{ preview.data.klantType }}</li>
+						<li>{{ preview.data.klantNaam }}</li>
+						<li>{{ preview.data.klantKvK }}</li>
+						<li>{{ preview.data.versklantType }}</li>
+						<li>{{ preview.data.naamPartij }}</li>
+						<li>{{ preview.data.contractType }}</li>
+						<li>{{ preview.data.versklantOpdrgever }}</li>
+						<li>{{ preview.data.opdrachtgever }}</li>
+						<li>{{ preview.data.versfactuurPartij }}</li>
+						<li>{{ preview.data.factuurpartij }}</li>
+					</div>
+
+				
+			</ul>
+
+
 		</div>
 
-
 	</div>
+</div>
+
+
+</div>
 
 </template>
 

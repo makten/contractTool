@@ -16,6 +16,8 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table){
 
             $table->increments('id');
+            $table->string('sectionName');
+            $table->string('contractVoorDerde');
             $table->string('mannr');
             $table->string('contractNaam');
             $table->string('meervest')->nullable();
@@ -23,7 +25,8 @@ class CreateContractsTable extends Migration
             $table->string('imtech');
             $table->string('imtechconnr');
             $table->string('contractType');
-            $table->boolean('algemeen_complete')->default(0);
+            $table->text('algemeenOpmerking', 300);            
+            $table->timestamps();
 
         });
     }

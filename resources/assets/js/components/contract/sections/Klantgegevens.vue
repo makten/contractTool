@@ -1,9 +1,11 @@
 <script>
-
+	import FormHelper from '../../../mixins/FormHelper';
 	import VSelect from '../../../mixins/Selector.vue';
 
 	
 	export default {
+
+		mixins: [ FormHelper ],
 
 		components: { VSelect },
 
@@ -19,6 +21,8 @@
 
 				klantgegevensForm: {
 
+					sectionName:'klantgegevens',
+
 					klant_en_opdrachtgever: '',	
 					klantType: 0,
 					klantNaam: '',
@@ -28,8 +32,7 @@
 					versklantOpdrgever: 0,
 					opdrachtgever: '',
 					versfactuurPartij: 0,
-					factuurpartij: '',
-
+					factuurpartij: '',					
 
 					errors: [],
 				},
@@ -43,11 +46,7 @@
 			
 			storeKlantgegevens () {
 
-				// if (! this.klantgegevensForm.completed)
-				// {
-					eventBroadcaster.$emit('klantgegevens-completed', { section: 'klantgegevens', completed: true});
-					// this.klantgegevensForm.completed = true;
-				// }
+				this.persistForm('post', 'api/storeSection', this.klantgegevensForm );
 				
 			},
 

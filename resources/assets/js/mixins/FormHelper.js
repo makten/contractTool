@@ -18,14 +18,16 @@ export default {
 
 			this.$http[method](uri, form)			
 			.then(response => {
+				
 
 				NProgress.done();
-
-
-				// this.getContracts()
-				// 
+							
 				
-				//Empty all form fields (this.$el)
+				if ( ! form.completed)
+				{
+					eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
+					this.form.completed = true;
+				}
 				
 				form.redirect = '';
 
@@ -34,13 +36,17 @@ export default {
 			})
 			.catch( response => {
 
+				NProgress.done();
+				
+				
 				if (typeof response.data === 'object')
 				{
+					
 					form.errors = _.flatten(_.toArray(response.data));
 				}
 				else {
 
-					form.errors = ['Iets is fout gegaan. Probeer het opnieuw'];
+					form.errors = ['Iets is mis gegaan. Probeer het opnieuw'];
 				}
 
 			});

@@ -16,4 +16,4 @@ Route::post('testEndPoint', 'ContractsController@testEndPoint');
 |
  */
 // Route::post('storeAlgemeen', 'ContractsController@storeAlgemeen');
-Route::post('storeAlgemeen', 'API\ContractsController@storeAlgemeen');
+Route::post('storeSection', 'API\ContractsController@store');

@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 require_once app_path('bigml/bigml.php');
 
+
 class ContractsController extends Controller
 {
 
 
 
 	private $contract;
+
 
 
 	function __construct(DbContractInterface $contract){
@@ -29,12 +31,11 @@ class ContractsController extends Controller
 		return response()->json(\Request::all());
 	}
 
-	
+
 
 	public function storeAlgemeen(Request $request)
 	{
-		dd($request);
-
+		
 		return response()->json(\Request::all());
 	}
 

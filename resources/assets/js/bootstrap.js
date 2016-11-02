@@ -1,3 +1,5 @@
+import TurboLinks from 'turbolinks';
+TurboLinks.start();
 
 window._ = require('lodash');
 

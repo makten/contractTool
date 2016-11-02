@@ -44,11 +44,10 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 
 				return response($validator->errors()->all(), 303);
 			}
-		}
+		}		
 		
 		
-		
-		// return $this->model->create($section);
+		return $this->model->create($section);
 	}
 
 	

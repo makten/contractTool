@@ -40,6 +40,8 @@ export default {
 
 			this.$http[method](uri, form)			
 			.then(response => {
+
+				console.log(response.data);
 				
 
 				NProgress.done();
@@ -47,7 +49,10 @@ export default {
 				
 				if ( ! form.completed)
 				{
-					eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
+					let databag = { section: form.sectionName, completed: true, form: form, contractId: response.data.id };
+
+					eventBroadcaster.$emit(`${form.sectionName}-completed`, databag );
+
 					this.form.completed = true;
 				}
 				
@@ -59,7 +64,7 @@ export default {
 			.catch( response => {
 
 				NProgress.done();
-				
+
 				eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
 				
 				

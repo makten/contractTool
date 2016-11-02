@@ -69,15 +69,14 @@
 
 			incrementCompleted (form) {
 
+				//Grad contract id and emit to all sub components
+
 				this.completed += (100 / this.formSections.length);
 
 				let vm = this;
 
 				this.sectionPreview.push({ section: form.section, data: form.form });
-
-				// _.forEach(form.form, function(v){
-					
-				// });
+				
 
 				this.formSections = _.map( this.formSections, function(fm){
 
@@ -318,39 +317,39 @@
 							<li>{{ preview.data.contractType }}</li>
 							<li>{{ preview.data.algemeenOpmerking }}</li>
 						</div>
-				
 
 
-					<div v-if="preview.section === 'klantgegevens'">
 
-						<div class="section-header">
-							<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Klantgegevens</h3>
+						<div v-if="preview.section === 'klantgegevens'">
+
+							<div class="section-header">
+								<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Klantgegevens</h3>
+							</div>
+
+							<li>{{ preview.data.klant_en_opdrachtgever }}</li>
+							<li>{{ preview.data.klantType }}</li>
+							<li>{{ preview.data.klantNaam }}</li>
+							<li>{{ preview.data.klantKvK }}</li>
+							<li>{{ preview.data.versklantType }}</li>
+							<li>{{ preview.data.naamPartij }}</li>
+							<li>{{ preview.data.contractType }}</li>
+							<li>{{ preview.data.versklantOpdrgever }}</li>
+							<li>{{ preview.data.opdrachtgever }}</li>
+							<li>{{ preview.data.versfactuurPartij }}</li>
+							<li>{{ preview.data.factuurpartij }}</li>
 						</div>
 
-						<li>{{ preview.data.klant_en_opdrachtgever }}</li>
-						<li>{{ preview.data.klantType }}</li>
-						<li>{{ preview.data.klantNaam }}</li>
-						<li>{{ preview.data.klantKvK }}</li>
-						<li>{{ preview.data.versklantType }}</li>
-						<li>{{ preview.data.naamPartij }}</li>
-						<li>{{ preview.data.contractType }}</li>
-						<li>{{ preview.data.versklantOpdrgever }}</li>
-						<li>{{ preview.data.opdrachtgever }}</li>
-						<li>{{ preview.data.versfactuurPartij }}</li>
-						<li>{{ preview.data.factuurpartij }}</li>
-					</div>
 
-				
-			</ul>
+					</ul>
 
 
+				</div>
+
+			</div>
 		</div>
 
+
 	</div>
-</div>
-
-
-</div>
 
 </template>
 

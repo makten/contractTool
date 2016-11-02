@@ -28,6 +28,7 @@
     "nprogress": "^0.2.0",
     "sass-loader": "^4.0.2",
     "select2": "^4.0.3",
+    "turbolinks": "^5.0.0",
     "validatorjs": "^3.8.0",
     "vee-validate": "next",
     "vue": "^2.0.0",

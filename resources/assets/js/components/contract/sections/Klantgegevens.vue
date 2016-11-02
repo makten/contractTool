@@ -1,11 +1,13 @@
 <script>
+
 	import FormHelper from '../../../mixins/FormHelper';
 	import VSelect from '../../../mixins/Selector.vue';
+	import ClientValidationRules from '../../../mixins/validationRules';
 
 	
 	export default {
 
-		mixins: [ FormHelper ],
+		mixins: [ FormHelper, ClientValidationRules ],
 
 		components: { VSelect },
 
@@ -44,13 +46,13 @@
 
 
 
-
 		methods: {
 			
-			storeKlantgegevens () {				
-				
+			storeKlantgegevens () {	
 
-				let validation = this.validateForm(this.klantgegevensForm, this.validationRules(), this.validationMessages());
+				let validationData = this.klantgegevensRules();				
+
+				let validation = this.validateForm(this.klantgegevensForm, validationData.rules, validationData.messages);
 
 
 				if(validation.fails()){
@@ -63,63 +65,13 @@
 					this.persistForm('post', 'api/storeSection', this.klantgegevensForm);
 				}
 
-			},
-
-
-			validationRules () {
-
-				let rules = {
-
-					mOpdrachtgever: 'required',
-					klantType: 'required|not_in:0',
-					klantNaam: 'required',
-					klantKvK: 'required_if:klantType,2|min:4',
-					versklantType: 'required_if:mOpdrachtgever,nee|not_in:0',
-					naamPartij: 'required_if:mOpdrachtgever,ja|min:4',
-					versklantOpdrgever: 'required_if:mOpdrachtgever,nee',					
-					opdrachtgever: 'required_if:mOpdrachtgever,nee|not_in:0',
-					kvkOpdrachtgever:'required_if:versklantOpdrgever,2|min:4',
-					versfactuurPartij: 'required_if:mOpdrachtgever,nee|not_in:0',
-					factuurpartij: 'required',
-					
-				}
-				
-				return rules;
-			},
-
-
-			validationMessages () {
-
-				return {
-					required: 'Dit is een verplicht veld',
-					required_if: 'Dit is een verplicht veld',
-					not_in: 'Maak een keuze',
-					max: 'Te veel tekst',
-					min: 'Kies min. 2',
-
-				}
-			},
+			},		
 
 
 			hasErrors () {
 
 				return this.validations.length > 0 ? true : false;				
-			}
-
-
-			// evalFields (fieldName) {
-
-			// 	if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 2) {
-
-
-			// 		return 2;
-			// 	}
-			// 	else if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.fieldName == 1) 
-			// 	{					
-
-			// 		return 1;
-			// 	}
-			// }	
+			}			
 
 		},
 
@@ -200,6 +152,7 @@
 	}
 
 </script>
+
 
 <template>
 

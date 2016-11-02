@@ -3,20 +3,19 @@
 
 	import FormHelper from '../../../mixins/FormHelper';	
 	import VSelect from '../../../mixins/Selector.vue';
+	import ClientValidationRules from '../../../mixins/validationRules';
 
 
 	export default {
 
-		mixins: [FormHelper],
+		mixins: [FormHelper, ClientValidationRules],
 
 		components: {VSelect},
 
 		data () {
 
 			return {
-
-				// errorCount: 0,
-				// validating: false,
+				
 				validations: [],
 
 				cities: [
@@ -64,8 +63,7 @@
 
 
 		mounted () {
-			this.$nextTick( function () {				
-
+			this.$nextTick( function () {	
 				
 			})
 		},
@@ -75,53 +73,22 @@
 
 			storeAlgemeen () {	
 
-				let validation = this.validateForm(this.algemeenForm, this.validationRules(), this.validationMessages());
+				let validationData = this.algemeenRules();
+				
+				let validation = this.validateForm(this.algemeenForm, validationData.rules, validationData.messages);
 
 
 				// if(validation.fails()){
-					// this.validations = [];
-					// this.validations.push(validation.errors.errors);
+				// 	this.validations = [];
+				// 	this.validations.push(validation.errors.errors);
 				// }
 
 				// if (validation.passes()){
-					// this.validations = [];
+				// 	this.validations = [];
 					this.persistForm('post', 'api/storeSection', this.algemeenForm);
 				// }
 
-			},
-
-
-			validationRules () {
-
-				let rules = {
-
-					contractVoorDerde: 'required',
-					mannr: 'required_if:contractVoorDerde,ja',
-					contractnaam: 'required|min:4',
-					meervest: 'required',
-					vestigingen: 'required_if:meervest,ja|min:2',
-					imtech: 'required',
-					imtechconnr: 'required_if:imtech,ja',
-					contractType: 'required|not_in:0',
-					algemeenOpmerking: 'max:250',
-				}
-				
-				return rules;
-			},
-
-
-			validationMessages () {
-
-				return {
-					required: 'Dit is een verplicht veld',
-					required_if: 'Dit is een verplicht veld',
-					not_in: 'Maak een keuze',
-					max: 'Te veel tekst',
-					min: 'Te weinig tekens of keuzes',
-
-				}
-			},
-
+			},			
 
 			hasErrors () {
 
@@ -151,8 +118,6 @@
 				</li>
 			</ul>
 		</div>	
-
-		<!-- {{ validations }} -->
 
 
 		<!-- Create Algemeen Form -->

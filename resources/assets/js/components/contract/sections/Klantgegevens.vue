@@ -11,6 +11,8 @@
 
 		components: { VSelect },
 
+		props: ['contract-id'],
+
 
 		data () {
 
@@ -27,6 +29,7 @@
 
 					sectionName:'klantgegevens',
 
+					id: '',
 					mOpdrachtgever: '',	
 					klantType: 0,
 					klantNaam: '',
@@ -45,8 +48,20 @@
 		},
 
 
+		created () {
+
+			console.log(this.contractId);
+
+		},
+
+
 
 		methods: {
+
+			assignId (conId) {
+
+				this.klantgegevensForm.id = conId;
+			},
 			
 			storeKlantgegevens () {	
 
@@ -61,7 +76,10 @@
 				}
 
 				if (validation.passes()){
-					this.validations = [];					
+
+					this.validations = [];	
+					this.klantgegevensForm.contractId = this.contractId;
+					console.log(this.contractId);									
 					this.persistForm('post', 'api/storeSection', this.klantgegevensForm);
 				}
 

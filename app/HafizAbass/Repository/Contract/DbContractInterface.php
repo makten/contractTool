@@ -7,7 +7,7 @@ interface DbContractInterface {
 
 	public function getAll();	
 
-	public function persist($section);
+	// public function persist();
 
 	public function rules();
 

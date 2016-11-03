@@ -11,6 +11,8 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 
 
 	public $model;
+	private $contract;
+	private $sectionName;
 
 
 
@@ -26,29 +28,41 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 	}
 
 
-	public function persist($section)
-	{
-		// Check form section
-		// Apply required rules
-		// Validate
-		// Persist
-		// Check for redirect
-		// Return to redirect or back with response
-		
-				
-		if ( $this->shouldValidate($section) ){
 
-			$validator = $this->validate($section);
+	public function createOrMerge($section)
+	{
+
+		
+
+		if ( $this->shouldValidate($section->all()) ){
+
+			$validator = $this->validate($section->all());
 
 			if ($validator->fails()){			
 
 				return response($validator->errors()->all(), 303);
 			}
-		}		
-		
-		
-		return $this->model->create($section);
+			
+				return $this->model->create($section->all());
+
+			
+		}
+
+
+		$contract = $this->model->mergeSection($section);
+
+		$contract->persist();
+
 	}
+
+
+
+	// public function persist()
+	// {			
+
+	// 	return $this->contract->update([$this->sectionName => $section->except(['errors'])]);
+
+	// }
 
 	
 

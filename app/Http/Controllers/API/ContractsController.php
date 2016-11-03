@@ -31,10 +31,9 @@ class ContractsController extends Controller
 		// Validate with Algemeen en call it's store
 		// 
 		// $section = ;
+		
 
-		// dd($section);
-
-		return $this->contract->persist($request->all());
+		return $this->contract->createOrMerge($request);
 		
 		// dd($request->all());
 	}

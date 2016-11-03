@@ -9,7 +9,7 @@ export default {
 
 		this.$nextTick(function(){
 
-		
+
 		})
 	},
 
@@ -21,70 +21,74 @@ export default {
 		 * Form validator		
 		 */
 
-		validateForm (form, rules, msg){
+		 validateForm (form, rules, msg){
 
-			return new Validator(form, rules, msg);
-		},
+		 	return new Validator(form, rules, msg);
+		 },
 
 
 		/**
 		 * Save form section
 		 */
-		
-		persistForm (method, uri, form) {
 
-			form.errors = [];
+		 persistForm (method, uri, form) {
 
-			NProgress.start();
+		 	form.errors = [];
+
+		 	NProgress.start();
 
 
-			this.$http[method](uri, form)			
-			.then(response => {
+		 	this.$http[method](uri, form)			
+		 	.then(response => {								
 
-				console.log(response.data);
-				
+		 		NProgress.done();
 
-				NProgress.done();
 
-				
-				if ( ! form.completed)
-				{
-					let databag = { section: form.sectionName, completed: true, form: form, contractId: response.data.id };
+		 		if(form.sectionName === 'algemeen')
+		 		{
+		 			console.log(this.$refs)
+		 		}
 
-					eventBroadcaster.$emit(`${form.sectionName}-completed`, databag );
 
-					this.form.completed = true;
-				}
-				
-				form.redirect = '';
 
-				form.errors = [];
+		 		if ( ! form.completed)
+		 		{
+		 			let databag = { section: form.sectionName, completed: true, form: form, contractId: response.data.id };
 
-			})
-			.catch( response => {
+		 			eventBroadcaster.$emit(`${form.sectionName}-completed`, databag );
 
-				NProgress.done();
+		 			this.form.completed = true;
+		 		}
 
-				eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
-				
-				
-				if (typeof response.data === 'object')
-				{
-					
-					form.errors = _.flatten(_.toArray(response.data));
-				}
-				else {
+		 		form.redirect = '';
 
-					form.errors = ['Iets is mis gegaan. Probeer het opnieuw'];
-				}
+		 		form.errors = [];
 
-			});
+		 	})
+		 	.catch( response => {
+
+		 		NProgress.done();
+
+		 		eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
+
+
+		 		if (typeof response.data === 'object')
+		 		{
+
+		 			form.errors = _.flatten(_.toArray(response.data));
+		 		}
+		 		else {
+
+		 			form.errors = ['Iets is mis gegaan. Probeer het opnieuw'];
+		 		}
+
+		 	});
+
+		 }
+
 
 		}
-		
+
 
 	}
-
-
-}
 

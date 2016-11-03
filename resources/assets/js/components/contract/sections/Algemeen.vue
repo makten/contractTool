@@ -41,9 +41,9 @@
 				],
 
 				algemeenForm: {
-
-					sectionName: 'algemeen',
 					
+					sectionName: 'algemeen',
+
 					errors: [],
 					contractVoorDerde: '',
 					mannr: '',
@@ -85,7 +85,7 @@
 
 				// if (validation.passes()){
 				// 	this.validations = [];
-					this.persistForm('post', 'api/storeSection', this.algemeenForm);
+				this.persistForm('post', 'api/storeSection', this.algemeenForm);
 				// }
 
 			},			
@@ -124,6 +124,8 @@
 
 		
 		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>	
+
+			<input type="hidden" name="id" ref="conId">
 
 			<div class="form-group">
 

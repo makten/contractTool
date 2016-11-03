@@ -25,7 +25,14 @@ class CreateContractsTable extends Migration
             $table->string('imtech');
             $table->string('imtechconnr');
             $table->string('contractType');
-            $table->text('algemeenOpmerking', 300);            
+            $table->text('algemeenOpmerking', 300);
+            
+            $table->json('klantgegevens')->nullable();
+            $table->json('contactgegevens')->nullable();
+            $table->json('contractvorm')->nullable();
+            $table->json('operationeel')->nullable();
+            $table->json('financieel')->nullable();
+                       
             $table->timestamps();
 
         });

@@ -33,6 +33,7 @@
 
 			return {
 
+				contractId: '',
 				algemeen: true,
 				completed: 0,
 				algemeenForm: '',
@@ -69,7 +70,10 @@
 
 			incrementCompleted (form) {
 
-				//Grad contract id and emit to all sub components
+				
+				// Contract ID				
+				this.contractId = form.contractId;
+
 
 				this.completed += (100 / this.formSections.length);
 
@@ -176,7 +180,7 @@
 
 						<div v-if="formSections[1].active">
 
-							<klantgegevens></klantgegevens>
+							<klantgegevens :contract-id='contractId'></klantgegevens>
 
 						</div>		
 					</transition>	
@@ -192,7 +196,7 @@
 
 						<div v-if="formSections[2].active">
 
-							<contactgegevens></contactgegevens>
+							<contactgegevens :contract-id='contractId'></contactgegevens>
 
 						</div>
 					</transition>
@@ -209,7 +213,7 @@
 
 						<div v-if="formSections[3].active">
 
-							<contractvorm></contractvorm>
+							<contractvorm :contract-id='contractId'></contractvorm>
 
 						</div>
 					</transition>
@@ -227,7 +231,7 @@
 
 						<div v-if="formSections[4].active">
 
-							<Operationeel></Operationeel>
+							<Operationeel :contract-id='contractId'></Operationeel>
 
 						</div>
 					</transition>
@@ -245,7 +249,7 @@
 
 						<div v-if="formSections[5].active">
 
-							<financieel></financieel>
+							<financieel :contract-id='contractId'></financieel>
 
 						</div>
 					</transition>
@@ -262,7 +266,7 @@
 					<transition name="slide-fade">	
 						<div v-if="formSections[6].active">
 
-							<installatie-onderhoud></installatie-onderhoud>
+							<installatie-onderhoud :contract-id='contractId'></installatie-onderhoud>
 
 						</div>
 					</transition>
@@ -280,7 +284,7 @@
 
 						<div v-if="formSections[7].active">
 
-							<verstuur></verstuur>
+							<verstuur :contract-id='contractId'></verstuur>
 
 						</div>
 					</transition>

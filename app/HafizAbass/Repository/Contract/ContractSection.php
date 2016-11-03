@@ -24,12 +24,12 @@ class ContractSection
 	public function persist()
 	{			
 
-		return 	$this->contract
+		return 	response()->json($this->contract
 				->update([
 
 				$this->sectionName() => $this->getFields()
 
-				]);
+				]));
 
 	}
 

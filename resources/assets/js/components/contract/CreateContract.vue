@@ -68,24 +68,46 @@
 
 		methods: {
 
+			/**
+			 * Recieve completed form from event
+			 */
+
 			incrementCompleted (form) {
 
 				
-				// Contract ID				
-				this.contractId = form.contractId;
+				// Set Contract ID
+				if(form.section === 'algemeen'){
 
-
-				this.completed += (100 / this.formSections.length);
+					this.contractId = form.contractId;
+				}				
+								
 
 				let vm = this;
 
+				// console.log(form.section);
+
+				
+
+				//Reject form if already in preview and add it _.reject()
+				//
+				this.sectionPreview = _.reject(this.sectionPreview, function (sec){return sec.section === form.section });				
+
 				this.sectionPreview.push({ section: form.section, data: form.form });
+
+				
 				
 
 				this.formSections = _.map( this.formSections, function(fm){
+					
 
 					if(fm.section == form.section)
 					{
+						//Increment completion percentage
+						if(!fm.completed){
+							vm.completed += (100 / vm.formSections.length);
+						}
+
+
 						fm.completed = true;
 						fm.active = false;
 
@@ -98,6 +120,24 @@
 
 				} );
 
+
+			},
+
+			changeView (section){
+
+				this.formSections = _.map( this.formSections, function(fm){
+
+					if(fm.completed && fm.section == section)
+					{						
+						fm.active = true;						
+					}
+					else if(fm.section != 'algemeen') {
+						fm.active = false;
+					}
+
+					return fm;
+
+				} );
 
 			},
 
@@ -154,7 +194,7 @@
 
 					<!-- Algemeen Section -->
 
-					<div class="section-header" :class="[formSections[0].completed ? 'clickable' : '']">
+					<div class="section-header" @click="changeView('algemeen')" :class="[formSections[0].completed ? 'clickable' : '']">
 						<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">1 Algemeen</h3>
 					</div>
 
@@ -163,7 +203,7 @@
 						
 						<div v-if="formSections[0].active">
 
-							<algemeen></algemeen>
+							<algemeen :contract-id="contractId"></algemeen>
 
 						</div>
 
@@ -172,7 +212,7 @@
 
 					<!-- Klantgegevens Section -->
 
-					<div class="section-header" :class="[formSections[1].completed ? 'clickable' : '']">
+					<div class="section-header" @click="changeView('klantgegevens')" :class="[formSections[1].completed ? 'clickable' : '']">
 						<h3 class="section-title" :class="[formSections[1].active ? 'sectionActive' : '']">2 Klantgegevens</h3>
 					</div>
 

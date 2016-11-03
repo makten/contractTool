@@ -6,6 +6,7 @@ use HafizAbass\Contract\DbContractInterface;
 use HafizAbass\DbRepository;
 use Validator;
 use Illuminate\Http\Response;
+use Auth;
 
 class DbContractRepository extends DbRepository implements DbContractInterface {
 
@@ -32,21 +33,41 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 	public function createOrMerge($section)
 	{
 
+		// dd($section);
 		
+		// dd($this->getMannr($section));
 
 		if ( $this->shouldValidate($section->all()) ){
 
-			$validator = $this->validate($section->all());
+			// $validator = $this->validate($section->all());
 
-			if ($validator->fails()){			
+			// if ($validator->fails()){			
 
-				return response($validator->errors()->all(), 303);
-			}
-			
-				return $this->model->create($section->all());
+			// 	return response($validator->errors()->all(), 303);
+			// }			
+
+
+			return $this->model->updateOrCreate(
+				['contractnaam' => $section->get('contractnaam')],					
+				[
+					'sectionName' => $section->get('sectionName'),
+					'contractVoorDerde' => $section->get('contractVoorDerde'),
+					'mannr' => $this->getMannr($section),
+					'contractnaam' => $section->get('contractnaam'),
+					'meervest' => $section->get('meervest'),
+					'vestigingen' => $section->get('vestigingen'),
+					'imtech' => $section->get('imtech'),
+					'imtechconnr' => $section->get('imtechconnr'),
+					'contractType' => $section->get('contractType'),
+					'algemeenOpmerking' => $section->get('algemeenOpmerking'),
+				]
+
+				);
 
 			
 		}
+
+		// dd($section);
 
 
 		$contract = $this->model->mergeSection($section);
@@ -56,15 +77,17 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 	}
 
 
+	/**
+	 * [getMannr check availability of mannr or return default]
+	 * @param  [type] $section [description]
+	 * @return [type]          [description]
+	 */
+	public function getMannr($section)
+	{
+		return ! $section->has('mannr') ? 12554 : $section->get('mannr');
+	}
 
-	// public function persist()
-	// {			
 
-	// 	return $this->contract->update([$this->sectionName => $section->except(['errors'])]);
-
-	// }
-
-	
 
 	public function validate($input)
 	{

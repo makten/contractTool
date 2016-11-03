@@ -37,4 +37,11 @@ class ContractsController extends Controller
 		
 		// dd($request->all());
 	}
+
+
+	public function find($id)
+	{
+		return $this->contract->findById($id);
+		
+	}
 }

@@ -43,22 +43,12 @@ export default {
 
 		 		NProgress.done();
 
+		 		
 
-		 		if(form.sectionName === 'algemeen')
-		 		{
-		 			console.log(this.$refs)
-		 		}
+		 		let databag = { section: form.sectionName, completed: true, form: form, contractId: response.data.id };
 
-
-
-		 		if ( ! form.completed)
-		 		{
-		 			let databag = { section: form.sectionName, completed: true, form: form, contractId: response.data.id };
-
-		 			eventBroadcaster.$emit(`${form.sectionName}-completed`, databag );
-
-		 			this.form.completed = true;
-		 		}
+		 		eventBroadcaster.$emit(`${form.sectionName}-completed`, databag );
+		 		
 
 		 		form.redirect = '';
 
@@ -84,8 +74,23 @@ export default {
 
 		 	});
 
-		 }
+		 },
 
+
+		 /**
+		  * Get section data and pass for edit
+		  */
+
+		  editSection (url){
+
+
+		  	this.$http.get(url)
+		  	.then((response) => {					
+
+		  		this.setData(response.data);
+		  	});	 	
+
+		  },
 
 		}
 

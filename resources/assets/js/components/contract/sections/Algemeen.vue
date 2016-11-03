@@ -12,6 +12,8 @@
 
 		components: {VSelect},
 
+		props: ['contract-id'],
+
 		data () {
 
 			return {
@@ -44,6 +46,8 @@
 					
 					sectionName: 'algemeen',
 
+					id: 0,
+
 					errors: [],
 					contractVoorDerde: '',
 					mannr: '',
@@ -65,11 +69,20 @@
 		mounted () {
 			this.$nextTick( function () {	
 				
+				this.algemeenForm.id = this.contractId;
+				
+				if(this.contractId != '')
+				{
+					// Get data for editing
+					this.editSection(`api/getSection/${this.contractId}`);					
+				}
 			})
 		},
 
 		
 		methods: {
+
+			
 
 			storeAlgemeen () {	
 
@@ -78,21 +91,40 @@
 				let validation = this.validateForm(this.algemeenForm, validationData.rules, validationData.messages);
 
 
-				// if(validation.fails()){
-				// 	this.validations = [];
-				// 	this.validations.push(validation.errors.errors);
-				// }
+				if(validation.fails()){
+					this.validations = [];
+					this.validations.push(validation.errors.errors);
+				}
 
-				// if (validation.passes()){
-				// 	this.validations = [];
-				this.persistForm('post', 'api/storeSection', this.algemeenForm);
-				// }
+				if (validation.passes()){
+					this.validations = [];
+					this.persistForm('post', 'api/storeSection', this.algemeenForm);
+				}
 
 			},			
 
 			hasErrors () {
 
 				return this.validations.length > 0 ? true : false;				
+			},
+
+
+			/**
+			 * Set edit data
+			 */
+			setData (data) {
+
+				this.algemeenForm.sectionName = data.sectionName
+				this.algemeenForm.contractVoorDerde = data.contractVoorDerde
+				this.algemeenForm.mannr = data.mannr
+				this.algemeenForm.contractnaam = data.contractNaam
+				this.algemeenForm.meervest = data.meervest
+				this.algemeenForm.vestigingen = data.vestigingen
+				this.algemeenForm.imtech = data.imtech
+				this.algemeenForm.imtechconnr = data.imtechconnr
+				this.algemeenForm.contractType = data.contractType
+				this.algemeenForm.algemeenOpmerking = data.algemeenOpmerking
+				this.algemeenForm.redirect = data.redirect
 			}
 
 		}
@@ -142,7 +174,7 @@
 				<div class="radio radio-inline radio-primary">
 					
 					<label>
-						<input id="algemeen-contract-contractVoorDerde" type="radio" value="ja" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde">
+						<input id="algemeen-contract-contractVoorDerde" type="radio" value="ja" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde" lazy>
 						Ja
 					</label>
 					
@@ -150,7 +182,7 @@
 				<div class="radio radio-inline radio-primary">
 
 					<label>
-						<input id="algemeen-contract-contractVoorDerde" type="radio" value="nee" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde">
+						<input id="algemeen-contract-contractVoorDerde" type="radio" value="nee" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde" lazy>
 						Nee
 					</label>
 
@@ -205,7 +237,8 @@
 			<input id="algemeen-contract-contractnaam" 
 			type="text" class="form-control" 
 			name="contractnaam" 
-			v-model="algemeenForm.contractnaam" 			
+			v-model="algemeenForm.contractnaam" 
+			lazy			
 			>
 
 			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractnaam }} </p>

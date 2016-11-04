@@ -37,7 +37,7 @@ class ContractSection
 
 	private function sectionName()
 	{
-		return $this->attributes->get('sectionName');
+		return $this->attributes->get('section_name');
 	}
 
 

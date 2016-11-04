@@ -17,15 +17,15 @@ export default {
 
 				rules:{
 
-					contractVoorDerde: 'required',
-					mannr: 'required_if:contractVoorDerde,ja',
-					contractnaam: 'required|min:4',
+					contract_voorderde: 'required',
+					mannr: 'required_if:contract_voorderde,ja',
+					contract_naam: 'required|min:4',
 					meervest: 'required',
 					vestigingen: 'required_if:meervest,ja|min:2',
 					imtech: 'required',
 					imtechconnr: 'required_if:imtech,ja',
-					contractType: 'required|not_in:0',
-					algemeenOpmerking: 'max:250',
+					contract_type: 'required|not_in:0',
+					algemeen_opmerking: 'max:250',
 
 				},
 				messages: {
@@ -52,22 +52,22 @@ export default {
 			let rules_set1 = {
 
 				mOpdrachtgever: 'required',
-				klantType: 'required|not_in:0',
-				klantNaam: 'required',
-				klantKvK: 'required_if:klantType,2|min:4',				
+				klant_type: 'required|not_in:0',
+				klant_naam: 'required',
+				klantKvK: 'required_if:klant_ype,2|min:4',				
 
 			};
 
 			let rules_set2 = {
 
 				mOpdrachtgever: 'required',					
-				versklantType: 'required|not_in:0',
-				naamPartij: 'required|min:4',
-				versklantOpdrgever: 'required|not_in:0',					
+				versklant_type: 'required|not_in:0',
+				naam_partij: 'required|min:4',
+				versklant_opdrgever: 'required|not_in:0',					
 				opdrachtgever: 'required',
-				kvkOpdrachtgever:'required_if:versklantOpdrgever,2|min:4',
-				versfactuurPartij: 'required|not_in:0',
-				factuurpartij: 'required',
+				kvk_opdrachtgever:'required_if:versklant_opdrgever,2|min:4',
+				versfactuur_partij: 'required|not_in:0',
+				factuur_partij: 'required',
 
 			};
 

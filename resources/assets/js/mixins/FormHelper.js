@@ -45,9 +45,9 @@ export default {
 
 		 		
 
-		 		let databag = { section: form.sectionName, completed: true, form: form, contractId: response.data.id };
+		 		let databag = { section: form.section_name, completed: true, form: form, contractId: response.data.id };
 
-		 		eventBroadcaster.$emit(`${form.sectionName}-completed`, databag );
+		 		eventBroadcaster.$emit(`${form.section_name}-completed`, databag );
 		 		
 
 		 		form.redirect = '';
@@ -59,7 +59,7 @@ export default {
 
 		 		NProgress.done();
 
-		 		eventBroadcaster.$emit(`${form.sectionName}-completed`, { section: form.sectionName, completed: true, form: form });
+		 		eventBroadcaster.$emit(`${form.section_name}-completed`, { section: form.section_name, completed: true, form: form });
 
 
 		 		if (typeof response.data === 'object')

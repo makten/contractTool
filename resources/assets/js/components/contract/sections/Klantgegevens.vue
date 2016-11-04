@@ -32,20 +32,20 @@
 
 				klantgegevensForm: {
 
-					sectionName:'klantgegevens',
+					section_name:'klantgegevens',
 
 					contractId: '',
 					mOpdrachtgever: '',	
-					klantType: 0,
-					klantNaam: '',
+					klant_type: 0,	
+					klant_naam: '',
 					klantKvK: '',
-					versklantType: 0,
-					naamPartij: '',
-					versklantOpdrgever: 0,
+					versklant_type: 0,
+					naam_partij: '',
+					versklant_opdrgever: 0,
 					opdrachtgever: '',
-					kvkOpdrachtgever: '',
-					versfactuurPartij: 0,
-					factuurpartij: '',					
+					kvk_opdrachtgever: '',
+					versfactuur_partij: 0,
+					factuur_partij: '',					
 
 					errors: [],
 				},
@@ -106,19 +106,19 @@
 
 			 	if(data.klantgegevens != null){
 
-			 		this.klantgegevensForm.sectionName = data.klantgegevens.sectionName;
+			 		this.klantgegevensForm.section_name = data.klantgegevens.section_name;
 			 		this.klantgegevensForm.contractId = data.klantgegevens.contractId;
 			 		this.klantgegevensForm.mOpdrachtgever = data.klantgegevens.mOpdrachtgever;
-			 		this.klantgegevensForm.klantType = data.klantgegevens.klantType;
-			 		this.klantgegevensForm.klantNaam = data.klantgegevens.klantNaam;
-			 		this.klantgegevensForm.klantKvK = data.klantgegevens.klantKvK;
-			 		this.klantgegevensForm.versklantType = data.klantgegevens.versklantType;
-			 		this.klantgegevensForm.naamPartij = data.klantgegevens.naamPartij;
-			 		this.klantgegevensForm.versklantOpdrgever = data.klantgegevens.versklantOpdrgever;
+			 		this.klantgegevensForm.klant_type = data.klantgegevens.klant_type;
+			 		this.klantgegevensForm.klant_naam = data.klantgegevens.klant_naam;
+			 		this.klantgegevensForm.klant_KvK = data.klantgegevens.klantKvK;
+			 		this.klantgegevensForm.versklant_type = data.klantgegevens.versklant_type;
+			 		this.klantgegevensForm.naam_partij = data.klantgegevens.naam_partij;
+			 		this.klantgegevensForm.versklant_opdrgever = data.klantgegevens.versklant_opdrgever;
 			 		this.klantgegevensForm.opdrachtgever = data.klantgegevens.opdrachtgever;
-			 		this.klantgegevensForm.kvkOpdrachtgever = data.klantgegevens.kvkOpdrachtgever;
-			 		this.klantgegevensForm.versfactuurPartij = data.klantgegevens.versfactuurPartij;
-			 		this.klantgegevensForm.factuurpartij = data.klantgegevens.factuurpartij;
+			 		this.klantgegevensForm.kvk_Opdrachtgever = data.klantgegevens.kvk_Opdrachtgever;
+			 		this.klantgegevensForm.versfactuur_partij = data.klantgegevens.versfactuur_partij;
+			 		this.klantgegevensForm.factuur_partij = data.klantgegevens.factuur_partij;
 			 	}
 
 
@@ -131,11 +131,11 @@
 
 				nieuwBestand: function () {
 
-					if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.klantType == 2) {						
+					if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.klant_type == 2) {						
 
 						return 2;
 					}
-					else if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.klantType == 1) 
+					else if (this.klantgegevensForm.mOpdrachtgever === 'ja' && this.klantgegevensForm.klant_type == 1) 
 					{
 						return 1;
 					}
@@ -146,10 +146,10 @@
 
 				nieuwBestandPartije: function () {	
 
-					if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 2) {
+					if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklant_type == 2) {
 						return 2;
 					}
-					else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantType == 1) 
+					else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklant_type == 1) 
 					{
 						return 1;
 					}
@@ -161,11 +161,11 @@
 				nieuwBestandOpdrgever: function () {
 
 
-					if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 2) {
+					if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklant_opdrgever == 2) {
 						
 						return 2;
 					}
-					else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklantOpdrgever == 1) 
+					else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versklant_opdrgever == 1) 
 					{						
 						return 1;
 					}
@@ -177,10 +177,10 @@
 				nieuwBestandFactuurPartij: function () {
 
 
-					if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 2) {
+					if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versfactuur_partij == 2) {
 						return 2;
 					}
-					else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versfactuurPartij == 1) 
+					else if (this.klantgegevensForm.mOpdrachtgever === 'nee' && this.klantgegevensForm.versfactuur_partij == 1) 
 					{
 						return 1;
 					}
@@ -260,17 +260,17 @@
 
 					<div class="form-group">
 
-						<label for="inputEmail" class="col-md-4 control-label select-label">
+						<label for="klant_type" class="col-md-4 control-label select-label">
 							Bij welke partij voert Unica het werk uit? *
 						</label>
 
 						<div class="col-md-5">						
 
-							<v-select :options="klantChoice" v-model="klantgegevensForm.klantType">
+							<v-select :options="klantChoice" v-model="klantgegevensForm.klant_type">
 								<option disabled value="0">Maak keuze</option>									
 							</v-select>
 
-							<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantType }} </p>
+							<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klant_type }} </p>
 
 
 						</div>
@@ -287,12 +287,12 @@
 
 				<div class="form-group">
 
-					<label for="klantNaam" class="col-md-4 control-label">Voer klantnaam op *</label>
+					<label for="klant_naam" class="col-md-4 control-label">Voer klantnaam op *</label>
 
 					<div class="col-md-5">
 
-						<input id="algemeen-contract-klantNaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">				
-						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantNaam }} </p>
+						<input id="algemeen-contract-klant_naam" type="text" class="form-control" name="klant_naam" v-model="klantgegevensForm.klant_naam">				
+						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klant_naam }} </p>
 					</div>
 				</div>
 
@@ -312,13 +312,13 @@
 
 			<div class="form-group" v-show="nieuwBestand == 1" :class="[klantgegevensForm.mOpdrachtgever === 'ja' ? 'subquestion' : '' ]">
 
-				<label for="klantNaam" class="col-md-4 control-label">Zoek een klant op *</label>
+				<label for="klant_naam" class="col-md-4 control-label">Zoek een klant op *</label>
 
 				<div class="col-md-5">
 
-					<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="klantNaam" v-model="klantgegevensForm.klantNaam">
+					<input id="algemeen-contract-klant_naam" type="text" class="form-control" name="klant_naam" v-model="klantgegevensForm.klant_naam">
 
-					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klantNaam }} </p>				
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].klant_naam }} </p>				
 
 				</div>
 
@@ -339,18 +339,18 @@
 
 				<!-- <div class="form-group"> -->
 
-				<label for="inputEmail" class="col-md-4 control-label select-label">
+				<label for="versklant_type" class="col-md-4 control-label select-label">
 					Bij welke partij voert Unica het werk uit? *
 				</label>
 
 				<div class="col-md-5">
 
 
-					<v-select :options="klantChoice" v-model="klantgegevensForm.versklantType">
+					<v-select :options="klantChoice" v-model="klantgegevensForm.versklant_type">
 						<option disabled value="0">Maak keuze</option>									
 					</v-select>
 
-					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versklantType }} </p>
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versklant_type }} </p>
 
 				</div>
 
@@ -370,9 +370,9 @@
 
 			<div class="col-md-5">
 
-				<input id="klantgegevens-naamPartij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naamPartij">	
+				<input id="klantgegevens-naam_partij" type="text" class="form-control" name="naam_partij" v-model="klantgegevensForm.naam_partij">	
 
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].naamPartij }} </p>			
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].naam_partij }} </p>			
 
 			</div>			
 
@@ -381,13 +381,13 @@
 
 		<div class="form-group" v-show="nieuwBestandPartije == 1">
 
-			<label for="naamPartij" class="col-md-4 control-label">Zoek een klant op *</label>
+			<label for="naam_partij" class="col-md-4 control-label">Zoek een klant op *</label>
 
 			<div class="col-md-5">
 
-				<input id="klantgegevens-naamPartij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naamPartij">	
+				<input id="klantgegevens-naam_partij" type="text" class="form-control" name="naamPartij" v-model="klantgegevensForm.naam_partij">	
 
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].naamPartij }} </p>				
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].naam_partij }} </p>				
 
 			</div>
 
@@ -409,17 +409,17 @@
 
 			<div class="form-group">
 
-				<label for="inputEmail" class="col-md-4 control-label select-label">
+				<label for="versklant_opdrgever" class="col-md-4 control-label select-label">
 					Wie is de opdrachtgever? *
 				</label>
 
 				<div class="col-md-5">				
 
-					<v-select :options="klantChoice" v-model="klantgegevensForm.versklantOpdrgever">
+					<v-select :options="klantChoice" v-model="klantgegevensForm.versklant_opdrgever">
 						<option disabled value="0">Maak keuze</option>									
 					</v-select>
 
-					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versklantOpdrgever }} </p>	
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versklant_opdrgever }} </p>	
 				</div>
 
 			</div>
@@ -450,11 +450,11 @@
 
 		<div class="form-group">	
 
-			<label for="klantgegevens-klantKvK" class="col-md-4 control-label">Voer KvK op *</label>
+			<label for="klantgegevens-kvk_opdrachtgever" class="col-md-4 control-label">Voer KvK op *</label>
 
 			<div class="col-md-5">
-				<input id="klantgegevens-kvkOpdrachtgever" type="text" class="form-control" name="kvkOpdrachtgever" v-model="klantgegevensForm.kvkOpdrachtgever">
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].kvkOpdrachtgever }} </p>	
+				<input id="klantgegevens-kvk_opdrachtgever" type="text" class="form-control" name="kvk_opdrachtgever" v-model="klantgegevensForm.kvk_opdrachtgever">
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].kvk_opdrachtgever }} </p>	
 			</div>	
 
 		</div>
@@ -491,17 +491,17 @@
 
 		<div class="form-group">
 
-			<label for="inputEmail" class="col-md-4 control-label select-label">
+			<label for="versfactuur_partij" class="col-md-4 control-label select-label">
 				Naar welke partij stuurt Unica de factuur? *
 			</label>
 
 			<div class="col-md-5">
 
-				<v-select :options="klantChoice" v-model="klantgegevensForm.versfactuurPartij">
+				<v-select :options="klantChoice" v-model="klantgegevensForm.versfactuur_partij">
 					<option disabled value="0">Maak keuze</option>									
 				</v-select>
 
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versfactuurPartij }} </p>	
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].versfactuur_partij }} </p>	
 
 
 			</div>
@@ -518,13 +518,13 @@
 
 <div class="form-group" v-show="nieuwBestandFactuurPartij == 2">
 
-	<label for="opdrachtgever" class="col-md-4 control-label">Voer naam op *</label>
+	<label for="factuur_partij" class="col-md-4 control-label">Voer naam op *</label>
 
 	<div class="col-md-5">
 
-		<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="factuurpartij" v-model="klantgegevensForm.factuurpartij">		
+		<input id="algemeen-contract-factuur_partij" type="text" class="form-control" name="factuur_partij" v-model="klantgegevensForm.factuur_partij">		
 
-		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].factuurpartij }} </p>			
+		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].factuur_partij }} </p>			
 
 	</div>	
 
@@ -534,12 +534,12 @@
 
 <div class="form-group" v-show="nieuwBestandFactuurPartij == 1" >
 
-	<label for="opdrachtgever" class="col-md-4 control-label">Zoek de debiteur op *</label>
+	<label for="factuur_partij" class="col-md-4 control-label">Zoek de debiteur op *</label>
 
 	<div class="col-md-5">
 
-		<input id="algemeen-contract-contractnaam" type="text" class="form-control" name="factuurpartij" v-model="klantgegevensForm.factuurpartij">				
-		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].factuurpartij }} </p>	
+		<input id="algemeen-contract-factuur_partij" type="text" class="form-control" name="factuur_partij" v-model="klantgegevensForm.factuur_partij">				
+		<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].factuur_partij }} </p>	
 	</div>
 
 </div>

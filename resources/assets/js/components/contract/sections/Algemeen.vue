@@ -44,20 +44,20 @@
 
 				algemeenForm: {
 					
-					sectionName: 'algemeen',
+					section_name: 'algemeen',
 
 					id: 0,
 
 					errors: [],
-					contractVoorDerde: '',
+					contract_voorderde: '',
 					mannr: '',
-					contractnaam: '',
+					contract_naam: '',
 					meervest: '',
 					vestigingen: [],
 					imtech: '',
 					imtechconnr: '',
-					contractType: 0,
-					algemeenOpmerking: '',
+					contract_type: 0,
+					algemeen_opmerking: '',
 					
 					redirect: '',
 					
@@ -112,18 +112,18 @@
 			/**
 			 * Set edit data
 			 */
-			setData (data) {
+			setData (data) {				
 
-				this.algemeenForm.sectionName = data.sectionName
-				this.algemeenForm.contractVoorDerde = data.contractVoorDerde
+				this.algemeenForm.section_name = data.section_name
+				this.algemeenForm.contract_voorderde = data.contract_voorderde
 				this.algemeenForm.mannr = data.mannr
-				this.algemeenForm.contractnaam = data.contractNaam
+				this.algemeenForm.contract_naam = data.contract_naam
 				this.algemeenForm.meervest = data.meervest
 				this.algemeenForm.vestigingen = data.vestigingen
 				this.algemeenForm.imtech = data.imtech
 				this.algemeenForm.imtechconnr = data.imtechconnr
-				this.algemeenForm.contractType = data.contractType
-				this.algemeenForm.algemeenOpmerking = data.algemeenOpmerking
+				this.algemeenForm.contract_type = data.contract_type
+				this.algemeenForm.algemeen_opmerking = data.algemeen_opmerking
 				this.algemeenForm.redirect = data.redirect
 			}
 
@@ -174,7 +174,7 @@
 				<div class="radio radio-inline radio-primary">
 					
 					<label>
-						<input id="algemeen-contract-contractVoorDerde" type="radio" value="ja" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde" lazy>
+						<input id="algemeen-contract-contract_voorderde" type="radio" value="ja" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
 						Ja
 					</label>
 					
@@ -182,13 +182,13 @@
 				<div class="radio radio-inline radio-primary">
 
 					<label>
-						<input id="algemeen-contract-contractVoorDerde" type="radio" value="nee" name="contractVoorDerde" v-model="algemeenForm.contractVoorDerde" lazy>
+						<input id="algemeen-contract-contract_voorderde" type="radio" value="nee" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
 						Nee
 					</label>
 
 				</div>
 
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractVoorDerde }} </p>
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_voorderde }} </p>
 
 			</div>
 		</div>
@@ -200,7 +200,7 @@
 		leave-active-class="animated zoomOutLeft"
 		>				
 
-		<div class="form-group" style="margin-top: 0;" v-if="algemeenForm.contractVoorDerde === 'ja'" :class="[algemeenForm.contractVoorDerde === 'ja' ? 'subquestion' : '' ]">
+		<div class="form-group" style="margin-top: 0;" v-if="algemeenForm.contract_voorderde === 'ja'" :class="[algemeenForm.contract_voorderde === 'ja' ? 'subquestion' : '' ]">
 
 			<label for="mannr" class="col-md-4 control-label">
 				Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
@@ -230,18 +230,18 @@
 
 	<div class="form-group">
 
-		<label for="contractnaam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
+		<label for="contract_naam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
 
 		<div class="col-md-5">
 
-			<input id="algemeen-contract-contractnaam" 
+			<input id="algemeen-contract-contract_naam" 
 			type="text" class="form-control" 
 			name="contractnaam" 
-			v-model="algemeenForm.contractnaam" 
+			v-model="algemeenForm.contract_naam" 
 			lazy			
 			>
 
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractnaam }} </p>
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_naam }} </p>
 			
 
 		</div>
@@ -363,15 +363,15 @@
 	<p><b>Verworven contract</b></p>
 
 	<div class="form-group">
-		<label for="contract-type" class="col-md-4 control-label select-label">Hoe is dit contract verworven? *:</label>
+		<label for="contract_type" class="col-md-4 control-label select-label">Hoe is dit contract verworven? *:</label>
 
 		<div class="col-md-5">
 
-			<v-select :options="conType" v-model="algemeenForm.contractType">
+			<v-select :options="conType" v-model="algemeenForm.contract_type">
 				<option disabled value="0">Maak keuze</option>				
 			</v-select>
 
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contractType }} </p>
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_type }} </p>
 
 		</div>
 		
@@ -380,17 +380,17 @@
 
 
 	<div class="form-group">
-		<label for="textArea" class="col-md-4 control-label">Extra opmerking:</label>
+		<label for="algemeen_opmerking" class="col-md-4 control-label">Extra opmerking:</label>
 
 		<div class="col-md-5">
 
 
-			<textarea class="form-control" rows="3" id="algemeenOpmerking" v-model="algemeenForm.algemeenOpmerking" maxlength="250"></textarea>
+			<textarea class="form-control" rows="3" id="algemeen_opmerking" v-model="algemeenForm.algemeen_opmerking" maxlength="250"></textarea>
 			<span class="help-block text-info"><i class="fa fa-info-circle"></i> Hier kunt u aanvullende opmerking achterlaten.</span>
-			<span class="text-info pull-right text-xs" style="font-size: 10px; font-family: consolas;"> {{ 250 - algemeenForm.algemeenOpmerking.length }} tekens nog</span>
+			<span class="text-info pull-right text-xs" style="font-size: 10px; font-family: consolas;"> {{ 250 - algemeenForm.algemeen_opmerking.length }} tekens nog</span>
 			
 
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].algemeenOpmerking }} </p>
+			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].algemeen_opmerking }} </p>
 		</div>
 		
 	</div>

@@ -16,16 +16,16 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table){
 
             $table->increments('id');
-            $table->string('sectionName');
-            $table->string('contractVoorDerde');
+            $table->string('section_name');
+            $table->string('contract_voorderde');
             $table->string('mannr');
-            $table->string('contractNaam');
+            $table->string('contract_naam');
             $table->string('meervest')->nullable();
             $table->json('vestigingen')->nullable();
             $table->string('imtech');
             $table->string('imtechconnr');
-            $table->string('contractType');
-            $table->text('algemeenOpmerking', 300);
+            $table->string('contract_type');
+            $table->text('algemeen_opmerking', 300);
             
             $table->json('klantgegevens')->nullable();
             $table->json('contactgegevens')->nullable();

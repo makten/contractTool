@@ -5,9 +5,7 @@ namespace HafizAbass\Contract;
 interface DbContractInterface {
 
 
-	public function getAll();	
-
-	// public function persist();
+	public function getAll();
 
 	public function rules();
 

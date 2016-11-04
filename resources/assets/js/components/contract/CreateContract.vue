@@ -123,7 +123,7 @@
 
 				if(this.formSections[section].active || this.formSections[section].completed) 
 				{
-					console.log('completed')
+					
 					this.formSections = _.map( this.formSections, function(fm){						
 
 						fm.active = false;
@@ -395,21 +395,25 @@
 						
 						<div v-if="preview.sec === 'algemeen'">
 
-							<div v-if=" preview.data != '' ">
+							<transition name="slide-fade">	
 
-								<div class="section-header">
-									<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Algemeen</h3>
+								<div v-if=" preview.data != '' ">
+
+									<div class="section-header">
+										<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Algemeen</h3>
+									</div>
+
+									<li><p><b>Gemaakt voor een derde? </b>{{ preview.data.contract_voorderde }}</p></li>
+									<li><p><b>Mannr: </b> {{ preview.data.mannr }}</p></li>
+									<li><p><b>Contractnaam: </b> {{ preview.data.contract_naam }}</p></li>
+									<li><p><b>Meerdere vestigingen? </b>{{ preview.data.meervest }}<p></li>
+									<li><p><b>Vestigigen </b>{{ preview.data.vestigingen }}</p></li>
+									<li><p><b>Imtech contract? </b>{{ preview.data.imtech }}</li>
+									<li><p><b>Imtech contractnr.: </b>{{ preview.data.imtech }}</li>
+									<li><p><b>Contract verworpen: </b>{{ preview.data.contract_type }}</p></li>
+									<li><p><b>alg. opmerking: </b>{{ preview.data.algemeen_opmerking }}</p></li>
 								</div>
-
-								<li>{{ preview.data.contractVoorDerde }}</li>
-								<li><p><b>Mannr</b> {{ preview.data.mannr }}</p></li>
-								<li>p {{ preview.data.contractNaam }}</li>
-								<li>{{ preview.data.meervest }}</li>
-								<li>{{ preview.data.vestigingen }}</li>
-								<li>{{ preview.data.imtech }}</li>
-								<li>{{ preview.data.contractType }}</li>
-								<li>{{ preview.data.algemeenOpmerking }}</li>
-							</div>
+							</transition>
 						</div>
 
 
@@ -424,16 +428,16 @@
 
 
 								<li>{{ preview.data.klant_en_opdrachtgever }}</li>
-								<li>{{ preview.data.klantType }}</li>
-								<li>{{ preview.data.klantNaam }}</li>
+								<li>{{ preview.data.klant_type }}</li>
+								<li>{{ preview.data.klant_naam }}</li>
 								<li>{{ preview.data.klantKvK }}</li>
-								<li>{{ preview.data.versklantType }}</li>
-								<li>{{ preview.data.naamPartij }}</li>
-								<li>{{ preview.data.contractType }}</li>
-								<li>{{ preview.data.versklantOpdrgever }}</li>
+								<li>{{ preview.data.versklant_type }}</li>
+								<li>{{ preview.data.naam_partij }}</li>
+								<li>{{ preview.data.contract_type }}</li>
+								<li>{{ preview.data.versklant_opdrgever }}</li>
 								<li>{{ preview.data.opdrachtgever }}</li>
-								<li>{{ preview.data.versfactuurPartij }}</li>
-								<li>{{ preview.data.factuurpartij }}</li>
+								<li>{{ preview.data.versfactuur_partij }}</li>
+								<li>{{ preview.data.factuur_partij }}</li>
 							</div>
 
 							

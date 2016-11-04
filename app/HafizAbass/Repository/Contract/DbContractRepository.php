@@ -32,10 +32,7 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 
 	public function createOrMerge($section)
 	{
-
-		// dd($section);
 		
-		// dd($this->getMannr($section));
 
 		if ( $this->shouldValidate($section->all()) ){
 
@@ -48,18 +45,18 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 
 
 			return $this->model->updateOrCreate(
-				['contractnaam' => $section->get('contractnaam')],					
+				['contract_naam' => $section->get('contract_naam')],					
 				[
-					'sectionName' => $section->get('sectionName'),
-					'contractVoorDerde' => $section->get('contractVoorDerde'),
+					'section_name' => $section->get('section_name'),
+					'contract_voorderde' => $section->get('contract_voorderde'),
 					'mannr' => $this->getMannr($section),
-					'contractnaam' => $section->get('contractnaam'),
+					'contract_naam' => $section->get('contract_naam'),
 					'meervest' => $section->get('meervest'),
 					'vestigingen' => $section->get('vestigingen'),
 					'imtech' => $section->get('imtech'),
 					'imtechconnr' => $section->get('imtechconnr'),
-					'contractType' => $section->get('contractType'),
-					'algemeenOpmerking' => $section->get('algemeenOpmerking'),
+					'contract_type' => $section->get('contract_type'),
+					'algemeen_opmerking' => $section->get('algemeen_opmerking'),
 				]
 
 				);
@@ -98,7 +95,7 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 	public function shouldValidate($section) 
 	{
 
-		return $section['sectionName'] === 'algemeen' ? true : false;
+		return $section['section_name'] === 'algemeen' ? true : false;
 	}
 
 
@@ -111,13 +108,13 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 
 		return [
 
-		'contractVoorDerde' => 'required',
-		'mannr' => 'required_if:contractVoorDerde,ja',
-		'contractnaam' => 'required|unique:contracts|max:255',
+		'contract_voorderde' => 'required',
+		'mannr' => 'required_if:contract_voorderde,ja',
+		'contract_naam' => 'required|unique:contracts|max:255',
 		'meervest' => 'required',
 		'imtech' => 'required',
 		'imtechconnr' => 'required_if:imtech,ja',
-		'contractType' => 'min:1'
+		'contract_type' => 'min:1'
 
 		];
 
@@ -136,7 +133,7 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 		'required' => ':attribute is verplict',
 		'required_if' => ':attribute is verplict',
 		'unique' => 'Er bestaat al een contract met deze naam',		
-		'min' => 'Selecteer contractType',
+		'min' => 'Selecteer min 2',
 		'max' => ':attribute heeft te veel karakters'
 
 		];

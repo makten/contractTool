@@ -92,7 +92,21 @@ const app = new Vue({
 			$.material.ripples();
 			$.material.input();
 			$.material.checkbox();				
-			// $(".select").dropdown({ "autoinit" : ".select" });
+			
+			// 
+			// //Tooltip popups
+			$(".top").tooltip({
+				placement: "top"
+			});
+			$(".right").tooltip({
+				placement: "right"
+			});
+			$(".bottom").tooltip({
+				placement: "bottom"
+			});
+			$(".left").tooltip({
+				placement: "left"
+			});
 
 
 		})

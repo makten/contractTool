@@ -118,22 +118,51 @@
 
 			},
 
-			changeView (section){
+			changeView (section){		
+
+
+				if(this.formSections[section].active || this.formSections[section].completed) 
+				{
+					console.log('completed')
+					this.formSections = _.map( this.formSections, function(fm){						
+
+						fm.active = false;
+
+						return fm;
+
+					});
+
+					this.formSections[section].active = true;
+
+					return;
+				}
+
+
+				if(this.formSections[section].completed) 
+				{
+					this.formSections[section].active = true;
+				}
 
 				this.formSections = _.map( this.formSections, function(fm){
 
-					fm.active = false;
+					if(!fm.completed){
 
-					if(fm.completed)
-					{														
-						fm.active = true
+						fm.active = false;
 					}
 
-					if(!fm.active && fm.section === 'algemeen'){fm.active = true}
 
 					return fm;
 
-				} );
+				});
+
+
+				if(typeof _.find(this.formSections, function(o){ return o.completed;}) == 'undefined'){
+
+					this.formSections[0].active = true;
+					
+				}
+
+
 
 			},
 
@@ -211,7 +240,7 @@
 
 					<!-- Algemeen Section -->
 
-					<div class="section-header" @click="changeView('algemeen')" :class="[formSections[0].completed ? 'clickable' : '']">
+					<div class="section-header" @click="changeView(0)" :class="[formSections[0].completed ? 'clickable' : '']">
 						<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">1 Algemeen</h3>
 					</div>
 
@@ -229,7 +258,7 @@
 
 					<!-- Klantgegevens Section -->
 
-					<div class="section-header" @click="changeView('klantgegevens')" :class="[formSections[1].completed ? 'clickable' : '']">
+					<div class="section-header" @click="changeView(1)" :class="[formSections[1].completed ? 'clickable' : '']">
 						<h3 class="section-title" :class="[formSections[1].active ? 'sectionActive' : '']">2 Klantgegevens</h3>
 					</div>
 
@@ -449,7 +478,7 @@
 		background: #D1D0D0;
 	}
 
-
+	
 	.sectionActive {
 		background: #7E7E7E;		
 	}

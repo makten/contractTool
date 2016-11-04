@@ -38,7 +38,12 @@
 				completed: 0,
 				algemeenForm: '',
 
-				sectionPreview: [],
+				sectionPreview: [
+				{sec: 'algemeen', data: ''},
+				{sec: 'klantgegevens', data: ''},
+				{sec: 'contactgegevens', data: ''}					
+				],						
+				
 
 				formSections: [
 				{section: 'algemeen', completed: false, active: true},
@@ -72,29 +77,19 @@
 			 * Recieve completed form from event
 			 */
 
-			incrementCompleted (form) {
+			 incrementCompleted (form) {
 
-				
+
 				// Set Contract ID
 				if(form.section === 'algemeen'){
 
 					this.contractId = form.contractId;
 				}				
-								
 
-				let vm = this;
 
-				// console.log(form.section);
+				let vm = this;	
 
-				
-
-				//Reject form if already in preview and add it _.reject()
-				//
-				this.sectionPreview = _.reject(this.sectionPreview, function (sec){return sec.section === form.section });				
-
-				this.sectionPreview.push({ section: form.section, data: form.form });
-
-				
+				this.setPreview(form);
 				
 
 				this.formSections = _.map( this.formSections, function(fm){
@@ -127,17 +122,36 @@
 
 				this.formSections = _.map( this.formSections, function(fm){
 
-					if(fm.completed && fm.section == section)
-					{						
-						fm.active = true;						
+					fm.active = false;
+
+					if(fm.completed)
+					{														
+						fm.active = true
 					}
-					else if(fm.section != 'algemeen') {
-						fm.active = false;
-					}
+
+					if(!fm.active && fm.section === 'algemeen'){fm.active = true}
 
 					return fm;
 
 				} );
+
+			},
+
+
+			setPreview (section) {	
+
+				this.sectionPreview = _.map(this.sectionPreview, (sec) => {
+					
+
+					if(sec.sec === section.section)
+					{
+						sec.data = section.form;
+					}
+
+					return sec;
+				})
+
+				
 
 			},
 
@@ -157,10 +171,13 @@
 
 		computed: {
 
-			isActive: function () {
+			// isActive: function (sent) {
 
-				return 'contractvorm';				
-			}
+			// 	_.each(this.sectionPreview, (prev) => {
+
+
+			// 	});				
+			// }
 
 		}
 
@@ -345,42 +362,52 @@
 					
 					<ul v-for="preview in sectionPreview">
 
+
 						
-						<div v-if="preview.section === 'algemeen'">
+						<div v-if="preview.sec === 'algemeen'">
 
-							<div class="section-header">
-								<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Algemeen</h3>
+							<div v-if=" preview.data != '' ">
+
+								<div class="section-header">
+									<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Algemeen</h3>
+								</div>
+
+								<li>{{ preview.data.contractVoorDerde }}</li>
+								<li><p><b>Mannr</b> {{ preview.data.mannr }}</p></li>
+								<li>p {{ preview.data.contractNaam }}</li>
+								<li>{{ preview.data.meervest }}</li>
+								<li>{{ preview.data.vestigingen }}</li>
+								<li>{{ preview.data.imtech }}</li>
+								<li>{{ preview.data.contractType }}</li>
+								<li>{{ preview.data.algemeenOpmerking }}</li>
 							</div>
-
-							<li>{{ preview.data.contractVoorDerde }}</li>
-							<li><p><b>Mannr</b> {{ preview.data.mannr }}</p></li>
-							<li>{{ preview.data.contractnaam }}</li>
-							<li>{{ preview.data.meervest }}</li>
-							<li>{{ preview.data.vestigingen }}</li>
-							<li>{{ preview.data.imtech }}</li>
-							<li>{{ preview.data.contractType }}</li>
-							<li>{{ preview.data.algemeenOpmerking }}</li>
 						</div>
 
 
 
-						<div v-if="preview.section === 'klantgegevens'">
+						<div v-if="preview.sec === 'klantgegevens'">
 
-							<div class="section-header">
-								<h3 class="section-title" :class="[formSections[0].active ? 'sectionActive' : '']">Klantgegevens</h3>
+							<div v-if=" preview.data != '' ">
+
+								<div class="section-header">
+									<h3 class="section-title" :class="[formSections[1].active ? 'sectionActive' : '']">Klantgegevens</h3>
+								</div>
+
+
+								<li>{{ preview.data.klant_en_opdrachtgever }}</li>
+								<li>{{ preview.data.klantType }}</li>
+								<li>{{ preview.data.klantNaam }}</li>
+								<li>{{ preview.data.klantKvK }}</li>
+								<li>{{ preview.data.versklantType }}</li>
+								<li>{{ preview.data.naamPartij }}</li>
+								<li>{{ preview.data.contractType }}</li>
+								<li>{{ preview.data.versklantOpdrgever }}</li>
+								<li>{{ preview.data.opdrachtgever }}</li>
+								<li>{{ preview.data.versfactuurPartij }}</li>
+								<li>{{ preview.data.factuurpartij }}</li>
 							</div>
 
-							<li>{{ preview.data.klant_en_opdrachtgever }}</li>
-							<li>{{ preview.data.klantType }}</li>
-							<li>{{ preview.data.klantNaam }}</li>
-							<li>{{ preview.data.klantKvK }}</li>
-							<li>{{ preview.data.versklantType }}</li>
-							<li>{{ preview.data.naamPartij }}</li>
-							<li>{{ preview.data.contractType }}</li>
-							<li>{{ preview.data.versklantOpdrgever }}</li>
-							<li>{{ preview.data.opdrachtgever }}</li>
-							<li>{{ preview.data.versfactuurPartij }}</li>
-							<li>{{ preview.data.factuurpartij }}</li>
+							
 						</div>
 
 

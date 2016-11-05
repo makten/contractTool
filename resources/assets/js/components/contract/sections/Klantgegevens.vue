@@ -76,20 +76,20 @@
 				let validation = this.validateForm(this.klantgegevensForm, validationData.rules, validationData.messages);
 
 
-				if(validation.fails()){
-					this.validations = [];
-					this.validations.push(validation.errors.errors);
-				}
+				// if(validation.fails()){
+				// 	this.validations = [];
+				// 	this.validations.push(validation.errors.errors);
+				// }
 
-				if (validation.passes()){
+				// if (validation.passes()){
 
-					this.validations = [];
+				// 	this.validations = [];
 
 					//Set contractId	
 					this.klantgegevensForm.contractId = this.contractId;
 
 					this.persistForm('post', 'api/storeSection', this.klantgegevensForm);
-				}
+				// }
 
 			},		
 

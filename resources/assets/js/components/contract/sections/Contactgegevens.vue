@@ -1,22 +1,57 @@
 <script>
+
+	import FormHelper from '../../../mixins/FormHelper';	
+	import SearchEngine from '../../../mixins/SearchEngine';	
+	import VSelect from '../../../mixins/Selector.vue';
+	import ClientValidationRules from '../../../mixins/validationRules';
 	
 	export default {
 
+		mixins: [FormHelper, ClientValidationRules, SearchEngine],
 
-		props: [],
+		components: {VSelect},
+
+
+		props: {
+			contractId: {
+				type: Number,
+				default: null,
+				required: true
+			},
+		},
 
 		data () {
 
 			return {
 
+				
+				contactpersons: [],
+
+				searchQuery: '',
+
+				companies: [
+
+				{ name: 'Ziggo', contact_person: {}, address: 'Ziggostraat 12 8292FD Amsterdam' },
+				{ name: 'Kpn', contact_person: {}, address: 'Kpnstraat 12 8292FD Amsterdam' },
+				{ name: 'Vodafone', contact_person: {}, address: 'Vodafonestraat 12 8292FD Amsterdam' },
+				],
+
+
+				validations: [],
+
+
+				contactgegevensForm: {
+
+				},
+
 				contactgegevensForm: {
 					
-					section_name: 'algemeen',
+					section_name: 'contactgegevens',
 
 					id: 0,
 
 					errors: [],
-					contract_voorderde: '',
+					contact_type: '',
 					mannr: '',
 					contract_naam: '',
 					meervest: '',
@@ -32,298 +67,344 @@
 			}
 		},
 
+		mounted () {
+			this.$nextTick( function () {				
+
+				if(this.contractId != null)
+				{
+					// Get data for editing
+					this.editSection(`api/getSection/${this.contractId}`);					
+				}
+
+				$('#modal-create-contactperson').on('shown.bs.modal', () => {
+					$('#create-contactperson-name').focus();
+				});
+
+				$('#modal-edit-client').on('shown.bs.modal', () => {
+					$('#edit-client-name').focus();
+				});
+			})
+		},
+
 
 		methods: {
-			
-			storeAlgemeen () {
 
-				// if (! this.algemeenForm.completed)
+
+			/**
+             * Show the form for creating new clients.
+             */
+             showcontactgegevensForm() {
+             	$('#modal-create-contactperson').modal('show');
+             },
+
+
+            /**
+             * Edit the given client.
+             */
+             edit(client) {
+             	this.editForm.id = client.id;
+             	this.editForm.name = client.name;
+             	this.editForm.redirect = client.redirect;
+
+             	$('#modal-edit-client').modal('show');
+             },
+
+
+             search(){
+
+             	this.makeSearch('api/searchperson/'+this.searchQuery, this.contactpersons);
+             },
+
+
+             store(){
+
+             },
+
+
+             storeAlgemeen () {
+
+				// if (! this.contactgegevensForm.completed)
 				// {
 					eventBroadcaster.$emit('contactgegevens-completed', { section: 'contactgegevens', completed: true});
-					// this.algemeenForm.completed = true;
+					// this.contactgegevensForm.completed = true;
 				// }
 				
+			},
+
+			hasErrors () {
+
+				return this.validations.length > 0 ? true : false;				
+			},
+
+
+			/**
+			 * Set edit data
+			 */
+			 setData (data) {
+
+			 	if(data.klantgegevens != null){
+
+			 		// this.klantgegevensForm.section_name = data.klantgegevens.section_name;
+			 		// this.klantgegevensForm.contractId = data.klantgegevens.contractId;
+			 		
+			 	}
+
+
+			 }
+
 			}
+
 		}
 
 
-	}
+	</script>
 
-</script>
-
-<template>
-
-	
-	<div class="contactgegevens-wrapper">	
-
-		<!-- Form Errors -->
-
-		<div class="alert" v-if="algemeenForm.errors.length > 0" style="background-color: #F15959;">
-			<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
-			<br>
-			<ul>
-				<li v-for="error in contactgegevensForm.errors">
-					{{ error }}
-				</li>
-			</ul>
-		</div>	
+	<template>
 
 
-		<!-- Create Algemeen Form -->
+		<div class="contactgegevens-wrapper">	
 
-		
-		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>	
+			<!-- Form Errors -->
 
-			<input type="hidden" name="id" ref="conId">
+			<div class="alert" v-if="contactgegevensForm.errors.length > 0" style="background-color: #F15959;">
+				<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
+				<br>
+				<ul>
+					<li v-for="error in contactgegevensForm.errors">
+						{{ error }}
+					</li>
+				</ul>
+			</div>	
 
-			<div class="form-group">
 
-				<label class="col-md-4 control-label" style="margin-top: 0px;">
-					Betreft de klant een bedrijf of een particulier? *
+			<!-- Create Algemeen Form -->
 
-					<i 	title="Het is mogelijk om een contract voor iemand anders in te richting ..." 
-					id="basic-addon1"class="addon bottom fa fa-info-circle">
-				</i>
 
-			</label>
+			<form class="form-horizontal" role="form" id="contactgegevensForm" @submit.prevent="store" novalidate>	
 
-			<div class="col-md-5">
-				<div class="radio radio-inline radio-primary">
-					
-					<label>
-						<input id="algemeen-contract-contract_voorderde" type="radio" value="ja" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
-						Ja
-					</label>
-					
-				</div>
-				<div class="radio radio-inline radio-primary">
+				<input type="hidden" name="id" ref="conId">
 
-					<label>
-						<input id="algemeen-contract-contract_voorderde" type="radio" value="nee" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
-						Nee
+				<div class="form-group">
+
+					<label class="col-md-4 control-label" style="margin-top: 0px;">
+						Betreft de klant een bedrijf of een particulier? *
+
 					</label>
 
+					<div class="col-md-5">
+						<div class="radio radio-inline radio-primary">
+
+							<label>
+								<input type="radio" value="bedrijf" name="contact_type" v-model="contactgegevensForm.contact_type" lazy>
+								Bedrijf
+							</label>
+
+						</div>
+						<div class="radio radio-inline radio-primary">
+
+							<label>
+								<input type="radio" value="particulier" name="contact_type" v-model="contactgegevensForm.contact_type" lazy>
+								Particulier
+							</label>
+
+						</div>
+
+						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contact_type }} </p>
+
+					</div>
 				</div>
 
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_voorderde }} </p>
 
-			</div>
-		</div>
+				<transition
+				name="custom-classes-transition"
+				enter-active-class="animated zoomIn"
+				leave-active-class="animated zoomOutLeft"
+				>				
 
+				<div class="form-group" style="margin-top: 0;" >
 
-		<transition
-		name="custom-classes-transition"
-		enter-active-class="animated zoomIn"
-		leave-active-class="animated zoomOutLeft"
-		>				
+					<div class="col-md-5">
 
-		<div class="form-group" style="margin-top: 0;" v-if="algemeenForm.contract_voorderde === 'ja'" :class="[algemeenForm.contract_voorderde === 'ja' ? 'subquestion' : '' ]">
+						<a href="javascript:void(0)" 
+						v-if="contactgegevensForm.contact_type === 'bedrijf'" 
+						class="btn btn-primary btn-sm"						
+						>
 
-			<label for="mannr" class="col-md-4 control-label">
-				Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
-			</label>
+						<i class="material-icons">add_circle</i> 
+						bedrijf
+					</a>
 
-			<div class="col-md-5" v-if="">
+					<a href="javascript:void(0)" 
+					class="btn btn-success btn-sm"
+					@click="showcontactgegevensForm"
+					>
+					<i class="material-icons">add_circle</i> 
+					contactpersoon
+				</a>						
 
-
-				<input id="algemeen-contract-mannr" 
-				type="text" class="form-control " 
-				name="mannr" 
-				v-model="algemeenForm.mannr"
-				
-				>					
-				<!-- <p class="error-block text-danger" v-if="validation.length > 0">{{ validation.errors.first('mannr') }} </p> -->
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].mannr }} </p>
-				
-
-				<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
 			</div>
 
 		</div>
+
 
 	</transition>
 
+	<div class="list-group col-md-7" v-if="companies.length > 0">
+
+		<div class="list-group-item" v-for="company in companies">
+
+			<div class="row-action-primary">
+				<i class="material-icons" style="border-radius: 0px; font-size: 35px;">contact_phone</i>
+			</div>
+
+			<div class="row-content">
+
+				<div class="pull-right"> <span style="color: #FB390C; font-size: 7px;"> <i class="material-icons">clear</i> </span></div>
+				<div class="pull-right"> <span style="color: #2F85F0;"> bewerken &nbsp</span></div>
 
 
-	<div class="form-group">
+				<h4 class="list-group-item-heading">{{ company.name }}</h4>
 
-		<label for="contract_naam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
+				<p class="list-group-item-text">{{ company.address }}</p>
+			</div>
 
-		<div class="col-md-5">
+			<div class="list-group-separator"></div>
 
-			<input id="algemeen-contract-contract_naam" 
-			type="text" class="form-control" 
-			name="contractnaam" 
-			v-model="algemeenForm.contract_naam" 
-			lazy			
-			>
-
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_naam }} </p>
-			
-
-		</div>
+		</div>				
 
 	</div>
 
 
 	<div class="form-group">
-
-		<label class="col-md-4 control-label" style="margin-top: 0px;">
-			Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
-
-						<!-- <i title="" id="basic-addon1"class="addon bottom fa fa-info-circle">
-					</i> -->
-
-				</label>
-
-				<div class="col-md-5">
-					<div class="radio radio-inline radio-primary">
-						<label>
-							<input id="algemeen-contract-meervestja" type="radio" value="ja" name="meervest" v-model="algemeenForm.meervest">
-							Ja
-						</label>
-					</div>
-					<div class="radio radio-inline radio-primary">
-						<label>
-							<input id="algemeen-contract-meervestnee" type="radio" value="nee" name="meervest" v-model="algemeenForm.meervest">
-							Nee
-						</label>
-					</div>
-					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].meervest }} </p>
-				</div>
-			</div>
-
-
-			<transition
-			name="custom-classes-transition"
-			enter-active-class="animated zoomIn"
-			leave-active-class="animated zoomOutLeft"
-			>				
-
-			<div class="form-group" style="margin-top: 0;" v-show="algemeenForm.meervest === 'ja'" :class="[algemeenForm.meervest === 'ja' ? 'subquestion' : '' ]">
-
-
-				<label class="col-md-4 control-label" style="margin-top: 0px;">
-					Welke vestigingen? *
-				</label>
-
-				<div class="col-md-5">
-
-					<div class="checkbox chk-cities" v-for="city in cities">
-
-						<label>
-
-							<input type="checkbox" :value="city" v-model="algemeenForm.vestigingen" > {{ city }}							
-
-						</label>
-
-					</div>
-					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].vestigingen }} </p>
-				</div>
-
-			</div>
-
-		</transition>
-
-
-
-		<div class="form-group">
-
-			<label class="col-md-4 control-label" style="margin-top: 0px;">
-				Betreft dit een voormalig Imtech contract? *
-
-			</label>
-
-			<div class="col-md-8">
-				<div class="radio radio-inline radio-primary">
-					<label>
-						<input id="algemeen-contract-imteccontract" type="radio" value="ja" name="imtech" v-model="algemeenForm.imtech">
-						Ja
-					</label>
-				</div>
-				<div class="radio radio-inline radio-primary">
-					<label>
-						<input id="algemeen-contract-imteccontract" type="radio" value="nee" name="imtech" v-model="algemeenForm.imtech">
-						Nee
-					</label>
-				</div>
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].imtech }} </p>
-			</div>
-		</div>
-
-
-		<transition
-		name="custom-classes-transition"
-		enter-active-class="animated zoomIn"
-		leave-active-class="animated zoomOutLeft"
-		>	
-
-		<div class="form-group" v-show="algemeenForm.imtech === 'ja'" :class="[algemeenForm.imtech === 'ja' ? 'subquestion' : '' ]">
-
-			<label for="imtec-connr" class="col-md-4 control-label">
-				Contractnummer Imtech (SC nr.) *:
-			</label>
-
-			<div class="col-md-5">
-
-				<input type="text" class="form-control" id="imtec-connr" name="imtechconnr" v-model="algemeenForm.imtechconnr">
-
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].imtechconnr }} </p>
-			</div>
-			
-
-		</div>
-
-	</transition>
-
-
-	<p><b>Verworven contract</b></p>
-
-	<div class="form-group">
-		<label for="contract_type" class="col-md-4 control-label select-label">Hoe is dit contract verworven? *:</label>
-
-		<div class="col-md-5">
-
-			<v-select :options="conType" v-model="algemeenForm.contract_type">
-				<option disabled value="0">Maak keuze</option>				
-			</v-select>
-
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_type }} </p>
-
-		</div>
-		
-	</div>
-
-
-
-	<div class="form-group">
-		<label for="algemeen_opmerking" class="col-md-4 control-label">Extra opmerking:</label>
-
-		<div class="col-md-5">
-
-
-			<textarea class="form-control" rows="3" id="algemeen_opmerking" v-model="algemeenForm.algemeen_opmerking" maxlength="250"></textarea>
-			<span class="help-block text-info"><i class="fa fa-info-circle"></i> Hier kunt u aanvullende opmerking achterlaten.</span>
-			<span class="text-info pull-right text-xs" style="font-size: 10px; font-family: consolas;"> {{ 250 - algemeenForm.algemeen_opmerking.length }} tekens nog</span>
-			
-
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].algemeen_opmerking }} </p>
-		</div>
-		
-	</div>
-
-
-
-
-	<div class="form-group">
-		<div class="col-md-10 col-md-offset-2">
-			<!-- <button type="button" class="btn btn-default btn-raised btn-xs pull-left">Cancel</button> -->
+		<div class="col-md-10 col-md-offset-2">					
 			<button type="submit" class="btn btn-info btn-raised btn-sm pull-right" @click.prevent="storeAlgemeen">Submit</button>
 		</div>
 	</div>
 
 
-	<!-- </fieldset> -->
+
+	<!-- Create Client Modal -->
+	<div class="modal fade" id="modal-create-contactperson" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+					<h4 class="modal-title">
+						Contactpersoon toevoegen
+					</h4>
+				</div>
+
+				<div class="modal-body">
+					<!-- Form Errors -->
+					<div class="alert alert-danger" v-if="contactgegevensForm.errors.length > 0">
+						<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
+						<br>
+						<ul>
+							<li v-for="error in contactgegevensForm.errors">
+								{{ error }}
+							</li>
+						</ul>
+					</div>				
+
+
+					<table class="table table-striped table-hover" v-if="contactpersons.length > 0">
+						<thead>
+							<tr>
+								<th>Mannr</th>
+								<th>Initialen</th>
+								<th>Column heading</th>
+								<th>Column heading</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="contactperson in contactpersons">
+
+								<td>
+									{{ contactperson.mpers_persnr }}
+								</td>
+
+								<td>
+									{{ contactperson.mpers_initialen }}
+								</td>
+
+								<td>
+									{{ contactperson.mpers_achternaam }}
+								</td>
+
+								<td>
+									{{ contactperson.mpers_email }}
+								</td>
+
+								<td>
+									{{ contactperson.mpers_functie }}
+								</td>
+
+							</tr>							
+
+						</tbody>
+					</table>
+
+
+
+					<!-- Create Client Form -->
+					<form class="form-horizontal" role="form">
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Zoek</label>
+
+							<div class="col-md-7">
+
+								<input id="create-contactperson-searchQuery" type="text" class="form-control"
+								@keyup.enter="search" v-model="searchQuery">
+
+							</div>
+						</div>
+
+						<!-- Name -->
+						<div class="form-group">
+							<label class="col-md-3 control-label">Name</label>
+
+							<div class="col-md-7">
+								<input id="create-contactperson-name" type="text" class="form-control"
+								@keyup.enter="store" v-model="contactgegevensForm.name">								
+
+								<span class="help-block">
+									Something your users will recognize and trust.
+								</span>
+							</div>
+						</div>
+
+						<!-- Redirect URL -->
+						<div class="form-group">
+							<label class="col-md-3 control-label">Redirect URL</label>
+
+							<div class="col-md-7">
+								<input type="text" class="form-control" name="redirect"
+								@keyup.enter="store" v-model="contactgegevensForm.redirect">
+
+								<span class="help-block">
+									Your application's authorization callback URL.
+								</span>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- Modal Actions -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					<button type="button" class="btn btn-primary" @click="store">
+						Create
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 </form>	
 
 
@@ -333,6 +414,5 @@
 
 
 <style>
-
 
 </style>

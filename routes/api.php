@@ -18,3 +18,6 @@ Route::post('testEndPoint', 'ContractsController@testEndPoint');
 // Route::post('storeAlgemeen', 'ContractsController@storeAlgemeen');
 Route::post('storeSection', 'API\ContractsController@store');
 Route::get('getSection/{id}', 'API\ContractsController@find');
+
+// Route::get('searchperson/{query}', 'API\ContractsController@search');
+//Scout for searching

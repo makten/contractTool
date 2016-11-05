@@ -91,15 +91,15 @@
 				let validation = this.validateForm(this.algemeenForm, validationData.rules, validationData.messages);
 
 
-				if(validation.fails()){
-					this.validations = [];
-					this.validations.push(validation.errors.errors);
-				}
+				// if(validation.fails()){
+				// 	this.validations = [];
+				// 	this.validations.push(validation.errors.errors);
+				// }
 
-				if (validation.passes()){
-					this.validations = [];
+				// if (validation.passes()){
+				// 	this.validations = [];
 					this.persistForm('post', 'api/storeSection', this.algemeenForm);
-				}
+				// }
 
 			},			
 
@@ -112,147 +112,147 @@
 			/**
 			 * Set edit data
 			 */
-			setData (data) {				
+			 setData (data) {				
 
-				this.algemeenForm.section_name = data.section_name
-				this.algemeenForm.contract_voorderde = data.contract_voorderde
-				this.algemeenForm.mannr = data.mannr
-				this.algemeenForm.contract_naam = data.contract_naam
-				this.algemeenForm.meervest = data.meervest
-				this.algemeenForm.vestigingen = data.vestigingen
-				this.algemeenForm.imtech = data.imtech
-				this.algemeenForm.imtechconnr = data.imtechconnr
-				this.algemeenForm.contract_type = data.contract_type
-				this.algemeenForm.algemeen_opmerking = data.algemeen_opmerking
-				this.algemeenForm.redirect = data.redirect
+			 	this.algemeenForm.section_name = data.section_name
+			 	this.algemeenForm.contract_voorderde = data.contract_voorderde
+			 	this.algemeenForm.mannr = data.mannr
+			 	this.algemeenForm.contract_naam = data.contract_naam
+			 	this.algemeenForm.meervest = data.meervest
+			 	this.algemeenForm.vestigingen = data.vestigingen
+			 	this.algemeenForm.imtech = data.imtech
+			 	this.algemeenForm.imtechconnr = data.imtechconnr
+			 	this.algemeenForm.contract_type = data.contract_type
+			 	this.algemeenForm.algemeen_opmerking = data.algemeen_opmerking
+			 	this.algemeenForm.redirect = data.redirect
+			 }
+
 			}
-
 		}
-	}
 
-</script>
-
-
-<template>
+	</script>
 
 
-	<div class="algemeen-wrapper">	
+	<template>
 
 
-		<!-- Form Errors -->
-
-		<div class="alert" v-if="algemeenForm.errors.length > 0" style="background-color: #F15959;">
-			<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
-			<br>
-			<ul>
-				<li v-for="error in algemeenForm.errors">
-					{{ error }}
-				</li>
-			</ul>
-		</div>	
+		<div class="algemeen-wrapper">	
 
 
-		<!-- Create Algemeen Form -->
+			<!-- Form Errors -->
 
-		
-		<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>	
+			<div class="alert" v-if="algemeenForm.errors.length > 0" style="background-color: #F15959;">
+				<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
+				<br>
+				<ul>
+					<li v-for="error in algemeenForm.errors">
+						{{ error }}
+					</li>
+				</ul>
+			</div>	
 
-			<input type="hidden" name="id" ref="conId">
 
-			<div class="form-group">
+			<!-- Create Algemeen Form -->
 
-				<label class="col-md-4 control-label" style="margin-top: 0px;">
-					Word dit contract ingediend voor iemand anders? *
 
-					<i 	title="Het is mogelijk om een contract voor iemand anders in te richting ..." 
-					id="basic-addon1"class="addon bottom fa fa-info-circle">
-				</i>
+			<form class="form-horizontal" role="form" id="algemeenForm" @submit.prevent="store" novalidate>	
 
-			</label>
+				<input type="hidden" name="id" ref="conId">
+
+				<div class="form-group">
+
+					<label class="col-md-4 control-label" style="margin-top: 0px;">
+						Word dit contract ingediend voor iemand anders? *
+
+						<i 	title="Het is mogelijk om een contract voor iemand anders in te richting ..." 
+						id="basic-addon1"class="addon bottom fa fa-info-circle">
+					</i>
+
+				</label>
+
+				<div class="col-md-5">
+					<div class="radio radio-inline radio-primary">
+
+						<label>
+							<input id="algemeen-contract-contract_voorderde" type="radio" value="ja" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
+							Ja
+						</label>
+
+					</div>
+					<div class="radio radio-inline radio-primary">
+
+						<label>
+							<input id="algemeen-contract-contract_voorderde" type="radio" value="nee" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
+							Nee
+						</label>
+
+					</div>
+
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_voorderde }} </p>
+
+				</div>
+			</div>
+
+
+			<transition
+			name="custom-classes-transition"
+			enter-active-class="animated zoomIn"
+			leave-active-class="animated zoomOutLeft"
+			>				
+
+			<div class="form-group" style="margin-top: 0;" v-if="algemeenForm.contract_voorderde === 'ja'" :class="[algemeenForm.contract_voorderde === 'ja' ? 'subquestion' : '' ]">
+
+				<label for="mannr" class="col-md-4 control-label">
+					Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
+				</label>
+
+				<div class="col-md-5" v-if="">
+
+
+					<input id="algemeen-contract-mannr" 
+					type="text" class="form-control " 
+					name="mannr" 
+					v-model="algemeenForm.mannr"
+
+					>					
+					<!-- <p class="error-block text-danger" v-if="validation.length > 0">{{ validation.errors.first('mannr') }} </p> -->
+					<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].mannr }} </p>
+
+
+					<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
+				</div>
+
+			</div>
+
+		</transition>
+
+
+
+		<div class="form-group">
+
+			<label for="contract_naam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
 
 			<div class="col-md-5">
-				<div class="radio radio-inline radio-primary">
-					
-					<label>
-						<input id="algemeen-contract-contract_voorderde" type="radio" value="ja" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
-						Ja
-					</label>
-					
-				</div>
-				<div class="radio radio-inline radio-primary">
 
-					<label>
-						<input id="algemeen-contract-contract_voorderde" type="radio" value="nee" name="contract_voorderde" v-model="algemeenForm.contract_voorderde" lazy>
-						Nee
-					</label>
+				<input id="algemeen-contract-contract_naam" 
+				type="text" class="form-control" 
+				name="contractnaam" 
+				v-model="algemeenForm.contract_naam" 
+				lazy			
+				>
 
-				</div>
-
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_voorderde }} </p>
-
-			</div>
-		</div>
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_naam }} </p>
 
 
-		<transition
-		name="custom-classes-transition"
-		enter-active-class="animated zoomIn"
-		leave-active-class="animated zoomOutLeft"
-		>				
-
-		<div class="form-group" style="margin-top: 0;" v-if="algemeenForm.contract_voorderde === 'ja'" :class="[algemeenForm.contract_voorderde === 'ja' ? 'subquestion' : '' ]">
-
-			<label for="mannr" class="col-md-4 control-label">
-				Voor wie word dit contract ingevoerd? <b><sup>(optioneel)</sup></b>
-			</label>
-
-			<div class="col-md-5" v-if="">
-
-
-				<input id="algemeen-contract-mannr" 
-				type="text" class="form-control " 
-				name="mannr" 
-				v-model="algemeenForm.mannr"
-				
-				>					
-				<!-- <p class="error-block text-danger" v-if="validation.length > 0">{{ validation.errors.first('mannr') }} </p> -->
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].mannr }} </p>
-				
-
-				<p class="help-block text-info"><i class="fa fa-info-circle"></i> Als je een contract inricht voor een derde</p>
 			</div>
 
 		</div>
 
-	</transition>
 
+		<div class="form-group">
 
-
-	<div class="form-group">
-
-		<label for="contract_naam" class="col-md-4 control-label">Wat is de naam van het contract? *</label>
-
-		<div class="col-md-5">
-
-			<input id="algemeen-contract-contract_naam" 
-			type="text" class="form-control" 
-			name="contractnaam" 
-			v-model="algemeenForm.contract_naam" 
-			lazy			
-			>
-
-			<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contract_naam }} </p>
-			
-
-		</div>
-
-	</div>
-
-
-	<div class="form-group">
-
-		<label class="col-md-4 control-label" style="margin-top: 0px;">
-			Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
+			<label class="col-md-4 control-label" style="margin-top: 0px;">
+				Zijn er meerdere vestigingen financieel verantwoordelijk voor dit contract? *
 
 						<!-- <i title="" id="basic-addon1"class="addon bottom fa fa-info-circle">
 					</i> -->
@@ -515,5 +515,32 @@
 		.subquestion {
 			background: #F9F2DD;
 
+		}
+
+
+		.error-block {
+			animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+			transform: translate3d(0, 0, 0);
+			backface-visibility: hidden;
+			perspective: 1000px;
+		}
+
+
+		@keyframes shake {
+			10%, 90% {
+				transform: translate3d(-1px, 0, 0);
+			}
+
+			20%, 80% {
+				transform: translate3d(2px, 0, 0);
+			}
+
+			30%, 50%, 70% {
+				transform: translate3d(-4px, 0, 0);
+			}
+
+			40%, 60% {
+				transform: translate3d(4px, 0, 0);
+			}
 		}
 	</style>

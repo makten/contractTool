@@ -183,6 +183,8 @@ return [
          */
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+         ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
 
         /*
         *   Own packages

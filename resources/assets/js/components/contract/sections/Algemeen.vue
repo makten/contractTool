@@ -45,9 +45,6 @@
 				algemeenForm: {
 					
 					section_name: 'algemeen',
-
-					id: 0,
-
 					errors: [],
 					contract_voorderde: '',
 					mannr: '',
@@ -57,8 +54,7 @@
 					imtech: '',
 					imtechconnr: '',
 					contract_type: 0,
-					algemeen_opmerking: '',
-					
+					algemeen_opmerking: '',					
 					redirect: '',
 					
 				}
@@ -91,15 +87,15 @@
 				let validation = this.validateForm(this.algemeenForm, validationData.rules, validationData.messages);
 
 
-				// if(validation.fails()){
-				// 	this.validations = [];
-				// 	this.validations.push(validation.errors.errors);
-				// }
+				if(validation.fails()){
+					this.validations = [];
+					this.validations.push(validation.errors.errors);
+				}
 
-				// if (validation.passes()){
-				// 	this.validations = [];
+				if (validation.passes()){
+					this.validations = [];
 					this.persistForm('post', 'api/storeSection', this.algemeenForm);
-				// }
+				}
 
 			},			
 
@@ -114,7 +110,7 @@
 			 */
 			 setData (data) {				
 
-			 	this.algemeenForm.section_name = data.section_name
+			 	// this.algemeenForm.section_name = data.section_name
 			 	this.algemeenForm.contract_voorderde = data.contract_voorderde
 			 	this.algemeenForm.mannr = data.mannr
 			 	this.algemeenForm.contract_naam = data.contract_naam
@@ -124,7 +120,7 @@
 			 	this.algemeenForm.imtechconnr = data.imtechconnr
 			 	this.algemeenForm.contract_type = data.contract_type
 			 	this.algemeenForm.algemeen_opmerking = data.algemeen_opmerking
-			 	this.algemeenForm.redirect = data.redirect
+			 	// this.algemeenForm.redirect = data.redirect
 			 }
 
 			}

@@ -32,6 +32,7 @@ class DbContractRepository extends DbRepository implements DbContractInterface {
 
 	public function createOrMerge($section)
 	{
+
 		
 
 		if ( $this->shouldValidate($section->all()) ){

@@ -25,24 +25,28 @@
 			return {
 
 				
-				contactpersons: [],
-
+				searchcompanies: {},
 				searchQuery: '',
 
-				companies: [
+				companydetailsForm: {
 
-				{ name: 'Ziggo', contact_person: {}, address: 'Ziggostraat 12 8292FD Amsterdam' },
-				{ name: 'Kpn', contact_person: {}, address: 'Kpnstraat 12 8292FD Amsterdam' },
-				{ name: 'Vodafone', contact_person: {}, address: 'Vodafonestraat 12 8292FD Amsterdam' },
+					errors: [],
+
+					debnr: '',
+					naam: '',
+					kvk: '',
+					adres: '',
+					postcode: '',
+					plaats: '',
+
+				},
+
+				companies: [
+				
 				],
 
 
-				validations: [],
-
-
-				contactgegevensForm: {
-
-				},
+				validations: [],				
 
 				contactgegevensForm: {
 					
@@ -68,6 +72,7 @@
 		},
 
 		mounted () {
+
 			this.$nextTick( function () {				
 
 				if(this.contractId != null)
@@ -76,8 +81,8 @@
 					this.editSection(`api/getSection/${this.contractId}`);					
 				}
 
-				$('#modal-create-contactperson').on('shown.bs.modal', () => {
-					$('#create-contactperson-name').focus();
+				$('#modal-create-company').on('shown.bs.modal', () => {
+					$('#create-company-name').focus();
 				});
 
 				$('#modal-edit-client').on('shown.bs.modal', () => {
@@ -94,7 +99,7 @@
              * Show the form for creating new clients.
              */
              showcontactgegevensForm() {
-             	$('#modal-create-contactperson').modal('show');
+             	$('#modal-create-company').modal('show');
              },
 
 
@@ -112,11 +117,30 @@
 
              search(){
 
-             	this.makeSearch('api/searchperson/'+this.searchQuery, this.contactpersons);
+             	let query = {search: this.searchQuery}
+             	
+             	this.makeSearch('api/companysearch/', query);             	
+             	
              },
 
 
-             store(){
+             storeCompany () {
+
+             	//api to store contract_debiteur
+             	//push to list of companies
+             	//Empty form
+             	//Empty search input            	
+             	
+
+             	this.persistCompanydetails('post', 'api/contractcompany/'+ this.contractId, this.companydetailsForm);
+
+             	this.companydetailsForm.errors = '';
+             	this.companydetailsForm.debnr = '';
+             	this.companydetailsForm.naam = '';
+             	this.companydetailsForm.kvk = '';
+             	this.companydetailsForm.adres = '';
+             	this.companydetailsForm.postcode = '';
+             	this.companydetailsForm.plaats = '';
 
              },
 
@@ -150,6 +174,36 @@
 			 	}
 
 
+			 },
+
+			 setCompanySearchData (data) {
+
+			 	// this.searchcompanies = [];
+
+			 	if(data.length > 1){
+			 		
+			 		this.searchcompanies = data;
+			 	}
+			 	else if(data.length == 1){
+
+			 		this.setcompanyData(data[0]);
+			 	}
+			 },
+
+
+
+			 setcompanyData (company) {
+			 	
+
+			 	this.companydetailsForm.debnr = company.debnr
+			 	this.companydetailsForm.naam = company.naam
+			 	this.companydetailsForm.kvk = company.kvk
+			 	this.companydetailsForm.adres = company.adres
+			 	this.companydetailsForm.postcode = company.postcode
+			 	this.companydetailsForm.plaats = company.plaats
+
+			 	this.searchcompanies = {};
+			 	this.searchQuery = '';
 			 }
 
 			}
@@ -182,7 +236,6 @@
 
 			<form class="form-horizontal" role="form" id="contactgegevensForm" @submit.prevent="store" novalidate>	
 
-				<input type="hidden" name="id" ref="conId">
 
 				<div class="form-group">
 
@@ -249,7 +302,7 @@
 
 	</transition>
 
-	<div class="list-group col-md-7" v-if="companies.length > 0">
+	<div class="list-group col-md-8" v-if="companies.length > 0">
 
 		<div class="list-group-item" v-for="company in companies">
 
@@ -263,9 +316,9 @@
 				<div class="pull-right"> <span style="color: #2F85F0;"> bewerken &nbsp</span></div>
 
 
-				<h4 class="list-group-item-heading">{{ company.name }}</h4>
+				<h4 class="list-group-item-heading">{{ company.naam }}</h4>
 
-				<p class="list-group-item-text">{{ company.address }}</p>
+				<p class="list-group-item-text">{{ company.adres }}</p>
 			</div>
 
 			<div class="list-group-separator"></div>
@@ -273,6 +326,8 @@
 		</div>				
 
 	</div>
+
+	<!-- </form>	 -->
 
 
 	<div class="form-group">
@@ -284,60 +339,66 @@
 
 
 	<!-- Create Client Modal -->
-	<div class="modal fade" id="modal-create-contactperson" tabindex="-1" role="dialog">
+	<div class="modal fade" id="modal-create-company" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
 					<h4 class="modal-title">
-						Contactpersoon toevoegen
+						Bedrijf toevoegen
 					</h4>
 				</div>
 
 				<div class="modal-body">
 					<!-- Form Errors -->
-					<div class="alert alert-danger" v-if="contactgegevensForm.errors.length > 0">
+					<div class="alert alert-danger" v-if="companydetailsForm.errors.length > 0">
 						<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
 						<br>
 						<ul>
-							<li v-for="error in contactgegevensForm.errors">
+							<li v-for="error in companydetailsForm.errors">
 								{{ error }}
 							</li>
 						</ul>
-					</div>				
+					</div>					
 
-
-					<table class="table table-striped table-hover" v-if="contactpersons.length > 0">
+					<table class="table table-striped table-hover searchtable" v-if="searchcompanies.length > 1">
 						<thead>
 							<tr>
-								<th>Mannr</th>
-								<th>Initialen</th>
-								<th>Column heading</th>
-								<th>Column heading</th>
+								<th>Debnr</th>
+								<th>Naam</th>
+								<th>KvK</th>
+								<th>Adres</th>
+								<th>Postcode</th>
+								<th>Plaats</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="contactperson in contactpersons">
+							<tr v-for="company in searchcompanies" @click='setcompanyData(company)'>
+
 
 								<td>
-									{{ contactperson.mpers_persnr }}
+									{{ company.debnr }}
 								</td>
 
 								<td>
-									{{ contactperson.mpers_initialen }}
+									{{ company.naam }}
 								</td>
 
 								<td>
-									{{ contactperson.mpers_achternaam }}
+									{{ company.kvk }}
 								</td>
 
 								<td>
-									{{ contactperson.mpers_email }}
+									{{ company.adres }}
 								</td>
 
 								<td>
-									{{ contactperson.mpers_functie }}
+									{{ company.postcode }}
+								</td>
+
+								<td>
+									{{ company.plaats }}
 								</td>
 
 							</tr>							
@@ -348,46 +409,88 @@
 
 
 					<!-- Create Client Form -->
-					<form class="form-horizontal" role="form">
+					<form class="form-horizontal" role="form" id="companydetails_form">
 
+						
 						<div class="form-group">
-							<label class="col-md-3 control-label">Zoek</label>
+							<label class="col-md-2 control-label"></label>
+							
+							<div class="input-group col-md-7">
 
-							<div class="col-md-7">
+								<span class="input-group-addon"><i class="material-icons">search</i></span>
 
-								<input id="create-contactperson-searchQuery" type="text" class="form-control"
+								<input id="create-contactperson-searchQuery" type="search" class="form-control searchbox"
+								placeholder="Zoek bedrijf op" 
 								@keyup.enter="search" v-model="searchQuery">
+								
 
 							</div>
 						</div>
 
-						<!-- Name -->
+						<!-- Debnr -->
 						<div class="form-group">
-							<label class="col-md-3 control-label">Name</label>
+							<label class="col-md-3 control-label">Debnr</label>
 
 							<div class="col-md-7">
-								<input id="create-contactperson-name" type="text" class="form-control"
-								@keyup.enter="store" v-model="contactgegevensForm.name">								
 
-								<span class="help-block">
-									Something your users will recognize and trust.
-								</span>
+								<input id="create-comp-debnr" name="debnr" type="text" class="form-control"
+								v-model="companydetailsForm.debnr">
+
 							</div>
 						</div>
 
-						<!-- Redirect URL -->
+
 						<div class="form-group">
-							<label class="col-md-3 control-label">Redirect URL</label>
+							<label class="col-md-3 control-label">Naam</label>
 
 							<div class="col-md-7">
-								<input type="text" class="form-control" name="redirect"
-								@keyup.enter="store" v-model="contactgegevensForm.redirect">
-
-								<span class="help-block">
-									Your application's authorization callback URL.
-								</span>
+								<input type="text" class="form-control" name="naam"
+								v-model="companydetailsForm.naam">
 							</div>
+
 						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">KvK</label>
+
+							<div class="col-md-7">
+								<input type="text" class="form-control" name="kvk"
+								v-model="companydetailsForm.kvk">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Adres</label>
+
+							<div class="col-md-7">
+								<input type="text" class="form-control" name="adres"
+								v-model="companydetailsForm.adres">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Postcode</label>
+
+							<div class="col-md-7">
+								<input type="text" class="form-control" name="postcode"
+								v-model="companydetailsForm.postcode">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label">Plaats</label>
+
+							<div class="col-md-7">
+								<input type="text" class="form-control" name="plaats"
+								v-model="companydetailsForm.plaats">
+							</div>
+
+						</div>
+
+
 					</form>
 				</div>
 
@@ -395,17 +498,17 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-					<button type="button" class="btn btn-primary" @click="store">
-						Create
+					<button type="button" class="btn btn-primary" @click="storeCompany">
+						Opslaan
 					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
+</div>
 
 
-</form>	
 
 
 </div>

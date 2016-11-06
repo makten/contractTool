@@ -21,25 +21,33 @@ export default {
 		 * Form validator		
 		 */
 
-		 makeSearch(query, responseBag){
+		 makeSearch(uri, query){			 	
 
-		 	this.$http.get(url).then((response) => {
-
-		 		console.log(response.data);
-
-		 		responseBag = response.data;
-		 	})
+		 	this.$http.post(uri, query).then((response) => {
+		 		
+		 		this.setCompanySearchData(response.data);
+		 	})		 	
 
 		 },
 
 		  // This is where the debounce actually belongs.
-		  expensiveOperation: _.debounce(function () {
-		  	this.isCalculating = true
-		  	setTimeout(function () {
-		  		this.isCalculating = false
-		  		this.searchQueryIsDirty = false
-		  	}.bind(this), 1000)
-		  }, 500)
+		  // expensiveOperation: _.debounce(function () {
+		  // 	this.isCalculating = true
+		  // 	setTimeout(function () {
+		  // 		this.isCalculating = false
+		  // 		this.searchQueryIsDirty = false
+		  // 	}.bind(this), 1000)
+		  // }, 500)
+		  
+		  persistCompanydetails (method, uri, form) {
+
+		  		this.$http[method](uri, form).then( response => {
+
+		  			this.companies.push(response.data);
+		  		})
+		  }
+		   
+		  
 
 
 

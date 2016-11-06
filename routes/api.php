@@ -19,5 +19,14 @@ Route::post('testEndPoint', 'ContractsController@testEndPoint');
 Route::post('storeSection', 'API\ContractsController@store');
 Route::get('getSection/{id}', 'API\ContractsController@find');
 
-// Route::get('searchperson/{query}', 'API\ContractsController@search');
-//Scout for searching
+Route::post('companysearch/', function(Request $request){
+
+	
+
+	return App\Debiteur::where('naam', 'like', '%'.$request->search.'%')->limit(10)->get();
+	// return App\Contract::search($request->search)->get();
+
+});
+
+Route::post('/contractcompany/{contract_id}', 'CompanyController@addCompany');
+

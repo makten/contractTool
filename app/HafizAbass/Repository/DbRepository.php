@@ -10,7 +10,7 @@ abstract class DbRepository {
 
 	public function findById($id)
 	{
-		return response()->json($this->model->find($id));		
+		return $this->model->find($id);		
 	}
 	
 }

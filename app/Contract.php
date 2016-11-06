@@ -2,11 +2,16 @@
 
 namespace App;
 
+use App\Company;
+use App\Debiteur;
 use HafizAbass\Contract\ContractSection;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Laravel\Scout\Searchable;
 
 class Contract extends Eloquent
 {
+
+	// use Searchable;
 
 
 	// protected $fillable = [
@@ -53,5 +58,11 @@ class Contract extends Eloquent
 		$contract = $this->where('id', $section->get('contractId'))->first();
 		
 		return new ContractSection($section, $contract);
+	}
+
+
+	public function companies()
+	{
+		return $this->hasMany(Company::class);
 	}
 }

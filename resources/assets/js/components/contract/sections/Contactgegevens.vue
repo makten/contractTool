@@ -55,18 +55,7 @@
 					id: 0,
 
 					errors: [],
-					contact_type: '',
-					mannr: '',
-					contract_naam: '',
-					meervest: '',
-					vestigingen: [],
-					imtech: '',
-					imtechconnr: '',
-					contract_type: 0,
-					algemeen_opmerking: '',
-					
-					redirect: '',
-					
+					bedrijf_particulier: '',					
 				},
 			}
 		},
@@ -147,9 +136,26 @@
 
              storeAlgemeen () {
 
+
+             	let validationData = this.contactgegevensRules();
+
+             	let validation = this.validateForm(this.contactgegevensForm, validationData.rules, validationData.messages);
+
+
+             	if(validation.fails()){
+             		this.validations = [];
+             		this.validations.push(validation.errors.errors);
+             	}
+
+             	if (validation.passes()){
+             		this.validations = [];
+             		this.persistForm('post', 'api/storeSection', this.contactgegevensForm);
+             	}
+             	
+
 				// if (! this.contactgegevensForm.completed)
 				// {
-					eventBroadcaster.$emit('contactgegevens-completed', { section: 'contactgegevens', completed: true});
+					// eventBroadcaster.$emit('contactgegevens-completed', { section: 'contactgegevens', completed: true});
 					// this.contactgegevensForm.completed = true;
 				// }
 				
@@ -245,27 +251,30 @@
 					</label>
 
 					<div class="col-md-5">
-						<div class="radio radio-inline radio-primary">
+						<div class="radio radio-inline radio-primary"  style="padding: 1px;">
 
-							<label>
-								<input type="radio" value="bedrijf" name="contact_type" v-model="contactgegevensForm.contact_type" lazy>
+							<label style="font-size: 11px;">
+								<input type="radio" value="bedrijf" name="bedrijf_particulier" v-model="contactgegevensForm.bedrijf_particulier" lazy>
 								Bedrijf
 							</label>
 
 						</div>
-						<div class="radio radio-inline radio-primary">
+						<div class="radio radio-inline radio-primary" style="padding: 1px;">
 
-							<label>
-								<input type="radio" value="particulier" name="contact_type" v-model="contactgegevensForm.contact_type" lazy>
+							<label style="font-size: 11px;">
+								<input type="radio" value="particulier" name="bedrijf_particulier" v-model="contactgegevensForm.bedrijf_particulier" lazy>
 								Particulier
 							</label>
 
 						</div>
 
-						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contact_type }} </p>
+						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].bedrijf_particulier }} </p>
 
 					</div>
 				</div>
+
+				
+
 
 
 				<transition
@@ -279,8 +288,9 @@
 					<div class="col-md-5">
 
 						<a href="javascript:void(0)" 
-						v-if="contactgegevensForm.contact_type === 'bedrijf'" 
-						class="btn btn-primary btn-sm"						
+						v-if="contactgegevensForm.bedrijf_particulier === 'bedrijf'" 
+						class="btn btn-primary btn-sm"	
+						@click="showcontactgegevensForm"					
 						>
 
 						<i class="material-icons">add_circle</i> 
@@ -289,11 +299,14 @@
 
 					<a href="javascript:void(0)" 
 					class="btn btn-success btn-sm"
-					@click="showcontactgegevensForm"
+					
 					>
 					<i class="material-icons">add_circle</i> 
 					contactpersoon
-				</a>						
+				</a>
+
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].companies }} Er is geen bedrijf toegevoegd </p>						
+				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contactperson }} Er is geen contactpersoon toegevoegd</p>						
 
 			</div>
 

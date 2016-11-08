@@ -855,16 +855,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v1.1.8",
+            "version": "v1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "31e07d8734d0b0c9d7311d762cef9b9f39840251"
+                "reference": "1a320db40edd13266d6b70467960bc0aa845c6cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/31e07d8734d0b0c9d7311d762cef9b9f39840251",
-                "reference": "31e07d8734d0b0c9d7311d762cef9b9f39840251",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/1a320db40edd13266d6b70467960bc0aa845c6cb",
+                "reference": "1a320db40edd13266d6b70467960bc0aa845c6cb",
                 "shasum": ""
             },
             "require": {
@@ -914,7 +914,7 @@
                 "laravel",
                 "search"
             ],
-            "time": "2016-10-17 21:22:21"
+            "time": "2016-11-07 22:01:29"
         },
         {
             "name": "league/flysystem",

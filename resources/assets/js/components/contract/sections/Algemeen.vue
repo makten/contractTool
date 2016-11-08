@@ -99,11 +99,7 @@
 
 			},			
 
-			hasErrors () {
-
-				return this.validations.length > 0 ? true : false;				
-			},
-
+			
 
 			/**
 			 * Set edit data

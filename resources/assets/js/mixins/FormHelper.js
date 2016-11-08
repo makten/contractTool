@@ -25,6 +25,12 @@ export default {
 
 		 	return new Validator(form, rules, msg);
 		 },
+		 
+
+		 hasErrors () {
+
+				return this.validations.length > 0 ? true : false;				
+			},
 
 
 		/**

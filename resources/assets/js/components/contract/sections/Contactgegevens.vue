@@ -87,8 +87,16 @@
 			/**
              * Show the form for creating new clients.
              */
-             showcontactgegevensForm() {
+             showcompanyForm() {
              	$('#modal-create-company').modal('show');
+             },
+
+
+             /**
+             * Show the form for creating new clients.
+             */
+             showcontactpersonForm() {
+             	$('#modal-create-contactperson').modal('show');
              },
 
 
@@ -113,13 +121,7 @@
              },
 
 
-             storeCompany () {
-
-             	//api to store contract_debiteur
-             	//push to list of companies
-             	//Empty form
-             	//Empty search input            	
-             	
+             storeCompany () {             	             	
 
              	this.persistCompanydetails('post', 'api/contractcompany/'+ this.contractId, this.companydetailsForm);
 
@@ -131,6 +133,18 @@
              	this.companydetailsForm.postcode = '';
              	this.companydetailsForm.plaats = '';
 
+             },
+
+
+             editCompany (company){
+
+             	console.log(company);
+             },
+
+
+             removeCompany (company){             	
+
+             	this.companies = _.reject(this.companies, (com) => {com.debnr === company.debnr});
              },
 
 
@@ -151,20 +165,10 @@
              		this.validations = [];
              		this.persistForm('post', 'api/storeSection', this.contactgegevensForm);
              	}
-             	
-
-				// if (! this.contactgegevensForm.completed)
-				// {
-					// eventBroadcaster.$emit('contactgegevens-completed', { section: 'contactgegevens', completed: true});
-					// this.contactgegevensForm.completed = true;
-				// }
+				
 				
 			},
-
-			hasErrors () {
-
-				return this.validations.length > 0 ? true : false;				
-			},
+			
 
 
 			/**
@@ -183,8 +187,7 @@
 			 },
 
 			 setCompanySearchData (data) {
-
-			 	// this.searchcompanies = [];
+			 	
 
 			 	if(data.length > 1){
 			 		
@@ -239,6 +242,8 @@
 
 			<!-- Create Algemeen Form -->
 
+			<fieldset>
+
 
 			<form class="form-horizontal" role="form" id="contactgegevensForm" @submit.prevent="store" novalidate>	
 
@@ -290,7 +295,7 @@
 						<a href="javascript:void(0)" 
 						v-if="contactgegevensForm.bedrijf_particulier === 'bedrijf'" 
 						class="btn btn-primary btn-sm"	
-						@click="showcontactgegevensForm"					
+						@click="showcompanyForm"					
 						>
 
 						<i class="material-icons">add_circle</i> 
@@ -299,7 +304,7 @@
 
 					<a href="javascript:void(0)" 
 					class="btn btn-success btn-sm"
-					
+					@click="showcontactpersonForm"
 					>
 					<i class="material-icons">add_circle</i> 
 					contactpersoon
@@ -325,8 +330,25 @@
 
 			<div class="row-content">
 
-				<div class="pull-right"> <span style="color: #FB390C; font-size: 7px;"> <i class="material-icons">clear</i> </span></div>
-				<div class="pull-right"> <span style="color: #2F85F0;"> bewerken &nbsp</span></div>
+				<div class="pull-right"> 
+
+				<span class="text-danger clickable"
+				@click="removeCompany(company)"
+				> 
+					<i class="material-icons">clear</i> 
+				</span>
+				</div>
+				
+
+				<div class="pull-right" 
+				
+				>
+				<span href="javascript:void(0)" class="text-primary clickable"
+					@click="editCompany(company)"
+				>
+					 bewerken &nbsp
+				</span>
+				</div>
 
 
 				<h4 class="list-group-item-heading">{{ company.naam }}</h4>
@@ -340,7 +362,8 @@
 
 	</div>
 
-	<!-- </form>	 -->
+
+	<br/>
 
 
 	<div class="form-group">
@@ -349,12 +372,18 @@
 		</div>
 	</div>
 
+	</fieldset>
+
+	</form>
+
 
 
 	<!-- Create Client Modal -->
 	<div class="modal fade" id="modal-create-company" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
+			
 			<div class="modal-content">
+				
 				<div class="modal-header">
 					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
@@ -364,6 +393,7 @@
 				</div>
 
 				<div class="modal-body">
+
 					<!-- Form Errors -->
 					<div class="alert alert-danger" v-if="companydetailsForm.errors.length > 0">
 						<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
@@ -422,6 +452,7 @@
 
 
 					<!-- Create Client Form -->
+					<fieldset>
 					<form class="form-horizontal" role="form" id="companydetails_form">
 
 						
@@ -505,6 +536,9 @@
 
 
 					</form>
+
+					</fieldset>
+
 				</div>
 
 				<!-- Modal Actions -->

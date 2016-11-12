@@ -20,12 +20,12 @@ class CreateContractsTable extends Migration
             $table->string('contract_voorderde');
             $table->string('mannr');
             $table->string('contract_naam');
-            $table->string('meervest')->nullable();
+            $table->string('meervest');
             $table->json('vestigingen')->nullable();
             $table->string('imtech');
-            $table->string('imtechconnr');
+            $table->string('imtechconnr')->nullable();
             $table->string('contract_type');
-            $table->text('algemeen_opmerking', 300);
+            $table->text('algemeen_opmerking', 300)->nullable();
             
             $table->json('klantgegevens')->nullable();
             $table->json('contactgegevens')->nullable();

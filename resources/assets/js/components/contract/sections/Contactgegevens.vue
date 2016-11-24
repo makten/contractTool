@@ -45,6 +45,13 @@
 				
 				],
 
+				contactpersons: [
+				
+				],
+
+				hasNullCompanyError: false,
+				hasNullContactError: false,
+
 
 				validations: [],				
 
@@ -85,7 +92,7 @@
 
 
 			/**
-             * Show the form for creating new clients.
+             * Show the form for creating new company.
              */
              showcompanyForm() {
              	$('#modal-create-company').modal('show');
@@ -93,7 +100,7 @@
 
 
              /**
-             * Show the form for creating new clients.
+             * Show the form for creating new contact person.
              */
              showcontactpersonForm() {
              	$('#modal-create-contactperson').modal('show');
@@ -142,33 +149,47 @@
              },
 
 
+             /*
+             * Remove a given company
+             */
              removeCompany (company){             	
 
              	this.companies = _.reject(this.companies, (com) => {com.debnr === company.debnr});
              },
 
 
-             storeAlgemeen () {
+             storeContactgegevens () {
 
 
-             	let validationData = this.contactgegevensRules();
+             	// let validationData = this.contactgegevensRules();
 
-             	let validation = this.validateForm(this.contactgegevensForm, validationData.rules, validationData.messages);
+             	// let validation = this.validateForm(
+	             // 		this.contactgegevensForm, 
+	             // 		validationData.rules, 
+	             // 		validationData.messages
+             	// 	);
 
 
-             	if(validation.fails()){
-             		this.validations = [];
-             		this.validations.push(validation.errors.errors);
-             	}
+             	// if(validation.fails()){
+             	// 	this.validations = [];
+             	// 	this.validations.push(validation.errors.errors);
+             	// }
 
-             	if (validation.passes()){
-             		this.validations = [];
+             	// if (validation.passes()){
+             	// 	this.validations = [];
+             	// 	this.persistForm('post', 'api/storeSection', this.contactgegevensForm);
+             	// }
+
+             	this.contactgegevensRules();
+
+             	if (!this.hasNullCompanyError && !this.hasNullContactError){
+             		// this.validations = [];
              		this.persistForm('post', 'api/storeSection', this.contactgegevensForm);
              	}
-				
-				
-			},
-			
+
+
+             },
+
 
 
 			/**
@@ -245,98 +266,102 @@
 			<fieldset>
 
 
-			<form class="form-horizontal" role="form" id="contactgegevensForm" @submit.prevent="store" novalidate>	
+				<form class="form-horizontal" role="form" id="contactgegevensForm" @submit.prevent="store" novalidate>	
 
 
-				<div class="form-group">
+					<div class="form-group">
 
-					<label class="col-md-4 control-label" style="margin-top: 0px;">
-						Betreft de klant een bedrijf of een particulier? *
+						<label class="col-md-4 control-label" style="margin-top: 0px;">
+							Betreft de klant een bedrijf of een particulier? *
 
-					</label>
+						</label>
 
-					<div class="col-md-5">
-						<div class="radio radio-inline radio-primary"  style="padding: 1px;">
+						<div class="col-md-5">
+							<div class="radio radio-inline radio-primary"  style="padding: 1px;">
 
-							<label style="font-size: 11px;">
-								<input type="radio" value="bedrijf" name="bedrijf_particulier" v-model="contactgegevensForm.bedrijf_particulier" lazy>
-								Bedrijf
-							</label>
+								<label style="font-size: 11px;">
+									<input type="radio" value="bedrijf" name="bedrijf_particulier" v-model="contactgegevensForm.bedrijf_particulier" lazy>
+									Bedrijf
+								</label>
+
+							</div>
+							<div class="radio radio-inline radio-primary" style="padding: 1px;">
+
+								<label style="font-size: 11px;">
+									<input type="radio" value="particulier" name="bedrijf_particulier" v-model="contactgegevensForm.bedrijf_particulier" lazy>
+									Particulier
+								</label>
+
+							</div>
+
+							<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].bedrijf_particulier }} </p>
 
 						</div>
-						<div class="radio radio-inline radio-primary" style="padding: 1px;">
-
-							<label style="font-size: 11px;">
-								<input type="radio" value="particulier" name="bedrijf_particulier" v-model="contactgegevensForm.bedrijf_particulier" lazy>
-								Particulier
-							</label>
-
-						</div>
-
-						<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].bedrijf_particulier }} </p>
-
 					</div>
-				</div>
-
-				
 
 
 
-				<transition
-				name="custom-classes-transition"
-				enter-active-class="animated zoomIn"
-				leave-active-class="animated zoomOutLeft"
-				>				
 
-				<div class="form-group" style="margin-top: 0;" >
 
-					<div class="col-md-5">
+					<transition
+					name="custom-classes-transition"
+					enter-active-class="animated zoomIn"
+					leave-active-class="animated zoomOutLeft"
+					>				
+
+					<div class="form-group" style="margin-top: 0;" >
+
+						<div class="col-md-5">
+
+							<a href="javascript:void(0)" 
+							v-if="contactgegevensForm.bedrijf_particulier === 'bedrijf'" 
+							class="btn btn-primary btn-sm"	
+							@click="showcompanyForm"					
+							>
+
+							<i class="material-icons">add_circle</i> 
+							bedrijf
+						</a>
 
 						<a href="javascript:void(0)" 
-						v-if="contactgegevensForm.bedrijf_particulier === 'bedrijf'" 
-						class="btn btn-primary btn-sm"	
-						@click="showcompanyForm"					
+						class="btn btn-success btn-sm"
+						@click="showcontactpersonForm"
 						>
-
 						<i class="material-icons">add_circle</i> 
-						bedrijf
+						contactpersoon
 					</a>
 
-					<a href="javascript:void(0)" 
-					class="btn btn-success btn-sm"
-					@click="showcontactpersonForm"
-					>
-					<i class="material-icons">add_circle</i> 
-					contactpersoon
-				</a>
+					<!-- <input type="hidden" name="hidden_companies">
+					<input type="hidden" name="hidden_contacts"> -->
 
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].companies }} Er is geen bedrijf toegevoegd </p>						
-				<p class="error-block text-danger" v-if="hasErrors()"> {{ validations[0].contactperson }} Er is geen contactpersoon toegevoegd</p>						
+					<p class="error-block text-danger" v-if="hasNullCompanyError">Je hebt geen bedrijf toegevoegd</p>	
+
+					<p class="error-block text-danger" v-if="hasNullContactError">Je hebt geen contactpersoon toegevoegd</p>						
+
+				</div>
 
 			</div>
 
-		</div>
 
+		</transition>
 
-	</transition>
+		<div class="list-group col-md-8" v-if="companies.length > 0">
 
-	<div class="list-group col-md-8" v-if="companies.length > 0">
+			<div class="list-group-item" v-for="company in companies">
 
-		<div class="list-group-item" v-for="company in companies">
+				<div class="row-action-primary">
+					<i class="material-icons" style="border-radius: 0px; font-size: 35px;">contact_phone</i>
+				</div>
 
-			<div class="row-action-primary">
-				<i class="material-icons" style="border-radius: 0px; font-size: 35px;">contact_phone</i>
-			</div>
+				<div class="row-content">
 
-			<div class="row-content">
+					<div class="pull-right"> 
 
-				<div class="pull-right"> 
-
-				<span class="text-danger clickable"
-				@click="removeCompany(company)"
-				> 
-					<i class="material-icons">clear</i> 
-				</span>
+						<span class="text-danger clickable"
+						@click="removeCompany(company)"
+						> 
+						<i class="material-icons">clear</i> 
+					</span>
 				</div>
 				
 
@@ -344,115 +369,115 @@
 				
 				>
 				<span href="javascript:void(0)" class="text-primary clickable"
-					@click="editCompany(company)"
+				@click="editCompany(company)"
 				>
-					 bewerken &nbsp
-				</span>
-				</div>
+				bewerken &nbsp
+			</span>
+		</div>
 
 
-				<h4 class="list-group-item-heading">{{ company.naam }}</h4>
+		<h4 class="list-group-item-heading">{{ company.naam }}</h4>
 
-				<p class="list-group-item-text">{{ company.adres }}</p>
+		<p class="list-group-item-text">{{ company.adres }}</p>
+	</div>
+
+	<div class="list-group-separator"></div>
+
+</div>				
+
+</div>
+
+
+<br/>
+
+
+<div class="form-group">
+	<div class="col-md-10 col-md-offset-2">					
+		<button type="submit" class="btn btn-info btn-raised btn-sm pull-right" @click.prevent="storeContactgegevens">Submit</button>
+	</div>
+</div>
+
+</fieldset>
+
+</form>
+
+
+
+<!-- Create Client Modal -->
+<div class="modal fade" id="modal-create-company" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+				<h4 class="modal-title">
+					Bedrijf toevoegen
+				</h4>
 			</div>
 
-			<div class="list-group-separator"></div>
+			<div class="modal-body">
 
-		</div>				
+				<!-- Form Errors -->
+				<div class="alert alert-danger" v-if="companydetailsForm.errors.length > 0">
+					<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
+					<br>
+					<ul>
+						<li v-for="error in companydetailsForm.errors">
+							{{ error }}
+						</li>
+					</ul>
+				</div>					
 
-	</div>
-
-
-	<br/>
-
-
-	<div class="form-group">
-		<div class="col-md-10 col-md-offset-2">					
-			<button type="submit" class="btn btn-info btn-raised btn-sm pull-right" @click.prevent="storeAlgemeen">Submit</button>
-		</div>
-	</div>
-
-	</fieldset>
-
-	</form>
-
-
-
-	<!-- Create Client Modal -->
-	<div class="modal fade" id="modal-create-company" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-					<h4 class="modal-title">
-						Bedrijf toevoegen
-					</h4>
-				</div>
-
-				<div class="modal-body">
-
-					<!-- Form Errors -->
-					<div class="alert alert-danger" v-if="companydetailsForm.errors.length > 0">
-						<p><strong>Whoops!</strong> Iets is mis gegaan!</p>
-						<br>
-						<ul>
-							<li v-for="error in companydetailsForm.errors">
-								{{ error }}
-							</li>
-						</ul>
-					</div>					
-
-					<table class="table table-striped table-hover searchtable" v-if="searchcompanies.length > 1">
-						<thead>
-							<tr>
-								<th>Debnr</th>
-								<th>Naam</th>
-								<th>KvK</th>
-								<th>Adres</th>
-								<th>Postcode</th>
-								<th>Plaats</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="company in searchcompanies" @click='setcompanyData(company)'>
+				<table class="table table-striped table-hover searchtable" v-if="searchcompanies.length > 1">
+					<thead>
+						<tr>
+							<th>Debnr</th>
+							<th>Naam</th>
+							<th>KvK</th>
+							<th>Adres</th>
+							<th>Postcode</th>
+							<th>Plaats</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="company in searchcompanies" @click='setcompanyData(company)'>
 
 
-								<td>
-									{{ company.debnr }}
-								</td>
+							<td>
+								{{ company.debnr }}
+							</td>
 
-								<td>
-									{{ company.naam }}
-								</td>
+							<td>
+								{{ company.naam }}
+							</td>
 
-								<td>
-									{{ company.kvk }}
-								</td>
+							<td>
+								{{ company.kvk }}
+							</td>
 
-								<td>
-									{{ company.adres }}
-								</td>
+							<td>
+								{{ company.adres }}
+							</td>
 
-								<td>
-									{{ company.postcode }}
-								</td>
+							<td>
+								{{ company.postcode }}
+							</td>
 
-								<td>
-									{{ company.plaats }}
-								</td>
+							<td>
+								{{ company.plaats }}
+							</td>
 
-							</tr>							
+						</tr>							
 
-						</tbody>
-					</table>
+					</tbody>
+				</table>
 
 
 
-					<!-- Create Client Form -->
-					<fieldset>
+				<!-- Create Client Form Modal-->
+				<fieldset>
 					<form class="form-horizontal" role="form" id="companydetails_form">
 
 						
@@ -537,21 +562,21 @@
 
 					</form>
 
-					</fieldset>
+				</fieldset>
 
-				</div>
+			</div>
 
-				<!-- Modal Actions -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<!-- Modal Actions -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-					<button type="button" class="btn btn-primary" @click="storeCompany">
-						Opslaan
-					</button>
-				</div>
+				<button type="button" class="btn btn-primary" @click="storeCompany">
+					Opslaan
+				</button>
 			</div>
 		</div>
 	</div>
+</div>
 
 </div>
 

@@ -99,18 +99,49 @@ export default {
 		 		rules:{
 
 		 			bedrijf_particulier: 'required',
-		 			// companies: 'required_if:bedrijf_particulier,bedrijf',
-		 			// contactperson: 'required_if:bedrijf_particulier,particulier',
-
+		 			hidden_companies: 'required_if:bedrijf_particulier,bedrijf',	 			
+		 			hidden_contacts: 'required',	 			
+		 		
 		 		},
 		 		messages: {
 
-		 			required: 'Dit is een verplicht veld',
-		 			required_if: 'Dit is een verplicht veld',	 		
+		 			required: 'Dit is een verplicht',
+		 			required_if: 'Dit is een verplicht',
+		 		
+		 		},
+		 	}
 
-		 		}
+
+
+		 	if(this.contactgegevensForm.bedrijf_particulier == 'bedrijf' && this.companies.length < 1)
+		 	{		 		
+		 		this.hasNullCompanyError = true;		 		
+		 	}
+		 	else {
+
+		 		this.hasNullCompanyError = false;
+		 	}
+
+		 	if(this.contactgegevensForm.bedrijf_particulier == 'bedrijf' && this.contactpersons.length < 1){
+		 		
+		 		this.hasNullContactError = true;
+		 	}
+		 	else{
+
+		 		this.hasNullContactError = false;
+		 	}
+
+		 	
+
+		 	if(this.contactgegevensForm.bedrijf_particulier == 'particulier' && this.contactpersons.length < 1)
+		 	{		 		
+		 		this.hasNullContactError = true;
 
 		 	}
+		 	else {
+
+		 		this.hasNullContactError = false;
+		 	}	 	
 
 		 	
 

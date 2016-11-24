@@ -17,6 +17,9 @@ require('./mixins/dropdown.js');
 
 
 import NProgress from 'nprogress';
+
+
+
 window.Validator = require('validatorjs');
 
 Validator.register('multi_required', function(value, requirement, attr){
@@ -25,7 +28,13 @@ Validator.register('multi_required', function(value, requirement, attr){
 
 
 
+import axios from 'axios';
+
 window.Vue = require('vue');
+
+// Vue.use(Axios);
+
+// Vue.prototype.$http = axios;
 
 require('vue-resource');
 
@@ -39,6 +48,17 @@ Vue.http.interceptors.push((request, next) => {
 
 
 });
+
+
+// axios.interceptors.request.use((request, next) => {
+	
+
+// 	request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+
+// 	next();
+
+
+// });
 
 
 // import Echo from "laravel-echo"
